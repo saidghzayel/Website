@@ -58,11 +58,7 @@ get_header(); // Loads the header.php template. ?>
 
 				<p>Gospel transformation begins and continues with one heart and one soul set upon the purposes of God!</p>
 
-				Join us!
-
-				Let's grow in Christ together,	
-				Drew Anderson
-					
+				<p>Join us!</p>
 				
 			</div>
 			
