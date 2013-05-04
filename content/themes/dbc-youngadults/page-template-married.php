@@ -24,7 +24,7 @@ get_header(); // Loads the header.php template. ?>
 			
 			<div class="eight columns">
 				
-				<?php get_template_part( 'slider-home' ); // loads slider-home.php ?>
+				<?php get_template_part( 'slider-married' ); // loads slider-married.php ?>
 				
 			</div>
 			
