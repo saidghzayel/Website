@@ -5,7 +5,7 @@
  * Displays a slider meant for the home page template.
  * Only displays if the settings are turned on.
  *
- * @package DBC Child
+ * @package DBC SERVE
  * @subpackage Template
  */
  
@@ -15,7 +15,7 @@ if ( hybrid_get_setting( 'slider' ) == 'true' ) { ?>
 	
 	<?php
 	if ( hybrid_get_setting( 'feature_category' ) )
-		$feature_query = new WP_Query( array( 'posts_per_page' => hybrid_get_setting( 'feature_num_posts' ), 'order' => 'ASC' ) );
+		$feature_query = new WP_Query( array( 'posts_per_page' => hybrid_get_setting( 'feature_num_posts' ), 'meta_key' => 'expiration-date', 'orderby' => 'meta_value_num', 'order' => 'ASC' ) );
 	
 	while ( $feature_query->have_posts() ) : $feature_query->the_post(); ?>
 
