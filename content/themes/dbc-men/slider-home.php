@@ -10,7 +10,7 @@
  */
 
 
-$feature_query = new WP_Query( array( 'category_name' => 'features', 'posts_per_page' => 10, 'order' => 'ASC' ) );
+$feature_query = new WP_Query( array( 'category_name' => 'features', 'posts_per_page' => 10, 'meta_key' => 'expiration-date', 'orderby' => 'meta_value_num', 'order' => 'ASC' ) );
 	
 if ( $feature_query->have_posts() ) : ?>
 		
