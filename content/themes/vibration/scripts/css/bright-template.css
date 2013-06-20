@@ -1,0 +1,55 @@
+/* Bright Css */
+
+#header_holder{
+	background:#e3e3e3 url(header_holder_bg.png) repeat-x;
+}
+
+a{
+	color:#0d0d0d;
+}
+
+ul.top_menu li a{
+	color:#000;
+}
+
+ul.top_menu li.current_page_item a {
+color: #fff;
+}
+
+#page_container_holder{
+	background:url(container_bg.png);
+}
+
+span.heading h3{
+	color:#191919;
+}
+
+#footer_holder span.heading h3{
+	color:#fff;
+	
+}
+
+.latest_posts .right .comment a, .latest_posts .right .date, .latest_posts .right .author a, .latest_posts_style_2 .bottom .comment a, .latest_posts_style_2 .bottom .date, .latest_posts_style_2 .bottom .author a, .latest_posts_style_3 .left .comment a, .latest_posts_style_3 .left .date, .latest_posts_style_3 .left .author a, .latest_shows .show_time span, .latest_shows .show_location span, .latest_shows_style_2 .show_time span, .latest_shows_style_2 .show_location span, .single_album .right .comment a, .single_album .right .date, .single_album .right .author a, .show_single .show_time span, .show_single .show_location span {
+color: rgb(112, 112, 112);
+}
+
+.site_logo_text{
+	color:#000;
+}
+
+div#page_content h4,div#page_content h3,div#page_content h2,div#page_content h1{
+	color:#000;
+}
+#sidebar{
+	color:#000;
+
+}
+
+#sidebar a,#sidebar caption{
+	color:#000 !important;
+}
+
+#commentform #submit, #contact_form .formsubmit, #contact_form label, #commentform label, h2.accordion-head, h2.toggle-box-head, .audio_player_list li, a, ul.top_menu li a, h1.page_heading, div.single_album div.right h5, div.single_album_bottom a, .copyright a, .copyright p {
+    font-weight: 300;
+    color: #000;
+}

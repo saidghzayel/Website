@@ -1,0 +1,448 @@
+theme_options_id_1
+theme_options_name_Logo
+theme_options_type_upload
+theme_options_value_
+theme_options_info_the logo in your header.
+theme_options_page_logo_design
+theme_options_id_2
+theme_options_name_Retina Logo
+theme_options_type_upload
+theme_options_value_
+theme_options_info_upload the retina version of your logo.
+theme_options_page_logo_design
+theme_options_id_3
+theme_options_name_Logo Settings
+theme_options_type_drop_menu
+theme_options_value_Image Logo,Text Logo
+theme_options_info_Choose to display the image logo or the text.
+theme_options_page_logo_design
+theme_options_id_4
+theme_options_name_ Logo Height
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_height of your logo leave empty for no height settings
+theme_options_page_logo_design
+theme_options_id_5
+theme_options_name_Logo Width 
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_width of your logo leave empty for no width settings
+theme_options_page_logo_design
+theme_options_id_7
+theme_options_name_Footer Widget
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the footer widget area.
+theme_options_page_footer_options
+theme_options_id_8
+theme_options_name_Exclude Top Navigation Pages
+theme_options_type_excludepages
+theme_options_value_
+theme_options_info_Click the pages you would like to exclude
+theme_options_page_top_menu
+theme_options_id_9
+theme_options_name_Slogan Area
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the slogan area
+theme_options_page_slogan
+theme_options_id_10
+theme_options_name_First Button
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the first button.
+theme_options_page_slogan
+theme_options_id_11
+theme_options_name_Slogan Heading
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_The text you would like to greet your users with.
+theme_options_page_slogan
+theme_options_id_12
+theme_options_name_First Button Url
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_The url for the for the learn more button.
+theme_options_page_slogan
+theme_options_id_13
+theme_options_name_First Button Translation
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_Rewrite the learn more text to something different.
+theme_options_page_slogan
+theme_options_id_22
+theme_options_name_Featured Area
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the featured image on the single blog page.
+theme_options_page_post_settings
+theme_options_id_24
+theme_options_name_Tracking Code
+theme_options_type_textarea
+theme_options_value_
+theme_options_info_Your tracking code. Google analytics etc...
+theme_options_page_tracking_code
+theme_options_id_31
+theme_options_name_Google Map Embed Code
+theme_options_type_textarea
+theme_options_value_
+theme_options_info_Your google map embed code.
+theme_options_page_google_map
+theme_options_id_32
+theme_options_name_Number Of Custom Sidebars
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_Input the amount of custom sidebars you'd like to create. The sidebars will appear in the widgets area.
+theme_options_page_custom_sidebars
+theme_options_id_33
+theme_options_name_Read More
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_34
+theme_options_name_Comment
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_36
+theme_options_name_Search Results
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_37
+theme_options_name_Archive
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_39
+theme_options_name_Contact Form Name
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_40
+theme_options_name_Contact Form Email
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_41
+theme_options_name_Contact Form Message
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_41
+theme_options_name_Contact Form Send Message
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_42
+theme_options_name_Contact Form Email Sent
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_43
+theme_options_name_Skin Style
+theme_options_type_drop_menu
+theme_options_value_Dark,Bright
+theme_options_info_
+theme_options_page_theme_styling
+theme_options_id_51
+theme_options_name_Posted by
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_52
+theme_options_name_Leave a reply
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_55
+theme_options_name_Right Footer Content
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_71
+theme_options_name_Responsive Option
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_
+theme_options_page_responsive
+theme_options_id_72
+theme_options_name_Slogan Sub Heading
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_The sub heading for your heading.
+theme_options_page_slogan
+theme_options_id_73
+theme_options_name_Second Button
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the second button.
+theme_options_page_slogan
+theme_options_id_74
+theme_options_name_Second Button Url
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_The url for the for the learn more button.
+theme_options_page_slogan
+theme_options_id_75
+theme_options_name_Second Button Translation
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_The url for the for the learn more button.
+theme_options_page_slogan
+theme_options_id_79
+theme_options_name_Related News
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the related news area.
+theme_options_page_post_settings
+theme_options_id_80
+theme_options_name_Comments Area
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the comments area.
+theme_options_page_post_settings
+theme_options_id_81
+theme_options_name_About Author
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the about author area.
+theme_options_page_post_settings
+theme_options_id_82
+theme_options_name_Favicon
+theme_options_type_upload
+theme_options_value_
+theme_options_info_16x16 Icon.
+theme_options_page_logo_design
+theme_options_id_83
+theme_options_name_Heading Font Family
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_Name of google font for heading's
+theme_options_page_font
+theme_options_id_84
+theme_options_name_Body Font Family
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_Name of google font for body
+theme_options_page_font
+theme_options_id_85
+theme_options_name_Custom Css
+theme_options_type_textarea
+theme_options_value_
+theme_options_info_Custom css goes here, This will help prevent issue's when updating.
+theme_options_page_custom_css
+theme_options_id_89
+theme_options_name_Header Links
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Top header link colors
+theme_options_page_theme_styling
+theme_options_id_90
+theme_options_name_Page Title
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Color of heading for pages
+theme_options_page_theme_styling
+theme_options_id_92
+theme_options_name_Headings Color
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Select a color for the heading's in content area
+theme_options_page_theme_styling
+theme_options_id_94
+theme_options_name_Read More links
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Pick color for the read more link
+theme_options_page_theme_styling
+theme_options_id_95
+theme_options_name_Read More Links Background
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Pick color for the read more link background
+theme_options_page_theme_styling
+theme_options_id_96
+theme_options_name_Body Text Color
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Pick color for the paragraphs
+theme_options_page_theme_styling
+theme_options_id_97
+theme_options_name_Footer Background
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Color of the footer background
+theme_options_page_theme_styling
+theme_options_id_98
+theme_options_name_Footer Headings
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Color of headings in footer
+theme_options_page_theme_styling
+theme_options_id_99
+theme_options_name_Footer Paragraphs
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Color of the footer paragraphs/text
+theme_options_page_theme_styling
+theme_options_id_100
+theme_options_name_Footer Links
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Color of the footer links
+theme_options_page_theme_styling
+theme_options_id_103
+theme_options_name_Slider Option
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the homepage slider
+theme_options_
+theme_options_page_slider
+theme_options_id_104
+theme_options_name_Layer Slider ID
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_The ID for the layerslider
+theme_options_
+theme_options_page_slider
+theme_options_id_110
+theme_options_name_Top Menu Highlight
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_
+theme_options_page_theme_styling
+theme_options_id_133
+theme_options_name_Copyright Option
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enable or disable the copyright area.
+theme_options_page_footer_options
+theme_options_id_134
+theme_options_name_Top Header Line
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_
+theme_options_page_theme_styling
+theme_options_id_135
+theme_options_name_Image Highlight Box 
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_
+theme_options_page_theme_styling
+theme_options_id_136
+theme_options_name_Heading Highlight Line
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_
+theme_options_page_theme_styling
+theme_options_id_137
+theme_options_name_Top Menu Font Size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_Top menu's font size use's px's default:16px
+theme_options_page_font
+theme_options_id_138
+theme_options_name_Paragraph font size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_Paragraph font size use's px's default:13px
+theme_options_page_font
+theme_options_id_139
+theme_options_name_Paragraph line-height
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_Paragraph's line-height use's em's default:2.0em's
+theme_options_page_font
+theme_options_id_140
+theme_options_name_h1 font size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_h1 font size use's px's default:28px
+theme_options_page_font
+theme_options_id_141
+theme_options_name_h2 font size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_h2 font size use's px's default:24px
+theme_options_page_font
+theme_options_id_142
+theme_options_name_h3 font size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_h3 font size use's px's default:20px
+theme_options_page_font
+theme_options_id_143
+theme_options_name_h4 font size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_h4 font size use's px's default:16px
+theme_options_page_font
+theme_options_id_144
+theme_options_name_h5 font size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_h5 font size use's px's default:13px
+theme_options_page_font
+theme_options_id_145
+theme_options_name_h6 font size
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_h6 font size use's px's default:10px
+theme_options_page_font
+theme_options_id_146
+theme_options_name_Font Weight
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_change the font weight of custom fonts default:300
+theme_options_page_font
+theme_options_id_147
+theme_options_name_Header Options
+theme_options_type_drop_menu
+theme_options_value_Logo on Left Menu on Right,Menu on Left Logo on Right
+theme_options_info_Choose the header style.
+theme_options_
+theme_options_page_top_header
+theme_options_id_148
+theme_options_name_Event Countdown Color
+theme_options_type_color_picker
+theme_options_value_
+theme_options_info_Color for event countdown text
+theme_options_page_theme_styling
+theme_options_id_149
+theme_options_name_Album Icon Links Box
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_the logo in your header.
+theme_options_page_albums_boxes
+theme_options_id_150
+theme_options_name_Book Show
+theme_options_type_text_field
+theme_options_value_
+theme_options_info_
+theme_options_page_translation
+theme_options_id_151
+theme_options_name_Sticky Header
+theme_options_type_enable/disable
+theme_options_value_
+theme_options_info_Enabling this option will sticky the header.
+theme_options_
+theme_options_page_top_header
+theme_options_id_
+theme_options_name_
+theme_options_type_
+theme_options_value_
+theme_options_info_
+theme_options_page_

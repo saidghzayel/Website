@@ -1,0 +1,2587 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2013-04-30 09:24-0600\n"
+"PO-Revision-Date: 2013-04-30 09:26-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;translate\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: 404.php:11 404.php:15
+msgid "ERROR 404"
+msgstr ""
+
+#: 404.php:23
+msgid "The page you are looking for does not exist."
+msgstr ""
+
+#: archive.php:10
+msgid "Archive for <span class=\"archive_select\"> "
+msgstr ""
+
+#: archive.php:22
+msgid "Author"
+msgstr ""
+
+#: archive.php:34
+msgid "Tag: "
+msgstr ""
+
+#: archive.php:88 search.php:62
+#: scripts/functions/page_builder/skyali-page-builder.php:435
+#: scripts/functions/page_builder/skyali-page-builder.php:552
+#: scripts/functions/page_builder/skyali-page-builder.php:659
+msgid "Read More"
+msgstr ""
+
+#: comments.php:15
+msgid "This post is password protected. Enter the password to view any."
+msgstr ""
+
+#: comments.php:31
+msgid "<span class=\"meta-nav\">&laquo;</span> "
+msgstr ""
+
+#: comments.php:33
+msgid " <span class=\"meta-nav\">&raquo;</span>"
+msgstr ""
+
+#: comments.php:51
+msgid "s are closed."
+msgstr ""
+
+#: functions.php:97
+msgid "Top Menu"
+msgstr ""
+
+#: functions.php:99
+msgid "Bottom Menu"
+msgstr ""
+
+#: functions.php:175
+msgid "Berries"
+msgstr ""
+
+#: functions.php:187
+msgid "Cherry Blossoms"
+msgstr ""
+
+#: functions.php:199
+msgid "Concave"
+msgstr ""
+
+#: functions.php:211
+msgid "Fern"
+msgstr ""
+
+#: functions.php:223
+msgid "Forest Floor"
+msgstr ""
+
+#: functions.php:235
+msgid "Inkwell"
+msgstr ""
+
+#: functions.php:247
+msgid "Path"
+msgstr ""
+
+#: functions.php:259
+msgid "Sunset"
+msgstr ""
+
+#: functions.php:495
+msgid "Your Comment is awaiting moderation."
+msgstr ""
+
+#: functions.php:505
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: functions.php:509
+msgid "<span class=\"date\">"
+msgstr ""
+
+#: functions.php:509
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: functions.php:509
+msgid " - (Edit)"
+msgstr ""
+
+#: functions.php:509
+msgid "</span><!-- #comment date -->"
+msgstr ""
+
+#: functions.php:547
+msgid "Pingback:"
+msgstr ""
+
+#: functions.php:547
+msgid "(Edit)"
+msgstr ""
+
+#: functions.php:585
+msgid "Main Sidebar"
+msgstr ""
+
+#: functions.php:589
+msgid "The first sidebar widget area"
+msgstr ""
+
+#: functions.php:609
+msgid "First Footer Widget Area"
+msgstr ""
+
+#: functions.php:613
+msgid "The first footer widget area"
+msgstr ""
+
+#: functions.php:631
+msgid "Second Footer Widget Area"
+msgstr ""
+
+#: functions.php:635
+msgid "The second footer widget area"
+msgstr ""
+
+#: functions.php:652
+msgid "Third Footer Widget Area"
+msgstr ""
+
+#: functions.php:656
+msgid "The third footer widget area"
+msgstr ""
+
+#: functions.php:672
+msgid "Fourth Footer Widget Area"
+msgstr ""
+
+#: functions.php:676
+msgid "The footer footer widget area"
+msgstr ""
+
+#: functions.php:695
+msgid "Left Dual Page Main Sidebar"
+msgstr ""
+
+#: functions.php:699
+msgid "The main area for the left dual sidebar page template"
+msgstr ""
+
+#: functions.php:715
+msgid "Right Dual Page Main Sidebar"
+msgstr ""
+
+#: functions.php:719
+msgid "The main area for the right dual sidebar page template"
+msgstr ""
+
+#: functions.php:747
+msgid "Custom Sidebar "
+msgstr ""
+
+#: functions.php:751
+msgid "Custom sidebar "
+msgstr ""
+
+#: functions.php:783 functions.php:787
+msgid "Bottom Homepage Areas "
+msgstr ""
+
+#: functions.php:863
+#, php-format
+msgid ""
+"<span class=\"%1$s\">Posted on</span> %2$s <span class=\"meta-sep\">by</"
+"span> %3$s"
+msgstr ""
+
+#: functions.php:915 functions.php:919 forums/forums-loop.php:72
+#, php-format
+msgid "in %1$s"
+msgstr ""
+
+#: header-buddypress.php:40 header.php:41
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: index.php:3
+msgid ""
+"<p>You need to setup your home page. Settings &raquo; Reading &raquo; A "
+"static page (select below) &raquo; Your home page use the home page template."
+"</p>"
+msgstr ""
+
+#: search.php:10
+#, php-format
+msgid "'%s'"
+msgstr ""
+
+#: search.php:74
+msgid ""
+"Sorry, The term you are searching for returned no results. Please try again."
+msgstr ""
+
+#: single-albums.php:32
+#: scripts/functions/page_builder/skyali-page-builder.php:772
+msgid "Buy On Amazon"
+msgstr ""
+
+#: single-albums.php:32
+#: scripts/functions/page_builder/skyali-page-builder.php:772
+msgid "Buy On Itunes"
+msgstr ""
+
+#: single-albums.php:55
+msgid "Tweet"
+msgstr ""
+
+#: single-albums.php:87
+msgid "Description"
+msgstr ""
+
+#: single-albums.php:114
+#: scripts/functions/page_builder/skyali-page-builder.php:786
+#: scripts/functions/widgets/latest_albums_widget.php:92
+msgid "Buy Now"
+msgstr ""
+
+#: single-albums.php:122
+msgid "Related Audio"
+msgstr ""
+
+#: single-shows.php:29
+#: scripts/functions/page_builder/skyali-page-builder.php:893
+msgid "Book Show"
+msgstr ""
+
+#: single-shows.php:31
+#: scripts/functions/page_builder/skyali-page-builder.php:895
+msgid "Free Show"
+msgstr ""
+
+#: single-shows.php:33
+#: scripts/functions/page_builder/skyali-page-builder.php:897
+msgid "Canceled"
+msgstr ""
+
+#: single-shows.php:35
+#: scripts/functions/page_builder/skyali-page-builder.php:899
+msgid "Sold Out"
+msgstr ""
+
+#: single.php:19
+msgid "Related News"
+msgstr ""
+
+#: single.php:58
+msgid "About Author"
+msgstr ""
+
+#: activity/activity-loop.php:41
+msgid "Load More"
+msgstr ""
+
+#: activity/activity-loop.php:55
+msgid "Sorry, there was no activity found. Please try a different filter."
+msgstr ""
+
+#: activity/comment.php:27
+#, php-format
+msgid ""
+"<a href=\"%1$s\">%2$s</a> replied <a href=\"%3$s\" class=\"activity-time-"
+"since\"><span class=\"time-since\">%4$s</span></a>"
+msgstr ""
+
+#: activity/comment.php:37 groups/single/forum/edit.php:10
+msgid "Reply"
+msgstr ""
+
+#: activity/comment.php:43 members/single/messages/messages-loop.php:51
+#: members/single/messages/single.php:24
+msgid "Delete"
+msgstr ""
+
+#: activity/entry.php:37
+msgid "In reply to: "
+msgstr ""
+
+#: activity/entry.php:37
+msgid "View Thread / Permalink"
+msgstr ""
+
+#: activity/entry.php:37
+msgid "View"
+msgstr ""
+
+#: activity/entry.php:60
+#, php-format
+msgid "Comment <span>%s</span>"
+msgstr ""
+
+#: activity/entry.php:68
+msgid "Favorite"
+msgstr ""
+
+#: activity/entry.php:72
+msgid "Remove Favorite"
+msgstr ""
+
+#: activity/entry.php:104
+msgid "Post"
+msgstr ""
+
+#: activity/entry.php:104
+msgid "or press esc to cancel."
+msgstr ""
+
+#: activity/index.php:21
+msgid "Site Activity"
+msgstr ""
+
+#: activity/index.php:39
+msgid "The public activity for everyone on this site."
+msgstr ""
+
+#: activity/index.php:39 members/index.php:33
+#, php-format
+msgid "All Members <span>%s</span>"
+msgstr ""
+
+#: activity/index.php:49
+msgid "The activity of my friends only."
+msgstr ""
+
+#: activity/index.php:49 members/index.php:37
+#, php-format
+msgid "My Friends <span>%s</span>"
+msgstr ""
+
+#: activity/index.php:61
+msgid "The activity of groups I am a member of."
+msgstr ""
+
+#: activity/index.php:61 groups/index.php:39
+#, php-format
+msgid "My Groups <span>%s</span>"
+msgstr ""
+
+#: activity/index.php:71
+msgid "The activity I've marked as a favorite."
+msgstr ""
+
+#: activity/index.php:71
+#, php-format
+msgid "My Favorites <span>%s</span>"
+msgstr ""
+
+#: activity/index.php:77
+msgid "Activity that I have been mentioned in."
+msgstr ""
+
+#: activity/index.php:77
+msgid "Mentions"
+msgstr ""
+
+#: activity/index.php:77
+#, php-format
+msgid "<span>%s new</span>"
+msgstr ""
+
+#: activity/index.php:87 groups/single/activity.php:3
+msgid "RSS Feed"
+msgstr ""
+
+#: activity/index.php:87 groups/single/activity.php:3
+msgid "RSS"
+msgstr ""
+
+#: activity/index.php:92 groups/single/activity.php:8
+#: members/single/activity.php:18
+msgid "Show:"
+msgstr ""
+
+#: activity/index.php:94 groups/single/activity.php:10
+#: members/single/activity.php:20
+msgid "Everything"
+msgstr ""
+
+#: activity/index.php:95 groups/single/activity.php:11
+#: members/single/activity.php:21
+msgid "Updates"
+msgstr ""
+
+#: activity/index.php:99 forums/forums-loop.php:40
+#: members/single/activity.php:27
+msgid "Posts"
+msgstr ""
+
+#: activity/index.php:100 members/single/activity.php:28
+msgid "Comments"
+msgstr ""
+
+#: activity/index.php:106 groups/single/activity.php:14
+#: members/single/activity.php:43
+msgid "Forum Topics"
+msgstr ""
+
+#: activity/index.php:107 groups/single/activity.php:15
+#: members/single/activity.php:44
+msgid "Forum Replies"
+msgstr ""
+
+#: activity/index.php:113 members/single/activity.php:50
+msgid "New Groups"
+msgstr ""
+
+#: activity/index.php:114 groups/single/activity.php:18
+#: members/single/activity.php:51
+msgid "Group Memberships"
+msgstr ""
+
+#: activity/index.php:120 members/single/activity.php:35
+msgid "Friendships"
+msgstr ""
+
+#: activity/index.php:124
+msgid "New Members"
+msgstr ""
+
+#: activity/post-form.php:23
+#, php-format
+msgid "What's new in %s, %s?"
+msgstr ""
+
+#: activity/post-form.php:25
+#, php-format
+msgid "What's new, %s?"
+msgstr ""
+
+#: activity/post-form.php:35
+msgid "Post Update"
+msgstr ""
+
+#: activity/post-form.php:42
+msgid "Post in"
+msgstr ""
+
+#: activity/post-form.php:45 members/single/profile/profile-wp.php:8
+msgid "My Profile"
+msgstr ""
+
+#: blogs/blogs-loop.php:90
+msgid "Sorry, there were no sites found."
+msgstr ""
+
+#: blogs/create.php:21 blogs/index.php:21
+msgid "Create a Site"
+msgstr ""
+
+#: blogs/create.php:21 blogs/index.php:21
+msgid "Site Directory"
+msgstr ""
+
+#: blogs/create.php:32
+msgid "Site registration is currently disabled"
+msgstr ""
+
+#: blogs/index.php:33
+#, php-format
+msgid "All Sites <span>%s</span>"
+msgstr ""
+
+#: blogs/index.php:37
+#, php-format
+msgid "My Sites <span>%s</span>"
+msgstr ""
+
+#: blogs/index.php:53 forums/index.php:60 groups/index.php:55
+#: groups/single/forum.php:36 members/index.php:53 members/single/blogs.php:19
+#: members/single/forums.php:18 members/single/friends.php:20
+#: members/single/groups.php:20
+msgid "Order By:"
+msgstr ""
+
+#: blogs/index.php:55 forums/index.php:62 groups/index.php:57
+#: groups/single/forum.php:38 members/index.php:55 members/single/blogs.php:21
+#: members/single/forums.php:20 members/single/friends.php:22
+#: members/single/groups.php:22
+msgid "Last Active"
+msgstr ""
+
+#: blogs/index.php:56 members/single/blogs.php:22
+msgid "Newest"
+msgstr ""
+
+#: blogs/index.php:57 groups/index.php:60 members/index.php:60
+#: members/single/blogs.php:23 members/single/friends.php:24
+#: members/single/groups.php:25
+msgid "Alphabetical"
+msgstr ""
+
+#: forums/forums-loop.php:39
+msgid "Topic"
+msgstr ""
+
+#: forums/forums-loop.php:41
+msgid "Freshness"
+msgstr ""
+
+#: forums/forums-loop.php:54
+msgid "Permalink"
+msgstr ""
+
+#: forums/forums-loop.php:61
+#, php-format
+msgid "Started by %1$s"
+msgstr ""
+
+#: forums/forums-loop.php:122
+msgid "Sorry, there were no forum topics found."
+msgstr ""
+
+#: forums/index.php:23
+msgid "Forums Directory"
+msgstr ""
+
+#: forums/index.php:23 groups/single/forum.php:19
+msgid "New Topic"
+msgstr ""
+
+#: forums/index.php:40
+#, php-format
+msgid "All Topics <span>%s</span>"
+msgstr ""
+
+#: forums/index.php:44
+#, php-format
+msgid "My Topics <span>%s</span>"
+msgstr ""
+
+#: forums/index.php:63 groups/single/forum.php:39 members/single/forums.php:21
+msgid "Most Posts"
+msgstr ""
+
+#: forums/index.php:64 groups/single/forum.php:40 members/single/forums.php:22
+msgid "Unreplied"
+msgstr ""
+
+#: forums/index.php:100
+msgid "Create New Topic:"
+msgstr ""
+
+#: forums/index.php:104 groups/single/forum.php:75
+#: groups/single/forum/edit.php:47
+#: scripts/functions/widgets/audio_player_widget.php:77
+#: scripts/functions/widgets/latest_albums_widget.php:116
+#: scripts/functions/widgets/latest_news_widget.php:105
+#: scripts/functions/widgets/latest_photos_widget.php:95
+#: scripts/functions/widgets/latest_shows_widget.php:140
+#: scripts/functions/widgets/latest_videos_widget.php:94
+#: scripts/functions/widgets/photo_gallery_widget.php:120
+#: scripts/functions/widgets/popular_news_widget.php:149
+#: scripts/functions/widgets/social_icons.php:107
+#: scripts/functions/widgets/soundcloud_widget.php:77
+#: scripts/functions/widgets/video_widget.php:78
+msgid "Title:"
+msgstr ""
+
+#: forums/index.php:107 groups/single/forum.php:78
+#: groups/single/forum/edit.php:50
+msgid "Content:"
+msgstr ""
+
+#: forums/index.php:110 groups/single/forum.php:81
+#: groups/single/forum/edit.php:53
+msgid "Tags (comma separated):"
+msgstr ""
+
+#: forums/index.php:113
+msgid "Post In Group Forum:"
+msgstr ""
+
+#: forums/index.php:116
+msgid "----"
+msgstr ""
+
+#: forums/index.php:133 groups/single/forum.php:87
+msgid "Post Topic"
+msgstr ""
+
+#: forums/index.php:134
+#: scripts/functions/page_builder/skyali-page-builder.php:1865
+#: scripts/functions/page_builder/skyali-page-builder.php:1866
+msgid "Cancel"
+msgstr ""
+
+#: forums/index.php:145
+#, php-format
+msgid ""
+"You are not a member of any groups so you don't have any group forums you "
+"can post in. To start posting, first find a group that matches the topic "
+"subject you'd like to start. If this group does not exist, why not <a "
+"href='%s'>create a new group</a>? Once you have joined or created the group "
+"you can post your topic in that group's forum."
+msgstr ""
+
+#: groups/create.php:18 groups/index.php:21
+msgid "Create a Group"
+msgstr ""
+
+#: groups/create.php:18 groups/index.php:21
+msgid "Groups Directory"
+msgstr ""
+
+#: groups/create.php:39 groups/single/admin.php:16
+msgid "Group Name (required)"
+msgstr ""
+
+#: groups/create.php:42 groups/single/admin.php:19
+msgid "Group Description (required)"
+msgstr ""
+
+#: groups/create.php:58 groups/single/admin.php:56
+msgid "Privacy Options"
+msgstr ""
+
+#: groups/create.php:62 groups/single/admin.php:61
+msgid "This is a public group"
+msgstr ""
+
+#: groups/create.php:64 groups/single/admin.php:63
+msgid "Any site member can join this group."
+msgstr ""
+
+#: groups/create.php:65 groups/create.php:74 groups/single/admin.php:64
+#: groups/single/admin.php:74
+msgid ""
+"This group will be listed in the groups directory and in search results."
+msgstr ""
+
+#: groups/create.php:66 groups/single/admin.php:65
+msgid "Group content and activity will be visible to any site member."
+msgstr ""
+
+#: groups/create.php:71 groups/single/admin.php:71
+msgid "This is a private group"
+msgstr ""
+
+#: groups/create.php:73 groups/single/admin.php:73
+msgid "Only users who request membership and are accepted can join the group."
+msgstr ""
+
+#: groups/create.php:75 groups/create.php:84 groups/single/admin.php:75
+#: groups/single/admin.php:85
+msgid ""
+"Group content and activity will only be visible to members of the group."
+msgstr ""
+
+#: groups/create.php:80 groups/single/admin.php:81
+msgid "This is a hidden group"
+msgstr ""
+
+#: groups/create.php:82 groups/single/admin.php:83
+msgid "Only users who are invited can join the group."
+msgstr ""
+
+#: groups/create.php:83 groups/single/admin.php:84
+msgid ""
+"This group will not be listed in the groups directory or search results."
+msgstr ""
+
+#: groups/create.php:89 groups/single/admin.php:92
+msgid "Group Invitations"
+msgstr ""
+
+#: groups/create.php:91 groups/single/admin.php:94
+msgid "Which members of this group are allowed to invite others?"
+msgstr ""
+
+#: groups/create.php:96 groups/single/admin.php:99
+msgid "All group members"
+msgstr ""
+
+#: groups/create.php:101 groups/single/admin.php:104
+msgid "Group admins and mods only"
+msgstr ""
+
+#: groups/create.php:106 groups/single/admin.php:109
+msgid "Group admins only"
+msgstr ""
+
+#: groups/create.php:112
+msgid "Group Forums"
+msgstr ""
+
+#: groups/create.php:116
+msgid "Should this group have a forum?"
+msgstr ""
+
+#: groups/create.php:119 groups/single/admin.php:47
+msgid "Enable discussion forum"
+msgstr ""
+
+#: groups/create.php:123
+#, php-format
+msgid ""
+"<strong>Attention Site Admin:</strong> Group forums require the <a href=\"%s"
+"\">correct setup and configuration</a> of a bbPress installation."
+msgstr ""
+
+#: groups/create.php:149 groups/single/admin.php:127
+msgid ""
+"Upload an image to use as an avatar for this group. The image will be shown "
+"on the main group page, and in search results."
+msgstr ""
+
+#: groups/create.php:153 groups/single/admin.php:131
+#: members/single/profile/change-avatar.php:18
+msgid "Upload Image"
+msgstr ""
+
+#: groups/create.php:157
+msgid "To skip the avatar upload process, hit the \"Next Step\" button."
+msgstr ""
+
+#: groups/create.php:164
+msgid "Crop Group Avatar"
+msgstr ""
+
+#: groups/create.php:166 groups/single/admin.php:151
+#: members/single/profile/change-avatar.php:33
+msgid "Avatar to crop"
+msgstr ""
+
+#: groups/create.php:169 groups/single/admin.php:154
+#: members/single/profile/change-avatar.php:36
+msgid "Avatar preview"
+msgstr ""
+
+#: groups/create.php:172 groups/single/admin.php:157
+#: members/single/profile/change-avatar.php:39
+msgid "Crop Image"
+msgstr ""
+
+#: groups/create.php:211 groups/single/send-invites.php:22
+msgid "Select people to invite from your friends list."
+msgstr ""
+
+#: groups/create.php:229 groups/single/send-invites.php:42
+msgid "Remove Invite"
+msgstr ""
+
+#: groups/create.php:246 groups/single/send-invites.php:73
+msgid ""
+"Once you have built up friend connections you will be able to invite others "
+"to your group. You can send invites any time in the future by selecting the "
+"\"Send Invites\" option when viewing your new group."
+msgstr ""
+
+#: groups/create.php:268
+msgid "Back to Previous Step"
+msgstr ""
+
+#: groups/create.php:275
+msgid "Next Step"
+msgstr ""
+
+#: groups/create.php:282
+msgid "Create Group and Continue"
+msgstr ""
+
+#: groups/create.php:289
+msgid "Finish"
+msgstr ""
+
+#: groups/groups-loop.php:47 groups/single/group-header.php:42
+#, php-format
+msgid "active %s"
+msgstr ""
+
+#: groups/groups-loop.php:95
+msgid "There were no groups found."
+msgstr ""
+
+#: groups/index.php:35
+#, php-format
+msgid "All Groups <span>%s</span>"
+msgstr ""
+
+#: groups/index.php:58 members/single/groups.php:23
+msgid "Most Members"
+msgstr ""
+
+#: groups/index.php:59 members/single/groups.php:24
+msgid "Newly Created"
+msgstr ""
+
+#: groups/single/admin.php:25
+msgid "Notify group members of changes via email"
+msgstr ""
+
+#: groups/single/admin.php:26 registration/register.php:227
+#: scripts/functions/page_builder/skyali-page-builder.php:1866
+msgid "Yes"
+msgstr ""
+
+#: groups/single/admin.php:27 registration/register.php:228
+msgid "No"
+msgstr ""
+
+#: groups/single/admin.php:32 groups/single/admin.php:117
+#: groups/single/forum/edit.php:58 groups/single/forum/edit.php:74
+#: members/single/profile/edit.php:146 members/single/settings/general.php:72
+#: members/single/settings/notifications.php:61
+msgid "Save Changes"
+msgstr ""
+
+#: groups/single/admin.php:137
+msgid ""
+"If you'd like to remove the existing avatar but not upload a new one, please "
+"use the delete avatar button."
+msgstr ""
+
+#: groups/single/admin.php:139 members/single/profile/change-avatar.php:24
+msgid "Delete Avatar"
+msgstr ""
+
+#: groups/single/admin.php:149
+msgid "Crop Avatar"
+msgstr ""
+
+#: groups/single/admin.php:177
+msgid "Administrators"
+msgstr ""
+
+#: groups/single/admin.php:185 groups/single/admin.php:212
+#, php-format
+msgid "Profile picture of %s"
+msgstr ""
+
+#: groups/single/admin.php:190 groups/single/admin.php:217
+msgid "Demote to Member"
+msgstr ""
+
+#: groups/single/admin.php:205
+msgid "Moderators"
+msgstr ""
+
+#: groups/single/admin.php:216 groups/single/admin.php:272
+msgid "Promote to Admin"
+msgstr ""
+
+#: groups/single/admin.php:231
+msgid "Members"
+msgstr ""
+
+#: groups/single/admin.php:260
+msgid "(banned)"
+msgstr ""
+
+#: groups/single/admin.php:266
+msgid "Unban this member"
+msgstr ""
+
+#: groups/single/admin.php:266
+msgid "Remove Ban"
+msgstr ""
+
+#: groups/single/admin.php:270
+msgid "Kick and ban this member"
+msgstr ""
+
+#: groups/single/admin.php:270
+msgid "Kick &amp; Ban"
+msgstr ""
+
+#: groups/single/admin.php:271
+msgid "Promote to Mod"
+msgstr ""
+
+#: groups/single/admin.php:276
+msgid "Remove this member"
+msgstr ""
+
+#: groups/single/admin.php:276
+msgid "Remove from group"
+msgstr ""
+
+#: groups/single/admin.php:290 groups/single/members.php:87
+msgid "This group has no members."
+msgstr ""
+
+#: groups/single/admin.php:320 members/single/friends/requests.php:37
+#: members/single/groups/invites.php:23
+msgid "Accept"
+msgstr ""
+
+#: groups/single/admin.php:322 members/single/friends/requests.php:38
+#: members/single/groups/invites.php:24
+msgid "Reject"
+msgstr ""
+
+#: groups/single/admin.php:335
+msgid "There are no pending membership requests."
+msgstr ""
+
+#: groups/single/admin.php:352
+msgid ""
+"WARNING: Deleting this group will completely remove ALL content associated "
+"with it. There is no way back, please be careful with this option."
+msgstr ""
+
+#: groups/single/admin.php:355
+msgid "I understand the consequences of deleting this group."
+msgstr ""
+
+#: groups/single/admin.php:360
+msgid "Delete Group"
+msgstr ""
+
+#: groups/single/forum.php:27 groups/single/forum/edit.php:16
+#: groups/single/forum/topic.php:17
+msgid "Forum Directory"
+msgstr ""
+
+#: groups/single/forum.php:69
+msgid "You will auto join this group when you start a new topic."
+msgstr ""
+
+#: groups/single/forum.php:73
+msgid "Post a New Topic:"
+msgstr ""
+
+#: groups/single/group-header.php:11
+msgid "Group Admins"
+msgstr ""
+
+#: groups/single/group-header.php:20
+msgid "Group Mods"
+msgstr ""
+
+#: groups/single/request-membership.php:4
+#, php-format
+msgid "You are requesting to become a member of the group '%s'."
+msgstr ""
+
+#: groups/single/request-membership.php:7
+msgid "Comments (optional)"
+msgstr ""
+
+#: groups/single/request-membership.php:12
+msgid "Send Request"
+msgstr ""
+
+#: groups/single/send-invites.php:60
+msgid "Send Invites"
+msgstr ""
+
+#: groups/single/forum/edit.php:25
+msgid "Edit:"
+msgstr ""
+
+#: groups/single/forum/edit.php:87
+msgid "This topic does not exist."
+msgstr ""
+
+#: groups/single/forum/topic.php:9
+msgid "New Reply"
+msgstr ""
+
+#: groups/single/forum/topic.php:32
+msgid "Topic tags:"
+msgstr ""
+
+#: groups/single/forum/topic.php:81
+#, php-format
+msgid "%1$s said %2$s:"
+msgstr ""
+
+#: groups/single/forum/topic.php:95
+msgid "Permanent link to this post"
+msgstr ""
+
+#: groups/single/forum/topic.php:119
+msgid "There are no posts for this topic."
+msgstr ""
+
+#: groups/single/forum/topic.php:134
+msgid "You will auto join this group when you reply to this topic."
+msgstr ""
+
+#: groups/single/forum/topic.php:139
+msgid "Add a reply:"
+msgstr ""
+
+#: groups/single/forum/topic.php:144
+msgid "Post Reply"
+msgstr ""
+
+#: groups/single/forum/topic.php:155
+msgid "This topic is closed, replies are no longer accepted."
+msgstr ""
+
+#: members/index.php:21
+msgid "Members Directory"
+msgstr ""
+
+#: members/index.php:56 members/single/friends.php:23
+msgid "Newest Registered"
+msgstr ""
+
+#: members/members-loop.php:108
+msgid "Sorry, no members were found."
+msgstr ""
+
+#: members/single/friends/requests.php:68
+msgid "You have no pending friendship requests."
+msgstr ""
+
+#: members/single/groups/invites.php:14
+#, php-format
+msgid "%s members"
+msgstr ""
+
+#: members/single/groups/invites.php:37
+msgid "You have no outstanding group invites."
+msgstr ""
+
+#: members/single/messages/compose.php:5
+msgid "Send To (Username or Friend's Name)"
+msgstr ""
+
+#: members/single/messages/compose.php:14
+msgid "This is a notice to all users."
+msgstr ""
+
+#: members/single/messages/compose.php:17
+msgid "Subject"
+msgstr ""
+
+#: members/single/messages/compose.php:20
+#: scripts/functions/page_builder/skyali-page-builder.php:1537
+msgid "Message"
+msgstr ""
+
+#: members/single/messages/compose.php:28
+#: scripts/functions/page_builder/skyali-page-builder.php:1541
+msgid "Send Message"
+msgstr ""
+
+#: members/single/messages/messages-loop.php:32
+msgid "From:"
+msgstr ""
+
+#: members/single/messages/messages-loop.php:37
+msgid "To:"
+msgstr ""
+
+#: members/single/messages/messages-loop.php:43
+msgid "View Message"
+msgstr ""
+
+#: members/single/messages/messages-loop.php:51
+#: members/single/messages/notices-loop.php:43
+#: members/single/messages/single.php:24
+msgid "Delete Message"
+msgstr ""
+
+#: members/single/messages/messages-loop.php:69
+msgid "Sorry, no messages were found."
+msgstr ""
+
+#: members/single/messages/notices-loop.php:36
+msgid "Sent:"
+msgstr ""
+
+#: members/single/messages/notices-loop.php:54
+msgid "Sorry, no notices were found."
+msgstr ""
+
+#: members/single/messages/single.php:14
+msgid "You are alone in this conversation."
+msgstr ""
+
+#: members/single/messages/single.php:18
+#, php-format
+msgid "Conversation between %s and you."
+msgstr ""
+
+#: members/single/messages/single.php:75
+msgid "Send a Reply"
+msgstr ""
+
+#: members/single/messages/single.php:91
+msgid "Send Reply"
+msgstr ""
+
+#: members/single/profile/change-avatar.php:1
+msgid "Change Avatar"
+msgstr ""
+
+#: members/single/profile/change-avatar.php:7
+msgid ""
+"Your avatar will be used on your profile and throughout the site. If there "
+"is a <a href=\"http://gravatar.com\">Gravatar</a> associated with your "
+"account email we will use that, or you can upload an image from your "
+"computer."
+msgstr ""
+
+#: members/single/profile/change-avatar.php:14
+msgid ""
+"Click below to select a JPG, GIF or PNG format photo from your computer and "
+"then click 'Upload Image' to proceed."
+msgstr ""
+
+#: members/single/profile/change-avatar.php:23
+msgid ""
+"If you'd like to delete your current avatar but not upload a new one, please "
+"use the delete avatar button."
+msgstr ""
+
+#: members/single/profile/change-avatar.php:24
+msgid "Delete My Avatar"
+msgstr ""
+
+#: members/single/profile/change-avatar.php:31
+msgid "Crop Your New Avatar"
+msgstr ""
+
+#: members/single/profile/change-avatar.php:55
+msgid ""
+"Your avatar will be used on your profile and throughout the site. To change "
+"your avatar, please create an account with <a href=\"http://gravatar.com"
+"\">Gravatar</a> using the same email address as you used to register with "
+"this site."
+msgstr ""
+
+#: members/single/profile/edit.php:10
+#, php-format
+msgid "Editing '%s' Profile Group"
+msgstr ""
+
+#: members/single/profile/edit.php:26 members/single/profile/edit.php:33
+#: members/single/profile/edit.php:40 members/single/profile/edit.php:49
+#: members/single/profile/edit.php:67 members/single/profile/edit.php:83
+#: members/single/profile/edit.php:93 registration/register.php:37
+#: registration/register.php:41 registration/register.php:45
+#: registration/register.php:49 registration/register.php:76
+#: registration/register.php:84 registration/register.php:92
+#: registration/register.php:102 registration/register.php:113
+#: registration/register.php:128 registration/register.php:139
+#: registration/register.php:211 registration/register.php:220
+#: scripts/functions/display_functions.php:113
+#: scripts/functions/display_functions.php:122
+#: scripts/functions/display_functions.php:140
+msgid "(required)"
+msgstr ""
+
+#: members/single/profile/edit.php:58 members/single/profile/edit.php:73
+#: registration/register.php:119
+msgid "Clear"
+msgstr ""
+
+#: members/single/profile/edit.php:118 members/single/profile/edit.php:132
+#: registration/register.php:159 registration/register.php:174
+#, php-format
+msgid ""
+"This field can be seen by: <span class=\"current-visibility-level\">%s</span>"
+msgstr ""
+
+#: members/single/profile/edit.php:118
+msgid "Change"
+msgstr ""
+
+#: members/single/profile/edit.php:123 registration/register.php:164
+msgid "Who can see this field?"
+msgstr ""
+
+#: members/single/profile/edit.php:128 registration/register.php:169
+msgid "Close"
+msgstr ""
+
+#: members/single/profile/profile-wp.php:8
+#, php-format
+msgid "%s's Profile"
+msgstr ""
+
+#: members/single/profile/profile-wp.php:15
+#: scripts/functions/display_functions.php:112
+msgid "Name"
+msgstr ""
+
+#: members/single/profile/profile-wp.php:24
+msgid "About Me"
+msgstr ""
+
+#: members/single/profile/profile-wp.php:33
+#: scripts/functions/display_functions.php:128
+msgid "Website"
+msgstr ""
+
+#: members/single/profile/profile-wp.php:42
+msgid "Jabber"
+msgstr ""
+
+#: members/single/profile/profile-wp.php:51
+msgid "AOL Messenger"
+msgstr ""
+
+#: members/single/profile/profile-wp.php:60
+msgid "Yahoo Messenger"
+msgstr ""
+
+#: members/single/settings/capabilities.php:49
+msgid "Capabilities"
+msgstr ""
+
+#: members/single/settings/capabilities.php:57
+msgid "This user is a spammer."
+msgstr ""
+
+#: members/single/settings/capabilities.php:61
+#: scripts/functions/page_builder/skyali-page-builder.php:2762
+msgid "Save"
+msgstr ""
+
+#: members/single/settings/delete-account.php:50
+#: members/single/settings/delete-account.php:76
+msgid "Delete Account"
+msgstr ""
+
+#: members/single/settings/delete-account.php:56
+msgid ""
+"Deleting your account will delete all of the content you have created. It "
+"will be completely irrecoverable."
+msgstr ""
+
+#: members/single/settings/delete-account.php:60
+msgid ""
+"Deleting this account will delete all of the content it has created. It will "
+"be completely irrecoverable."
+msgstr ""
+
+#: members/single/settings/delete-account.php:72
+msgid "I understand the consequences."
+msgstr ""
+
+#: members/single/settings/general.php:49
+msgid "General Settings"
+msgstr ""
+
+#: members/single/settings/general.php:57
+msgid ""
+"Current Password <span>(required to update email or change current password)"
+"</span>"
+msgstr ""
+
+#: members/single/settings/general.php:58
+msgid "Password Lost and Found"
+msgstr ""
+
+#: members/single/settings/general.php:58
+msgid "Lost your password?"
+msgstr ""
+
+#: members/single/settings/general.php:62
+msgid "Account Email"
+msgstr ""
+
+#: members/single/settings/general.php:65
+msgid "Change Password <span>(leave blank for no change)</span>"
+msgstr ""
+
+#: members/single/settings/general.php:66
+msgid "New Password"
+msgstr ""
+
+#: members/single/settings/general.php:67
+msgid "Repeat New Password"
+msgstr ""
+
+#: members/single/settings/notifications.php:49
+msgid "Email Notification"
+msgstr ""
+
+#: members/single/settings/notifications.php:54
+msgid "Send a notification by email when:"
+msgstr ""
+
+#: registration/activate.php:12
+msgid "Account Activated"
+msgstr ""
+
+#: registration/activate.php:17
+msgid ""
+"Your account was activated successfully! Your account details have been sent "
+"to you in a separate email."
+msgstr ""
+
+#: registration/activate.php:19
+msgid ""
+"Your account was activated successfully! You can now log in with the "
+"username and password you provided when you signed up."
+msgstr ""
+
+#: registration/activate.php:24
+msgid "Activate your Account"
+msgstr ""
+
+#: registration/activate.php:28
+msgid "Please provide a valid activation key."
+msgstr ""
+
+#: registration/activate.php:32
+msgid "Activation Key:"
+msgstr ""
+
+#: registration/activate.php:36
+#: scripts/functions/class-tgm-plugin-activation.php:1319
+msgid "Activate"
+msgstr ""
+
+#: registration/register.php:16
+msgid "User registration is currently not allowed."
+msgstr ""
+
+#: registration/register.php:23
+msgid "Create an Account"
+msgstr ""
+
+#: registration/register.php:27
+msgid ""
+"Registering for this site is easy, just fill in the fields below and we'll "
+"get a new account set up for you in no time."
+msgstr ""
+
+#: registration/register.php:35
+msgid "Account Details"
+msgstr ""
+
+#: registration/register.php:37
+msgid "Username"
+msgstr ""
+
+#: registration/register.php:41
+msgid "Email Address"
+msgstr ""
+
+#: registration/register.php:45
+msgid "Choose a Password"
+msgstr ""
+
+#: registration/register.php:49
+msgid "Confirm Password"
+msgstr ""
+
+#: registration/register.php:65
+msgid "Profile Details"
+msgstr ""
+
+#: registration/register.php:205
+msgid "Blog Details"
+msgstr ""
+
+#: registration/register.php:207
+msgid "Yes, I'd like to create a new site"
+msgstr ""
+
+#: registration/register.php:211
+msgid "Blog URL"
+msgstr ""
+
+#: registration/register.php:220
+msgid "Site Title"
+msgstr ""
+
+#: registration/register.php:224
+msgid ""
+"I would like my site to appear in search engines, and in public listings "
+"around this network."
+msgstr ""
+
+#: registration/register.php:241
+msgid "Complete Sign Up"
+msgstr ""
+
+#: registration/register.php:252
+msgid "Sign Up Complete!"
+msgstr ""
+
+#: registration/register.php:258
+msgid ""
+"You have successfully created your account! To begin using this site you "
+"will need to activate your account via the email we have just sent to your "
+"address."
+msgstr ""
+
+#: registration/register.php:260
+msgid ""
+"You have successfully created your account! Please log in using the username "
+"and password you have just created."
+msgstr ""
+
+#: scripts/admin/options.php:194
+msgid ""
+"Demo options not imported, Please click \"Import Demo Options\". Or simply "
+"save your own options."
+msgstr ""
+
+#: scripts/admin/options.php:225
+msgid "Need Help?"
+msgstr ""
+
+#: scripts/admin/options.php:237
+msgid "More Themes"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:164
+#: scripts/functions/extra_functions.php:176
+#: scripts/functions/extra_functions.php:237
+msgid "Install Required Plugins"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:165
+#: scripts/functions/extra_functions.php:177
+#: scripts/functions/extra_functions.php:238
+msgid "Install Plugins"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:166
+#: scripts/functions/extra_functions.php:178
+#: scripts/functions/extra_functions.php:239
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:167
+msgid "Something went wrong."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:178
+#: scripts/functions/class-tgm-plugin-activation.php:490
+#: scripts/functions/extra_functions.php:190
+#: scripts/functions/extra_functions.php:251
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:179
+#: scripts/functions/class-tgm-plugin-activation.php:1846
+#: scripts/functions/extra_functions.php:191
+#: scripts/functions/extra_functions.php:252
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:180
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:517
+#: scripts/functions/class-tgm-plugin-activation.php:2058
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:545
+#, php-format
+msgid "The following plugin was activated successfully: %s."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:704
+msgid "Dismiss this notice"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1091
+msgid "External Link"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1096
+msgid "Private Repository"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1099
+msgid "Pre-Packaged"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1103
+msgid "WordPress Repository"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1106
+msgid "Required"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1106
+msgid "Recommended"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1109
+msgid "Not Installed"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1111
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1281
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1297
+msgid "Plugin"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1298
+msgid "Source"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1299
+msgid "Type"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1300
+msgid "Status"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1318
+msgid "Install"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1829
+msgid "Install package not available."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1830
+#, php-format
+msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1831
+msgid "Unpacking the package&#8230;"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1832
+msgid "Installing the plugin&#8230;"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1833
+msgid "Plugin install failed."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1834
+msgid "Plugin installed successfully."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1845
+msgid "Plugin activation failed."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1955
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1956
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1956
+#: scripts/functions/class-tgm-plugin-activation.php:1965
+msgid "Show Details"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1956
+#: scripts/functions/class-tgm-plugin-activation.php:1965
+msgid "Hide Details"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1957
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1958
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1962
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1963
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1964
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1965
+#, php-format
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1966
+msgid "All installations have been completed."
+msgstr ""
+
+#: scripts/functions/class-tgm-plugin-activation.php:1967
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:12
+msgid "Add New Album"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:13
+msgid "Edit Album"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:14
+msgid "New Album"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:15
+msgid "View Album"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:16
+msgid "Search Albums"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:17
+msgid "No albums found"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:18
+msgid "No albums items found in trash"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:27
+#: scripts/functions/custom_post_types.php:44
+msgid "albums"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:44
+msgid "albums_categories"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:44
+#: scripts/functions/custom_post_types.php:91
+#: scripts/functions/custom_post_types.php:138
+#: scripts/functions/custom_post_types.php:185
+msgid "Categories"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:59
+msgid "Add New Show"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:60
+msgid "Edit Show"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:61
+msgid "New Show"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:62
+msgid "View Show"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:63
+msgid "Search Shows"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:64
+msgid "No shows found"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:65
+msgid "No shows items found in trash"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:74
+#: scripts/functions/custom_post_types.php:91
+msgid "shows"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:91
+msgid "shows_categories"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:106
+msgid "Add New Gallery"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:107
+msgid "Edit Gallery"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:108
+msgid "New Gallery"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:110
+msgid "Search Gallery"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:111
+msgid "No Gallery found"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:112
+msgid "No Gallery items found in trash"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:121
+#: scripts/functions/custom_post_types.php:138
+msgid "gallery"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:138
+msgid "gallery_categories"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:152
+msgid "Add New Video"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:153
+msgid "Edit Video"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:154
+msgid "New Video"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:155
+msgid " "
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:156
+msgid "Search Videos"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:157
+msgid "No Videos found"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:158
+msgid "No Videos items found in trash"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:167
+#: scripts/functions/custom_post_types.php:185
+msgid "videos"
+msgstr ""
+
+#: scripts/functions/custom_post_types.php:185
+msgid "videos_categories"
+msgstr ""
+
+#: scripts/functions/display_functions.php:121
+msgid "Email"
+msgstr ""
+
+#: scripts/functions/display_functions.php:140
+msgid "Comment"
+msgstr ""
+
+#: scripts/functions/extra_functions.php:179
+#: scripts/functions/extra_functions.php:240
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: scripts/functions/extra_functions.php:192
+#: scripts/functions/extra_functions.php:253
+#, php-format
+msgid "All plugins installed and activated successfully. %s"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:108
+msgid "Image doesn't exist"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:275
+msgid "Page Builder"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1528
+msgid "If you are the admin of this site please setup your email."
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1539
+msgid "5 + 2 = "
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1548
+msgid "Your message has been sent."
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1862
+msgid "Proceed Deleting item?"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1863
+msgid "Are you sure you want to clear all items?"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1864
+msgid "Layout Name"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1865
+msgid "Create"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1866
+msgid "Saving Changes."
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1867
+msgid "Changes Saved."
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1902
+msgid " Widget Area 1"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1902
+msgid "Page Builder Widget Area 2"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1902
+msgid "Page Builder Widget Area 3"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1902
+msgid "Page Builder Widget Area 4"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1902
+msgid "Page Builder Widget Area 5"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1907
+msgid "Latest Posts"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1910
+#: scripts/functions/page_builder/skyali-page-builder.php:1954
+#: scripts/functions/page_builder/skyali-page-builder.php:1992
+#: scripts/functions/page_builder/skyali-page-builder.php:2031
+#: scripts/functions/page_builder/skyali-page-builder.php:2070
+#: scripts/functions/page_builder/skyali-page-builder.php:2108
+#: scripts/functions/page_builder/skyali-page-builder.php:2148
+#: scripts/functions/page_builder/skyali-page-builder.php:2187
+#: scripts/functions/page_builder/skyali-page-builder.php:2226
+#: scripts/functions/page_builder/skyali-page-builder.php:2241
+#: scripts/functions/page_builder/skyali-page-builder.php:2270
+#: scripts/functions/page_builder/skyali-page-builder.php:2551
+#: scripts/functions/page_builder/skyali-page-builder.php:2565
+#: scripts/functions/page_builder/skyali-page-builder.php:2581
+#: scripts/functions/page_builder/skyali-page-builder.php:2596
+#: scripts/functions/page_builder/skyali-page-builder.php:2611
+#: scripts/functions/page_builder/skyali-page-builder.php:2644
+#: scripts/functions/page_builder/skyali-page-builder.php:2658
+#: scripts/functions/page_builder/skyali-page-builder.php:2675
+msgid "Heading"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1915
+#: scripts/functions/page_builder/skyali-page-builder.php:1958
+#: scripts/functions/page_builder/skyali-page-builder.php:1996
+#: scripts/functions/page_builder/skyali-page-builder.php:2035
+#: scripts/functions/page_builder/skyali-page-builder.php:2074
+#: scripts/functions/page_builder/skyali-page-builder.php:2112
+#: scripts/functions/page_builder/skyali-page-builder.php:2152
+#: scripts/functions/page_builder/skyali-page-builder.php:2191
+msgid "Sort by author name"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1919
+#: scripts/functions/page_builder/skyali-page-builder.php:1962
+#: scripts/functions/page_builder/skyali-page-builder.php:2000
+msgid "Sort by category name"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1923
+#: scripts/functions/page_builder/skyali-page-builder.php:1966
+#: scripts/functions/page_builder/skyali-page-builder.php:2004
+#: scripts/functions/page_builder/skyali-page-builder.php:2043
+#: scripts/functions/page_builder/skyali-page-builder.php:2082
+#: scripts/functions/page_builder/skyali-page-builder.php:2120
+#: scripts/functions/page_builder/skyali-page-builder.php:2160
+#: scripts/functions/page_builder/skyali-page-builder.php:2199
+msgid "Sort by order(default:DESC)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1927
+#: scripts/functions/page_builder/skyali-page-builder.php:1970
+#: scripts/functions/page_builder/skyali-page-builder.php:2008
+#: scripts/functions/page_builder/skyali-page-builder.php:2047
+#: scripts/functions/page_builder/skyali-page-builder.php:2086
+#: scripts/functions/page_builder/skyali-page-builder.php:2124
+#: scripts/functions/page_builder/skyali-page-builder.php:2164
+#: scripts/functions/page_builder/skyali-page-builder.php:2203
+msgid "Sort by orderby (default:Date)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1931
+#: scripts/functions/page_builder/skyali-page-builder.php:1974
+#: scripts/functions/page_builder/skyali-page-builder.php:2012
+#: scripts/functions/page_builder/skyali-page-builder.php:2051
+#: scripts/functions/page_builder/skyali-page-builder.php:2090
+#: scripts/functions/page_builder/skyali-page-builder.php:2128
+#: scripts/functions/page_builder/skyali-page-builder.php:2168
+#: scripts/functions/page_builder/skyali-page-builder.php:2207
+msgid "Posts Per Page"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1935
+#: scripts/functions/page_builder/skyali-page-builder.php:1978
+#: scripts/functions/page_builder/skyali-page-builder.php:2016
+#: scripts/functions/page_builder/skyali-page-builder.php:2055
+#: scripts/functions/page_builder/skyali-page-builder.php:2094
+#: scripts/functions/page_builder/skyali-page-builder.php:2132
+#: scripts/functions/page_builder/skyali-page-builder.php:2172
+#: scripts/functions/page_builder/skyali-page-builder.php:2211
+msgid "Pagination (Default:true)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1939
+#: scripts/functions/page_builder/skyali-page-builder.php:1982
+#: scripts/functions/page_builder/skyali-page-builder.php:2020
+#: scripts/functions/page_builder/skyali-page-builder.php:2059
+#: scripts/functions/page_builder/skyali-page-builder.php:2098
+#: scripts/functions/page_builder/skyali-page-builder.php:2136
+#: scripts/functions/page_builder/skyali-page-builder.php:2176
+#: scripts/functions/page_builder/skyali-page-builder.php:2215
+msgid "Sort by tags"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1951
+msgid "Latest Posts Style 2"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:1989
+msgid "Latest Posts Style 3"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2028
+msgid "Latest Albums"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2039
+#: scripts/functions/page_builder/skyali-page-builder.php:2078
+#: scripts/functions/page_builder/skyali-page-builder.php:2116
+#: scripts/functions/page_builder/skyali-page-builder.php:2156
+#: scripts/functions/page_builder/skyali-page-builder.php:2195
+msgid "Sort by category ID"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2067
+msgid "Latest Shows"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2105
+msgid "Latest Shows Style 2"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2145
+msgid "Latest Photos"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2184
+msgid "Latest Videos"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2223
+msgid "Audio Player"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2229
+msgid "Mp3 Url"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2238
+msgid "Event Countdown"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2245
+msgid "Event Slogan"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2249
+msgid "Event Day (Example:24)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2252
+msgid "Event Month (Example:April)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2255
+msgid "Event Year (Example:2013)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2258
+msgid "Event Time (Example:09:00 AM)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2267
+msgid "Audio Playlist"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2274
+msgid "Song Title 1"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2279
+msgid "Mp3 Url 1"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2284
+msgid "Song Title 2"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2289
+msgid "Mp3 Url 2"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2294
+msgid "Song Title 3"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2299
+msgid "Mp3 Url 3"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2304
+msgid "Song Title 4"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2309
+msgid "Mp3 Url 4"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2314
+msgid "Song Title 5"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2319
+msgid "Mp3 Url 5"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2324
+msgid "Song Title 6"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2329
+msgid "Mp3 Url 6"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2334
+msgid "Song Title 7"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2339
+msgid "Mp3 Url 7"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2344
+msgid "Song Title 8"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2349
+msgid "Mp3 Url 8"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2354
+msgid "Song Title 9"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2359
+msgid "Mp3 Url 9"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2364
+msgid "Song Title 10"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2369
+msgid "Mp3 Url 10"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2374
+msgid "Song Title 11"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2379
+msgid "Mp3 Url 11"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2384
+msgid "Song Title 12"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2389
+msgid "Mp3 Url 12"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2394
+msgid "Song Title 13"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2399
+msgid "Mp3 Url 13"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2404
+msgid "Song Title 14"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2409
+msgid "Mp3 Url 14"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2414
+msgid "Song Title 15"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2418
+msgid "Mp3 Url 15"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2422
+msgid "Song Title 16"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2426
+msgid "Mp3 Url 16"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2430
+msgid "Song Title 17"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2434
+msgid "Mp3 Url 17"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2438
+msgid "Song Title 18"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2442
+msgid "Mp3 Url 18"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2446
+msgid "Song Title 19"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2450
+msgid "Mp3 Url 19"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2454
+msgid "Song Title 20"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2458
+msgid "Mp3 Url 20"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2462
+msgid "Song Title 21"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2466
+msgid "Mp3 Url 21"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2470
+msgid "Song Title 22"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2474
+msgid "Mp3 Url 22"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2478
+msgid "Song Title 23"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2482
+msgid "Mp3 Url 23"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2486
+msgid "Song Title 24"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2490
+msgid "Mp3 Url 24"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2494
+msgid "Song Title 25"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2498
+msgid "Mp3 Url 25"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2502
+msgid "Song Title 26"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2506
+msgid "Mp3 Url 26"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2510
+msgid "Song Title 27"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2515
+msgid "Mp3 Url 27"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2519
+msgid "Song Title 28"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2523
+msgid "Mp3 Url 28"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2527
+msgid "Song Title 29"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2531
+msgid "Mp3 Url 29"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2535
+msgid "Song Title 30"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2539
+msgid "Mp3 Url 30"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2548
+msgid "Contact Form"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2555
+msgid "Contact Email"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2562
+msgid "Accordion"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2569
+msgid "Use accordion shortcodes."
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2578
+msgid "Toggle"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2585
+msgid "Use toggle shortcodes."
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2593
+msgid "Video"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2600
+msgid "Embed Code"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2608
+msgid "Slideshow"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2615
+msgid "Auto(Default:false)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2619
+msgid "Pager(Default:true)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2623
+msgid "Nav(Default:true)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2627
+msgid "Speed(Default:500)"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2641
+msgid "Tabs"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2655
+msgid "Short Codes"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2662
+msgid "Content"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2672
+msgid "Image"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2679
+msgid "Image Url"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2683
+msgid "Image Dimensions"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2688
+msgid "Use Editor"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2758
+msgid "Clear Items"
+msgstr ""
+
+#: scripts/functions/page_builder/skyali-page-builder.php:2911
+msgid "Settings"
+msgstr ""
+
+#: scripts/functions/widgets/audio_player_widget.php:33
+msgid "Audio Player for your widget areas"
+msgstr ""
+
+#: scripts/functions/widgets/audio_player_widget.php:39
+msgid "Skyali - Audio Player"
+msgstr ""
+
+#: scripts/functions/widgets/audio_player_widget.php:58
+#: scripts/functions/widgets/soundcloud_widget.php:58
+#: scripts/functions/widgets/video_widget.php:58
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: scripts/functions/widgets/audio_player_widget.php:82
+msgid "Mp3 File:"
+msgstr ""
+
+#: scripts/functions/widgets/flickr_widget.php:33
+msgid "Flickr Widget."
+msgstr ""
+
+#: scripts/functions/widgets/flickr_widget.php:39
+msgid "Skyali - Flickr"
+msgstr ""
+
+#: scripts/functions/widgets/flickr_widget.php:61
+msgid "Flickr Photostream"
+msgstr ""
+
+#: scripts/functions/widgets/latest_albums_widget.php:33
+msgid "Display recent albums."
+msgstr ""
+
+#: scripts/functions/widgets/latest_albums_widget.php:39
+msgid "Skyali - Latest Albums"
+msgstr ""
+
+#: scripts/functions/widgets/latest_albums_widget.php:119
+#: scripts/functions/widgets/latest_news_widget.php:108
+#: scripts/functions/widgets/latest_photos_widget.php:98
+#: scripts/functions/widgets/latest_shows_widget.php:143
+#: scripts/functions/widgets/latest_videos_widget.php:97
+#: scripts/functions/widgets/popular_news_widget.php:152
+msgid "How many entries to display?"
+msgstr ""
+
+#: scripts/functions/widgets/latest_albums_widget.php:122
+#: scripts/functions/widgets/latest_news_widget.php:111
+#: scripts/functions/widgets/latest_photos_widget.php:101
+#: scripts/functions/widgets/latest_shows_widget.php:146
+#: scripts/functions/widgets/latest_videos_widget.php:100
+#: scripts/functions/widgets/popular_news_widget.php:155
+msgid ""
+"Display Certain Categories? Place the category id and seperate with a comma "
+"(e.g. - 1, 22, 35)"
+msgstr ""
+
+#: scripts/functions/widgets/latest_news_widget.php:33
+msgid "Display recent news in your sidebar."
+msgstr ""
+
+#: scripts/functions/widgets/latest_news_widget.php:39
+msgid "Skyali - Latest News"
+msgstr ""
+
+#: scripts/functions/widgets/latest_photos_widget.php:34
+msgid "Display recent photos."
+msgstr ""
+
+#: scripts/functions/widgets/latest_photos_widget.php:40
+msgid "Skyali - Latest Photos"
+msgstr ""
+
+#: scripts/functions/widgets/latest_shows_widget.php:35
+msgid "Display recent shows."
+msgstr ""
+
+#: scripts/functions/widgets/latest_shows_widget.php:41
+msgid "Skyali - Latest Shows"
+msgstr ""
+
+#: scripts/functions/widgets/latest_videos_widget.php:33
+msgid "Display recent videos."
+msgstr ""
+
+#: scripts/functions/widgets/latest_videos_widget.php:39
+msgid "Skyali - Latest Videos"
+msgstr ""
+
+#: scripts/functions/widgets/photo_gallery_widget.php:33
+msgid "Display a photo gallery."
+msgstr ""
+
+#: scripts/functions/widgets/photo_gallery_widget.php:39
+msgid "LT - Photo Gallery"
+msgstr ""
+
+#: scripts/functions/widgets/photo_gallery_widget.php:123
+msgid "Attachment Post ID's"
+msgstr ""
+
+#: scripts/functions/widgets/popular_news_widget.php:33
+msgid "Display popular news in your sidebar."
+msgstr ""
+
+#: scripts/functions/widgets/popular_news_widget.php:39
+msgid "LT - Popular News"
+msgstr ""
+
+#: scripts/functions/widgets/sidebar_tabs.php:33
+msgid "Sidebar Tabs Widget"
+msgstr ""
+
+#: scripts/functions/widgets/sidebar_tabs.php:39
+msgid "LT - Sidebar Tabs"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:33
+msgid "Link to your social networks"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:36
+msgid "Skyali - Social Icons"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:68
+msgid "Rss Feed"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:70
+msgid "Our Vimeo"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:72
+msgid "Youtube Channel"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:74
+#: scripts/functions/widgets/social_icons.php:121
+msgid "Facebook"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:76
+#: scripts/functions/widgets/social_icons.php:123
+msgid "Twitter"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:78
+#: scripts/functions/widgets/social_icons.php:125
+msgid "Linkedin"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:80
+#: scripts/functions/widgets/social_icons.php:127
+msgid "Deviantart"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:82
+#: scripts/functions/widgets/social_icons.php:129
+msgid "Flickr"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:84
+#: scripts/functions/widgets/social_icons.php:131
+msgid "Stumbledupon"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:115
+msgid "Rss"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:117
+msgid "Vimeo"
+msgstr ""
+
+#: scripts/functions/widgets/social_icons.php:119
+msgid "Youtube"
+msgstr ""
+
+#: scripts/functions/widgets/soundcloud_widget.php:33
+msgid "Embed a video into the sidebar."
+msgstr ""
+
+#: scripts/functions/widgets/soundcloud_widget.php:39
+msgid "Skyali - Video Embed"
+msgstr ""
+
+#: scripts/functions/widgets/soundcloud_widget.php:82
+msgid "Video Embed Code:"
+msgstr ""
+
+#: scripts/functions/widgets/video_widget.php:33
+msgid "Embed a soundcloud into any widget area."
+msgstr ""
+
+#: scripts/functions/widgets/video_widget.php:39
+msgid "Skyali - Soundcloud"
+msgstr ""
+
+#: scripts/functions/widgets/video_widget.php:83
+msgid "Api Code:"
+msgstr ""
