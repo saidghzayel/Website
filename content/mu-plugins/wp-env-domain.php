@@ -21,7 +21,7 @@ class WP_Environment_Domain_Plugin extends WP_Stack_Plugin {
 		$this->hook( 'option_home', 'replace_domain' );
 		$this->hook( 'option_siteurl', 'replace_domain' );
 	}
-	
+
 	public function replace_domain ( $url ) {
 		$current_domain = parse_url( $url, PHP_URL_HOST );
 		if( function_exists('is_subdomain_install') && is_subdomain_install() ) {

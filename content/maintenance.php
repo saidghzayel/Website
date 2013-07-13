@@ -10,7 +10,7 @@ header( 'Content-Type: text/html; charset=utf-8' );
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Maintenance</title>
-    
+
 	<style type="text/css">
 	body {
 		background: #000;
@@ -18,9 +18,9 @@ header( 'Content-Type: text/html; charset=utf-8' );
 		font: 14px/18px Tahoma, Arial, Helvetica, sans-serif;
 		margin: 50px 0;
 	}
-	
+
 	#logo { text-align: center; }
-	
+
 	#ohno {
 		border: 1px solid #000;
 		border-radius: 20px;
@@ -61,9 +61,9 @@ header( 'Content-Type: text/html; charset=utf-8' );
 	</style>
 </head>
 <body>
-	
+
 	<div id="logo"><img src="http://dentonbible.org/wp-content/themes/dbc/library/images/denton-bible-church.png" alt="Denton Bible Church" /></div>
-	
+
 	<div id="ohno">
 		<div id="ohno-inside">
 			<h1>Someone turned off the lights!</h1>

@@ -3,9 +3,9 @@
  * Handles the display and functionality of the theme settings page. This provides the needed hooks and
  * meta box calls for developers to create any number of theme settings needed.
  *
- * Provides the ability for developers to add custom meta boxes to the theme settings page by using the 
- * add_meta_box() function.  Developers should hook their meta box registration function to 'admin_menu' 
- * and register the meta box for 'appearance_page-theme-settings'. If data needs to be saved, devs can 
+ * Provides the ability for developers to add custom meta boxes to the theme settings page by using the
+ * add_meta_box() function.  Developers should hook their meta box registration function to 'admin_menu'
+ * and register the meta box for 'appearance_page-theme-settings'. If data needs to be saved, devs can
  * use the '$prefix_update_settings_page' action hook to save their data.
  *
  * @package HybridCore
@@ -16,7 +16,7 @@
 add_action( 'admin_menu', 'dbc_settings_page_init' );
 
 /**
- * Initializes all the theme settings page functions. This function is used to create the theme settings 
+ * Initializes all the theme settings page functions. This function is used to create the theme settings
  * page, then use that as a launchpad for specific actions that need to be tied to the settings page.
  *
  * Users or developers can set a custom capability (default is 'edit_theme_options') for access to the
@@ -29,10 +29,10 @@ function dbc_settings_page_init() {
 	global $hybrid;
 
 	/* Get theme information. */
-	$theme_data = get_theme_data( trailingslashit( TEMPLATEPATH ) . 'style.css' );
+	$theme_data = wp_get_theme( trailingslashit( TEMPLATEPATH ) . 'style.css' );
 	$prefix = hybrid_get_prefix();
 	$prefix = 'dbc';
-		
+
 	/* Register the default theme settings meta boxes. */
 	add_action( "load-appearance_page_theme-settings", 'dbc_create_settings_meta_boxes' );
 
@@ -51,13 +51,13 @@ function dbc_create_settings_meta_boxes() {
 	/* Get theme information. */
 	$prefix = hybrid_get_prefix();
 	$prefix = 'dbc';
-	$theme_data = get_theme_data( trailingslashit( TEMPLATEPATH ) . 'style.css' );
+	$theme_data = wp_get_theme( trailingslashit( TEMPLATEPATH ) . 'style.css' );
 
 	add_meta_box( "{$prefix}-style-settings-meta-box", __( 'Theme style settings', $prefix ), 'dbc_style_settings_meta_box', 'appearance_page_theme-settings', 'normal', 'high' );
 	add_meta_box( "{$prefix}-home-settings-meta-box", __( 'Home template settings', $prefix ), 'dbc_home_settings_meta_box', 'appearance_page_theme-settings', 'normal', 'high' );
 	add_meta_box( "{$prefix}-visitor-info-settings-meta-box", __( 'Visitor info settings', $prefix ), 'dbc_visitor_info_settings_meta_box', 'appearance_page_theme-settings', 'normal', 'high' );
 	add_meta_box( "{$prefix}-sidebar-settings-meta-box", __( 'Sidebar settings', $prefix ), 'dbc_sidebar_settings_meta_box', 'appearance_page_theme-settings', 'normal', 'high' );
-	
+
 }
 
 /**
@@ -69,7 +69,7 @@ function dbc_style_settings_meta_box() {
 	$prefix = 'dbc'; ?>
 
 	<table class="form-table">
-	
+
 		<tr>
 			<th><label for="<?php echo hybrid_settings_field_id( 'logo_src' ); ?>"><?php _e( 'Image path:', $prefix ); ?></label></th>
 			<td>
@@ -87,11 +87,11 @@ function dbc_style_settings_meta_box() {
  * @since 0.2
  */
 function dbc_home_settings_meta_box() {
-	$prefix = 'dbc'; 
+	$prefix = 'dbc';
 	$categories = get_terms( array( 'category' ) );
 	$categories[] = false;
-	?>				
-				
+	?>
+
 	<table class="form-table">
 
 		<tr>
@@ -117,7 +117,7 @@ function dbc_home_settings_meta_box() {
 				<?php _e( 'Select this to display the latest message from dbcmedia.org on the home page.', $prefix ); ?>
 			</td>
 		</tr>
-		
+
 		<tr>
 			<th><label for="<?php echo hybrid_settings_field_id( 'feature_category' ); ?>"><?php _e( 'Slider categories:', $prefix ); ?></label></th>
 			<td>
@@ -153,7 +153,7 @@ function dbc_sidebar_settings_meta_box() {
 	$prefix = 'dbc'; ?>
 
 	<table class="form-table">
-	
+
 		<tr>
 			<th><label for="<?php echo hybrid_settings_field_id( 'sidebar' ); ?>"><?php _e( 'Sidebar:', $prefix ); ?></label></th>
 			<td>
@@ -171,7 +171,7 @@ function dbc_sidebar_settings_meta_box() {
  * @since 0.2
  */
 function dbc_visitor_info_settings_meta_box() {
-	$prefix = 'dbc'; 
+	$prefix = 'dbc';
 	?>
 
 	<table class="form-table">
@@ -223,7 +223,7 @@ function dbc_visitor_info_settings_meta_box() {
 				<p><?php _e( 'Link to a page on your site for more information.', $prefix ); ?></p>
 			</td>
 		</tr>
-										
+
 	</table><!-- .form-table --><?php
 }
 
