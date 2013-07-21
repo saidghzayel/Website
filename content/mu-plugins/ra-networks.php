@@ -50,12 +50,12 @@ function ra_network_page() {
 
 if ( $_POST ) {
 	switch($_POST['action']) {
-		case 'addsite': 
+		case 'addsite':
 			check_admin_referer( 'ra-networks-add' );
 			$domain = ra_get_clean_basedomain( $_POST[ 'basedomain' ] );
 			if( !$domain ) {
 				$msg = 'The domain name provided was not valid.';
-			} else { 
+			} else {
 				$weblog_title = stripslashes_deep( $_POST[ 'weblog_title' ] );
 				if( strlen( $weblog_title ) > 0 )
 					$msg = ra_add_network( $domain, $weblog_title );
@@ -99,9 +99,9 @@ if ( $_POST ) {
 	}
 }	?>
 <div class="wrap">
-<?php	if($msg) { ?> 
+<?php	if($msg) { ?>
 		<div id="message" class="updated fade"><p><?php echo $msg ?></p></div>
-<?php	} 
+<?php	}
 	$sites = $wpdb->get_results( 'SELECT s.id, CONCAT(s.domain,s.path) as uri, COUNT(*) as sites ' .
 			"FROM {$wpdb->site} s JOIN {$wpdb->blogs} b ON s.id = b.site_id WHERE s.id > 1 GROUP BY s.id");
 	$net_scheme = is_ssl() ? 'https://' : 'http://';
@@ -130,7 +130,7 @@ if ( $_POST ) {
 					<td><a href="<?php echo $admin_scheme . $site->uri; ?>wp-admin/"><?php _e('Dashboard'); ?></a></td>
 					<td><?php echo $site->sites; ?></td>
 				</tr>
-<?php		} ?> 
+<?php		} ?>
 				<tr>
 					<td class='submit'><input class="button" name='delete' type='submit' value='Delete Checked Networks' /></td>
 					<td>
@@ -143,45 +143,45 @@ if ( $_POST ) {
 			</tbody>
 		</table></form>
 <?php	} ?>
-	<form method='post'><?php	
+	<form method='post'><?php
 
-	wp_nonce_field( 'ra-networks-add' ); 
-	
+	wp_nonce_field( 'ra-networks-add' );
+
 	?><h2>Add Network</h2>
-		<table class="form-table">  
-			<tr> 
-				<th scope='row'>Domain Name</th> 
+		<table class="form-table">
+			<tr>
+				<th scope='row'>Domain Name</th>
 				<td>
 					<input type='text' name='basedomain' value='<?php echo $domain ?>' />
-					
-				</td> 
+
+				</td>
 			</tr>
-			<tr> 
+			<tr>
 				<th scope='row'>Network&nbsp;Title</th>
 				<td>
 					<input name='weblog_title' type='text' size='45' value='<?php echo $weblog_title ?>' />
 					<br />What would you like to call your Network?
-				</td> 
-			</tr> 
-			<tr> 
+				</td>
+			</tr>
+			<tr>
 				<td class='submit'><input class="button" name='submit' type='submit' value='Add' /></td>
 				<td><input type="hidden" name="action" value="addsite" /></td>
 			</tr>
 		</table><?php
-		
+
 	do_action( 'netplus_extra_fields' );
-	
+
 	?></form></div><?php
  }
 function ra_add_network( $domain, $network_title ) {
 	global $wpdb, $current_site, $current_user;
-	
+
 	if( $domain && $network_title ) {
 		do_action( 'netplus_before_new_network', $domain, $network_title );
-		
+
 		if( !( $blog_id = apply_filters( 'netplus_new_network_blog_id', false ) ) )
 			$blog_id = wpmu_create_blog( $domain, $current_site->path, $network_title, $current_user->id, array( 'blog_public' => 1, 'public' => 1 ) );
-			
+
 		if( is_wp_error( $blog_id ) )
 			return $blog_id->get_error_message();
 
@@ -193,9 +193,9 @@ function ra_add_network( $domain, $network_title ) {
 			if( is_wp_error( $result ) )
 				return $result->get_error_message();
 		}
-		
+
 		do_action( 'netplus_after_new_network', $blog_id, $domain, $current_site->path, $network_title );
-		
+
 		return __( 'Network created' );
 	}
 }
@@ -207,7 +207,7 @@ function ra_get_clean_basedomain( $domain ) {
 	$domain = strtolower( preg_replace( '|https?://|', '', $domain ) );
 	if ( ( $slash = strpos( $domain, '/' ) ) )
 		$domain = substr( $domain, 0, $slash );
-		
+
 	return $domain;
 }
 
@@ -277,7 +277,7 @@ Thanks!
 
 --The Team @ SITE_NAME' );
 	}
-	
+
 	$sitemeta = array(
 		'site_name' => $site_name,
 		'admin_email' => $site_user->user_email,
@@ -329,14 +329,14 @@ Thanks!
 
 	if( is_multisite() )
 		switch_to_blog( $blog_id );
-		
+
 	if( $subdomain_install )
 		update_option( 'permalink_structure', '/%year%/%monthnum%/%day%/%postname%/');
 	else
 		update_option( 'permalink_structure', '/blog/%year%/%monthnum%/%day%/%postname%/');
 
 	update_option( 'rewrite_rules', '' );
-	
+
 	if( is_multisite() )
 		restore_current_blog();
 
@@ -363,6 +363,6 @@ Thanks!
 	}
 
 	do_action( 'netplus_after_populate_network', $network_id, $blog_id, $domain, $email, $site_name, $path, $subdomain_install );
-	
+
 	return true;
 }

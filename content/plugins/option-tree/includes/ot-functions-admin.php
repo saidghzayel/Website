@@ -96,7 +96,7 @@ if ( ! function_exists( 'ot_validate_setting' ) ) {
     
       $input[0] = sanitize_text_field( $input[0] );
       
-    } else if ( 'typography' == $type ) {
+    } else if ( 'typography' == $type && isset( $input['font-color'] ) ) {
       
       $input['font-color'] = ot_validate_setting( $input['font-color'], 'colorpicker', $field_id );
     
@@ -390,6 +390,9 @@ if ( ! function_exists( 'ot_default_settings' ) ) {
         
         }
         
+        /* execute the action hook and pass the theme options to it */
+        do_action( 'ot_before_theme_options_save', $options );
+        
         /* update the option tree array */
         update_option( 'option_tree', $options );
         
@@ -615,6 +618,9 @@ if ( ! function_exists( 'ot_import' ) ) {
         
         }
         
+        /* execute the action hook and pass the theme options to it */
+        do_action( 'ot_before_theme_options_save', $options );
+      
         /* update the option tree array */
         update_option( 'option_tree', $options );
         
@@ -673,8 +679,13 @@ if ( ! function_exists( 'ot_import' ) ) {
         
         /* update the option tree array */
         if ( isset( $layouts['active_layout'] ) ) {
+          
+          $new_options = unserialize( ot_decode( $layouts[$layouts['active_layout']] ) );
+          
+          /* execute the action hook and pass the theme options to it */
+          do_action( 'ot_before_theme_options_save', $new_options );
         
-          update_option( 'option_tree', unserialize( ot_decode( $layouts[$layouts['active_layout']] ) ) );
+          update_option( 'option_tree', $new_options );
           
         }
         
@@ -943,6 +954,17 @@ if ( ! function_exists( 'ot_export_php_settings_array' ) ) {
         ),";
         }
         
+        $std = "'$_std'";
+        if ( is_array( $_std ) ) {
+          $std_array = array();
+          foreach( $_std as $_sk => $_sv ) {
+            $std_array[] = "'$_sk' => '$_sv'";
+          }
+          $std = 'array(
+' . implode( ",\n", $std_array ) . '
+          )';
+        }
+        
         $setting_settings = '';
         if ( isset( $value['settings'] ) && ! empty( $value['settings'] ) ) {
           foreach( $value['settings'] as $setting ) {
@@ -974,13 +996,24 @@ if ( ! function_exists( 'ot_export_php_settings_array' ) ) {
             'choices'     => array( $setting_choices
             ),";
             }
+            
+            $setting_std = "'$_setting_std'";
+            if ( is_array( $_setting_std ) ) {
+              $setting_std_array = array();
+              foreach( $_setting_std as $_ssk => $_ssv ) {
+                $setting_std_array[] = "'$_ssk' => '$_ssv'";
+              }
+              $setting_std = 'array(
+' . implode( ",\n", $setting_std_array ) . '
+              )';
+            }
         
             $setting_settings.= "
           array(
             'id'          => '$_setting_id',
             'label'       => '$_setting_label',
             'desc'        => '$_setting_desc',
-            'std'         => '$_setting_std',
+            'std'         => $setting_std,
             'type'        => '$_setting_type',
             'rows'        => '$_setting_rows',
             'post_type'   => '$_setting_post_type',
@@ -999,7 +1032,7 @@ if ( ! function_exists( 'ot_export_php_settings_array' ) ) {
         'id'          => '$_id',
         'label'       => '$_label',
         'desc'        => '$_desc',
-        'std'         => '$_std',
+        'std'         => $std,
         'type'        => '$_type',
         'section'     => '$_section',
         'rows'        => '$_rows',
@@ -1020,9 +1053,9 @@ if ( ! function_exists( 'ot_export_php_settings_array' ) ) {
     
     $content.= "<?php
 /**
- * Initialize the options before anything else.
+ * Initialize the custom theme options.
  */
-add_action( 'admin_init', 'custom_theme_options', 1 );
+add_action( 'admin_init', 'custom_theme_options' );
 
 /**
  * Build the custom settings & update OptionTree.
@@ -1193,44 +1226,6 @@ if ( ! function_exists( 'ot_save_settings' ) ) {
       
       /* is array: save & show success message */
       if ( is_array( $settings ) ) {
-        
-        // WPML unregister ID's that have been removed
-        if ( function_exists( 'icl_unregister_string' ) ) {
-          
-          $current = get_option( 'option_tree_settings' );
-          
-          if ( isset( $current['settings'] ) ) {
-            
-            // Empty ID array
-            $new_ids = array();
-            
-            // Build the IDs
-            foreach( $settings['settings'] as $setting ) {
-            
-              if ( $setting['id'] ) {
-              
-                $new_ids[] = $setting['id'];
-                
-              }
-              
-            }
-            
-            // Remove IDs from WPML
-            /*
-            foreach( $current['settings'] as $setting ) {
-            
-              if ( ! in_array( $setting['id'], $new_ids ) ) {
-
-                wpml_unregister_string( $setting['id'] );
-                
-              }
-              
-            }
-            */
-
-          }
-          
-        }
         
         update_option( 'option_tree_settings', $settings );
         $message = 'success';
@@ -1438,7 +1433,12 @@ if ( ! function_exists( 'ot_modify_layouts' ) ) {
         /* rebuild the theme options */
         $rebuild_option_tree = unserialize( ot_decode( $rebuild[$rebuild['active_layout']] ) );
         if ( is_array( $rebuild_option_tree ) ) {
+          
+          /* execute the action hook and pass the theme options to it */
+          do_action( 'ot_before_theme_options_save', $rebuild_option_tree );
+          
           update_option( 'option_tree', $rebuild_option_tree );
+          
         }
         
         /* rebuild the layouts */
@@ -2343,7 +2343,7 @@ if ( ! function_exists( 'ot_insert_css_with_markers' ) ) {
       
       /* Loop through CSS */
       foreach( $matches[0] as $option ) {
-        
+
         $value        = '';
         $option_id    = str_replace( array( '{{', '}}' ), '', $option );
         $option_array = explode( '|', $option_id );
@@ -2449,6 +2449,9 @@ if ( ! function_exists( 'ot_insert_css_with_markers' ) ) {
          
         }
         
+        // Filter the CSS
+       	$value = apply_filters( 'ot_insert_css_with_markers_value', $value, $option_id );
+       	
         /* insert CSS, even if the value is empty */
        	$insertion = stripslashes( str_replace( $option, $value, $insertion ) );
        	
@@ -2769,7 +2772,20 @@ if ( ! function_exists( 'ot_settings_view' ) ) {
   function ot_settings_view( $name, $key, $setting = array() ) {
     
     $child = ( strpos( $name, '][settings]') !== false ) ? true : false;
-
+    $type = isset( $setting['type'] ) ? $setting['type'] : '';
+    $std = isset( $setting['std'] ) ? $setting['std'] : '';
+    
+    // Serialize the standard value just incase
+    if ( is_array( $std ) ) {
+      $std = maybe_serialize( $std );
+    }
+    
+    if ( in_array( $type, array( 'textarea', 'textarea-simple', 'css' ) ) ) {
+      $std_form_element = '<textarea class="textarea" rows="10" cols="40" name="' . esc_attr( $name ) . '[' . esc_attr( $key ) . '][std]">' . esc_html( $std ) . '</textarea>';
+    } else {
+      $std_form_element = '<input type="text" name="' . esc_attr( $name ) . '[' . esc_attr( $key ) . '][std]" value="' . esc_attr( $std ) . '" class="widefat option-tree-ui-input" autocomplete="off" />';
+    }
+    
     return '
     <div class="option-tree-setting">
       <div class="open">' . ( isset( $setting['label'] ) ? esc_attr( $setting['label'] ) : 'Setting ' . ( $key + 1 ) ) . '</div>
@@ -2802,9 +2818,9 @@ if ( ! function_exists( 'ot_settings_view' ) ) {
           <div class="format-setting type-select wide-desc">
             <div class="description">' . __( '<strong>Type</strong>: Choose one of the available option types from the dropdown.', 'option-tree' ) . '</div>
             <div class="format-setting-inner">
-              <select name="' . esc_attr( $name ) . '[' . esc_attr( $key ) . '][type]" value="' . ( isset( $setting['type'] ) ? esc_attr( $setting['type'] ) : '' ) . '" class="option-tree-ui-select">
-              ' . ( isset( $setting['type'] ) ? ot_loop_through_option_types( $setting['type'], $child ) : ot_loop_through_option_types( '', $child ) ) . '                     
-              
+              <select name="' . esc_attr( $name ) . '[' . esc_attr( $key ) . '][type]" value="' . esc_attr( $type ) . '" class="option-tree-ui-select">
+              ' . ot_loop_through_option_types( $type, $child ) . '                     
+               
               </select>
             </div>
           </div>
@@ -2843,7 +2859,7 @@ if ( ! function_exists( 'ot_settings_view' ) ) {
           <div class="format-setting type-text wide-desc">
             <div class="description">' . __( '<strong>Standard</strong>: Setting the standard value for your option only works for some option types. Read the <code>OptionTree->Documentation</code> for more information on which ones.', 'option-tree' ) . '</div>
             <div class="format-setting-inner">
-              <input type="text" name="' . esc_attr( $name ) . '[' . esc_attr( $key ) . '][std]" value="' . ( isset( $setting['std'] ) ? esc_attr( $setting['std'] ) : '' ) . '" class="widefat option-tree-ui-input" autocomplete="off" />
+              ' . $std_form_element . '
             </div>
           </div>
         </div>
@@ -3115,9 +3131,12 @@ if ( ! function_exists( 'ot_list_item_view' ) ) {
         
       foreach( $settings as $field ) {
         
+        // Set field value
+        $field_value = isset( $list_item[$field['id']] ) ? $list_item[$field['id']] : '';
+        
         /* set default to standard value */
-        if ( ! isset( $list_item[$field['id']] ) && isset( $field['std'] ) ) {  
-          $list_item[$field['id']] = trim( $field['std'] );
+        if ( isset( $field['std'] ) ) {  
+          $field_value = ot_filter_std_value( $field_value, $field['std'] );
         }
           
         /* make life easier */
@@ -3128,7 +3147,7 @@ if ( ! function_exists( 'ot_list_item_view' ) ) {
           'type'              => $field['type'],
           'field_id'          => $name . '_' . $field['id'] . '_' . $key,
           'field_name'        => $_field_name . '[' . $key . '][' . $field['id'] . ']',
-          'field_value'       => isset( $list_item[$field['id']] ) ? $list_item[$field['id']] : '',
+          'field_value'       => $field_value,
           'field_desc'        => isset( $field['desc'] ) ? $field['desc'] : '',
           'field_std'         => isset( $field['std'] ) ? $field['std'] : '',
           'field_rows'        => isset( $field['rows'] ) ? $field['rows'] : 10,
@@ -3548,7 +3567,7 @@ function ot_decode( $value ) {
  */
 function ot_file_open( $handle, $mode ) {
 
-  @fopen( $handle, $mode );
+  return @fopen( $handle, $mode );
   
 }
 
@@ -3560,7 +3579,7 @@ function ot_file_open( $handle, $mode ) {
  */
 function ot_file_close( $handle ) {
 
-  fclose( $handle );
+  return fclose( $handle );
   
 }
 
@@ -3572,39 +3591,43 @@ function ot_file_close( $handle ) {
  */
 function ot_file_write( $handle, $string ) {
 
-  fwrite( $handle, $string );
+  return fwrite( $handle, $string );
   
 }
 
 /**
- * Helper function to register a WPML string
+ * Helper function to filter standard option values.
+ *
+ * @param     mixed     $value Saved string or array value
+ * @param     mixed     $std Standard string or array value
+ * @return    mixed     String or array
  *
  * @access    public
- * @since     2.0.14
+ * @since     2.0.15
  */
-function wpml_register_string( $id, $value ) {
-
-  if ( function_exists( 'icl_register_string' ) ) {
-      
-    icl_register_string( 'OptionTree', $id, $value );
-      
-  }
+function ot_filter_std_value( $value = '', $std = '' ) {
   
-}
-
-/**
- * Helper function to unregister a WPML string
- *
- * @access    public
- * @since     2.0.14
- */
-function wpml_unregister_string( $id ) {
-
-  if ( function_exists( 'icl_unregister_string' ) ) {
+  $std = maybe_unserialize( $std );
+  
+  if ( is_array( $value ) && is_array( $std ) ) {
+  
+    foreach( $value as $k => $v ) {
       
-    icl_unregister_string( 'OptionTree', $id );
+      if ( empty( $value[$k] ) && isset( $std[$k] ) ) {
       
+        $value[$k] = $std[$k];
+        
+      }
+      
+    }
+  
+  } else if ( empty( $value ) && ! empty( $std ) ) {
+  
+    $value = $std;
+    
   }
+
+  return $value;
   
 }
 

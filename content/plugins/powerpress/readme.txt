@@ -1,9 +1,9 @@
 === Blubrry PowerPress Podcasting plugin ===
 Contributors: Angelo Mandato, Blubrry.com
-Tags: podcasting, podcast, podcaster, itunes, enclosure, zune, iphone, youtube, viddler, blip.tv, ustream, podcasting, audio, video, rss2, feed, player, media, rss, mp3, music, embed, feedburner, statistics, stats, flv, flash, id3, episodes, blubrry, webm, mp4, m4v, wordpressmu, mu, wordpress mu, mediacaster, post, plugin, posts, simple, social, dashboard, TSG, Buzzsprout, MTR, WP-boxCast, CastMyBlog
+Tags: podcasting, podcast, podcaster, itunes, enclosure, zune, iphone, youtube, viddler, blip.tv, ustream, podcasting, audio, video, rss2, feed, player, media, rss, mp3, music, embed, feedburner, statistics, stats, flv, flash, id3, episodes, blubrry, webm, mp4, m4v, wordpressmu, mu, wordpress mu, multisite, multi site, mediacaster, post, plugin, posts, simple, social, dashboard, TSG, Buzzsprout, MTR, WP-boxCast, CastMyBlog, simple podcasting, seriously simple podcasting, seriously-simple-podcasting, podlove, podcast.de
 Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 4.0.7
+Tested up to: 3.6
+Stable tag: 4.0.9
 
 Blubrry PowerPress brings the essential features for podcasting to WordPress including full iTunes support, web audio/video media players and more.
 
@@ -15,7 +15,7 @@ Blubrry PowerPress brings the essential features for podcasting to WordPress. De
 PowerPress 4.0 includes all of the latest [Apple iTunes podcasting specifications](http://www.powerpresspodcast.com/2012/05/10/itunes-podcasting-specifications-changed-may-2012-what-that-means-for-podcasting/). Don't be left behind, upgrade to PowerPress 4.0 today!
 
 = Currently Using PodPress? =
-Switching to PowerPress is seamless, just enable PowerPress then disable PodPress and you're done! Switching plugins is that easy!
+Switching to PowerPress is seamless, just enable PowerPress then disable PodPress and you're done! Switching plugins is that easy! Visit [Migrating from PodPress to PowerPress](http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/migrating-from-podpress-to-powerpress/) for details.
 
 =  PowerPress Key Features  =
 - HTML5 video support: Add both mp4 and webm media to each episode for maximum platform compatibility
@@ -26,7 +26,7 @@ Switching to PowerPress is seamless, just enable PowerPress then disable PodPres
 - Multi-podcast support: Create separate podcasts by category (category casting) or by media format (Podcast Channels).
 - Supported Media Formats: mp3, m4a, mp4, m4v, webm, ogg, oga, ogv, wma, ra, mp4a, m4v, mp4v, mpg, asf, avi, wmv, flv, swf, mov, divx, 3gp, midi, wav, aa, pdf, torrent, m4b, m4r, epub.
 - *Media Statistics: Get FREE Blubrry Media Statistics from your WordPress dashboard.
-* Languages supported: English, Danish, French, Simplified Chinese, Italian ([Want to translate PowerPress?](http://www.blubrry.com/powerpress_translate/))
+* Languages supported: English, Danish, French, Simplified Chinese, Italian ([Want to translate PowerPress?](http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/translating-powerpress/))
 
 *The Blubrry basic statistics service is FREE. Our [Premium Statistics Service](https://secure.blubrry.com/podcast-statistics-premium/), which includes U.S. downloads, trending and exporting, is available for $5 month.
 
@@ -34,7 +34,7 @@ Switching to PowerPress is seamless, just enable PowerPress then disable PodPres
 iTunes can make up between 50 and 95 percent of a podcaster's audience. PowerPress comes with the following iTunes specific features.
 
 * iTunes compliant podcast feeds: The appropriate tags are added to your feeds so your iTunes listing looks great.
-* Optimized iTunes Summary: Converts your blog post content to a format suited for viewing in iTunes ([learn more](http://help.blubrry.com/blubrry-powerpress/powerpress-settings/enhanced-itunes-summary/))
+* Optimized iTunes Summary: Converts your blog post content to a format suited for viewing in iTunes ([learn more](http://create.blubrry.com/resources/powerpress/powerpress-settings/itunes/))
 * Upload iTunes Artwork: Upload and change your iTunes artwork directly from within PowerPress settings.
 * iTunes podcasting specifications fully supported.
 
@@ -71,7 +71,7 @@ Want more? Check out the advanced features.
 * *User Role Management: Control which users in your blog can podcast.
 * **Custom Post Types: Use the new Custom Post Types feature found in WordPress 3.0
 * Diagnostics: Check to see if your server is configured to support all of the available features in PowerPress.
-* WordPress MU: Blubrry PowerPress is compatible with [WordPress MU](http://mu.wordpress.org/)
+* WordPress MultiSite: Blubrry PowerPress is compatible with WordPress MultiSite (Previously WordPress MU)
 
 *User Role Management requires a separate plugin to manage WordPress Roles and Capabilities.
 
@@ -85,13 +85,15 @@ Want more? Check out the advanced features.
 
 PowerPress will continue where plugin your old plugin left off by including your previously created episodes in your feeds and web pages.
 
+Please visit [Migrating from PodPress to PowerPress](http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/migrating-from-podpress-to-powerpress/) for specific details.
+
 = Need Help? =
 . . . or have some ideas that could improve the plugin?
 
-* Visit the Blubrry [Community Forum](http://forum.blubrry.com/)
-* Use the Blubrry [Contact Us](http://www.blubrry.com/contact.php)  form
-* Blubrry [PowerPress Documentation](http://help.blubrry.com/blubrry-powerpress/)
-* Check out [PodcastFAQ.com](http://www.podcastfaq.com/) - everything you need to know about podcasting
+* Visit the Blubrry [Community Forum](http://forum.blubrry.com/) and [Blubrry Resources](http://create.blubrry.com/resources/) 
+* Use the Blubrry [Contact Us](http://www.blubrry.com/contact.php) form
+* Blubrry [PowerPress Documentation](http://create.blubrry.com/resources/powerpress/)
+* Check out [The Podcasting Manual](http://create.blubrry.com/manual/) - everything you need to know about podcasting
 
 *PowerPress is developed and maintained by [Blubrry](http://www.blubrry.com), a podcasting company and community providing tools and resources for podcasters to measure, monetize, publish and host podcasts. Although we'd like you to become a member of [Blubrry](http://www.blubrry.com/createaccount.php), **no membership is required** to use this free open source podcasting plugin.*
 
@@ -114,7 +116,7 @@ Blubrry PowerPress does not allow you to include multiple media files for one fe
 As a alternative, PowerPress allows you to create additional Custom Podcast Feeds to associate any magnitude of media format and/or length in a blog post to specific custom feeds. For example, you can create one blog post associated to separate video and audio podcast feeds saving you time from entering your show notes twice. 
 
  = Why doesn't Blubrry PowerPress include media statistics built-in? =
- Blubrry PowerPress does not include media statistics built-in. This is not because Blubrry has its own statistics service, although that's a good reason by itself. Maintaining and calculating statistics is a resource and server intensive task that would add bloat to an otherwise efficient WordPress podcasting plugin. We recommend using your media hosting's web statistics to give you basic download numbers and, if you are seeking more grandular measurements such as client and geographical information for each episode, you're more than welcome to use the [Blubrry Statistics service](http://www.blubrry.com/podcast_statistics/) as well.
+ Blubrry PowerPress does not include media statistics built-in. This is not because Blubrry has its own statistics service, although that's a good reason by itself. Maintaining and calculating statistics is a resource and server intensive task that would add bloat to an otherwise efficient WordPress podcasting plugin. We recommend using your media hosting's web statistics to give you basic download numbers and, if you are seeking more grandular measurements such as client and geographical information for each episode, you're more than welcome to use the [Blubrry Statistics service](http://create.blubrry.com/resources/podcast-media-download-statistics/) as well.
  
  You may however access your Blubrry Statistics from within your WordPress dashboard.
  
@@ -154,8 +156,39 @@ To install Blubrry PowerPress manually, follow these steps:
 == Changelog ==
 
 = Announcement =
-* PowerPress 3.0 is not compatible with WordPress 2.8.x and 2.9.x. Please upgrade to WordPress 3.0 or newer to install PowerPress.
-* Translation support is now complete. Please visit the following link if you would like to have a version in your language: [http://www.blubrry.com/powerpress_translate/](http://www.blubrry.com/powerpress_translate/)
+* PowerPress 3.0+ is not compatible with WordPress 2.8.x and 2.9.x. Please upgrade to WordPress 3.0 or newer to install PowerPress.
+* Translation support is now complete. Please visit the following link if you would like to have a version in your language: [http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/translating-powerpress/](http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/translating-powerpress/)
+
+= 4.0.9 =
+* Releaesd on 6/20/2013
+* PowerPress 5.0 is coming! If you would like to beta test, please contact Angelo at cio [at] rawovice dot com. Beta testing starts when WordPress 3.6 is released, PowerPress 5.0 will utilize some new features in WordPress 3.6.
+* The PowerPress Version Updates Survey results will be posted in the coming weeks.  Based on user feedback, we will release minor updates within 7 days if necessary, major releases between 1-3 months apart, and new features will be included in the plguin but disabled by default.
+* Fixed logic for displaying statistics in dashboard to time out after 1 second (was previously 15 seconds) so if there's a network issue between the server and blubrry.com the dashboard still loads promptly. (Thanks Michael Hansen for bringing to our attention!)
+* Added new filter `powerpress_feed_auth` for other plugins to filter feed authentication. (Thanks amereservant for the feature suggestion!)
+* Added new define `POWERPRESS_AUTO_DETECT_ONCE`, edits to existing episodes will use the specify option if this define is set to true. (Thanks amereservant for the feature suggestion!)
+* Fixed bug with ID3 tagging not correctly incrementing the track number for episodes. This only affected Blubrry hosting customers who had this option turned on. (Thanks RWPeck for bringing to our attention!)
+* Mobile devices now use the same HTML5 player as the regular desktop HTML5 player found in PowerPress. This is due to reports that some mobile devices are now pre-loading media on pages, this will cut down on such bandwidth. (Thanks Daniel for bringing to our attention)
+* Added new define `POWERPRESS_POST_TYPES`, when set, only the post types specified are given podcasting episode entry boxes. Multiple post types are separated by commas. Example with added movies custom post type added: `'page,post,movies'`. This will bypass the default behavior of adding episode boxes to all post types with `post` or `page` capability.
+* Fixed bug with unchecking iTunes Closed Captioned option not saving. (Thanks davidcross for reporting bug)
+
+
+= 4.0.8 =
+* Released on 4/19/2013
+* PowerPress Version Updates Survey - Thanks everyone for participating!
+* [Blubrry Create](http://create.blubrry.com) site launched! Site includes our [Podcasting Manual](http://create.blubrry.com/manual/), [Blubrry Resources](http://create.blubrry.com/resources/) and [Support Options](http://create.blubrry.com/support/).
+* Completely rewrote logic added in 4.0.7 to fix the conflict with Yoast Google Analytics plugin. This sholud solve the issues folks have been having when using this plugin with PowerPress.
+* Flow Player Classic audio player height changed from 24 to 22 when Firefox detected, displays correctly in Firefox with this custom height.
+* Added code to prevent possible "Empty delimiter" warning for strstr function calls in plugin.
+* Added admin.php to `admin_url()` function calls to get around issue when web hosting providers do not provide DirectoryIndex support for index.php files.
+* Added `channel` as an option to the powerpress shortcode to clear up confusion, this option was previously currently called `feed` for specifying a specific custom podcast channel.
+* Changed logic for powerpress channel shortcode to always display the player and links even if no player configured in settings. (Thanks Daniel Lewis for pointing out the problem)
+* Added new define `POWERPRESS_CUSTOM_CAPABILITY_TYPE`, for setting an additional compatibility type other than "post" or "page". Only works for custom podcast channels, not the default podcast channel.
+* Modified logic to allow smaller open in new window sizes, height can now be as small as 20 pixels and width can be as small as 50 pixels. Any values smaller than this will default to height of 20 pixels and width of 50 pixels. We still add 40px width and 80px height padding for scroll bars.
+* Added new option "Do not factor in scroll bars" to the New Window settings. By default, PowerPress adds to the width and height above to compensate for possible vertical and horizontal scroll bars. Check this option if you do not want PowerPress to compensate for browser scroll bars.
+* Fixed a notice message from PHP when error reporting set to include notices, only occurred when hosting configured.
+* Added blubrry Podcast Media Hosting icon with link to disable icon from edit screen.
+* Updated thickbox logic for compatibility with WordPress 3.6+.
+* Added logic to stats redirect URL to prevent incorrect URLs from being used.
 
 
 = 4.0.7 =
@@ -552,7 +585,7 @@ To install Blubrry PowerPress manually, follow these steps:
 * Reorganized settings pages with tabbed sections.
 * Added new Video Scale setting, users can choose between 'scale', 'tofit, or enter their own scale value such as 1.5.
 * Added new 'E-Book PDF' label for download links of PDF files.
-* Added new CSS class to download links in the form of powerpress_links_EXTENSION, where EXTENSION is replaced with the media file extension in lower case. e.g. powerpress_links_mp3. Learn more: [PowerPress Advanced Tweaks](http://help.blubrry.com/blubrry-powerpress/advanced-tweaks/)
+* Added new CSS class to download links in the form of powerpress_links_EXTENSION, where EXTENSION is replaced with the media file extension in lower case. e.g. powerpress_links_mp3. Learn more: [PowerPress Advanced Tweaks](http://create.blubrry.com/resources/powerpress/advanced-tools-and-options/)
 * Update iTunes Listing option in Podcast Channels and Podcast Category Feeds is now independant of main Update iTunes Listing setting.
 * Made additional tweaks to further support the old PodPress [display_podcast] shortcode.
 
@@ -581,7 +614,7 @@ To install Blubrry PowerPress manually, follow these steps:
 
 = 0.9.9 =
 * Released on 9/12/2009
-* No longer checking content type returned from servers, check effected video podcasters who have no control of their servers.
+* No longer checking content type returned from servers, check affected video podcasters who have no control of their servers.
 * Added Media URL redirect warning when redirects exceed 5, previously this was an error.
 * Better detection used when server does not support HTTP URL connections, we now display a message when `allow_url_fopen` setting is disabled and cURL library not available.
 * Blubrry Services Integration, added message when authentication failed and display error when web server does not support Blubrry services.
@@ -870,10 +903,11 @@ Nicolas Bouliane, [Perosnal Blog](http://nicolasbouliane.com/) - contributed cod
 Please [contact blubrry](http://www.blubrry.com/contact.php) with the link to your tips or tutorial for PowerPress and we'll add them to the list above.
 
 == Feedback == 
- http://www.blubrry.com/powerpress/
+ [http://create.blubrry.com/resources/powerpress/](http://create.blubrry.com/resources/powerpress/)
 
 == Support == 
- http://help.blubrry.com/blubrry-powerpress/
+ [http://create.blubrry.com/support/](http://create.blubrry.com/support/)
 
 == Twitter == 
- http://twitter.com/blubrry
+ 
+ [http://twitter.com/blubrry](http://twitter.com/blubrry)

@@ -26,7 +26,7 @@ class JWP6_Media {
         add_media_page(
             "JW Player Playlist Manager",    //$page_title
             "JW Player Playlists",                     //$menu_title
-            "read",                          //$capability
+            "publish_posts",                          //$capability
             JWP6 . "playlists",              //$menu_slug
             array('JWP6_Media', 'playlist_manager') //$function
         );
@@ -138,6 +138,7 @@ class JWP6_Media {
             "post_type" => 'jw_playlist',
             "post_status" => 'publish, private,draft',
             'sort_column' => 'post_title',
+            'numberposts' => 999999,
         );
         return get_posts($params);
     }

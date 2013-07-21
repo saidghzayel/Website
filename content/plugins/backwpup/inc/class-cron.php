@@ -27,8 +27,8 @@ class BackWPup_Cron {
 			if ( ! in_array( $arg, $jobids) )
 				return;
 			//reschedule job for next run
-			$cronnxet = BackWPup_Cron::cron_next( BackWPup_Option::get( $arg, 'cron' ) );
-			wp_schedule_single_event( $cronnxet, 'backwpup_cron', array( 'id' => $arg ) );
+			$cron_next = self::cron_next( BackWPup_Option::get( $arg, 'cron' ) );
+			wp_schedule_single_event( $cron_next, 'backwpup_cron', array( 'id' => $arg ) );
 			//start job
 			BackWPup_Job::start_wp_cron( $arg );
 		}
@@ -44,7 +44,7 @@ class BackWPup_Cron {
 		$jobids = BackWPup_Option::get_job_ids( );
 
 		// check aborted jobs for longer than a tow hours, abort them courtly and send mail
-		if ( is_object( $job_object ) ) {
+		if ( is_object( $job_object ) && ! empty( $job_object->logfile ) ) {
 			$not_worked_time = microtime( TRUE ) - $job_object->timestamp_last_update;
 			if ( $not_worked_time > 7200 ) {
 				unlink( BackWPup::get_plugin_data( 'running_file' ) );
@@ -54,17 +54,19 @@ class BackWPup_Cron {
 				//write new log header
 				$job_object->errors ++;
 				$fd      = fopen( $job_object->logfile, 'r+' );
-				$filepos = ftell( $fd );
-				while ( ! feof( $fd ) ) {
-					$line = fgets( $fd );
-					if ( stripos( $line, "<meta name=\"backwpup_errors\"" ) !== FALSE ) {
-						fseek( $fd, $filepos );
-						fwrite( $fd, str_pad( "<meta name=\"backwpup_errors\" content=\"" . $job_object->errors . "\" />", 100 ) . PHP_EOL );
-						break;
-					}
+				if ( is_resource( $fd ) ) {
 					$filepos = ftell( $fd );
+					while ( ! feof( $fd ) ) {
+						$line = fgets( $fd );
+						if ( stripos( $line, "<meta name=\"backwpup_errors\"" ) !== FALSE ) {
+							fseek( $fd, $filepos );
+							fwrite( $fd, str_pad( "<meta name=\"backwpup_errors\" content=\"" . $job_object->errors . "\" />", 100 ) . PHP_EOL );
+							break;
+						}
+						$filepos = ftell( $fd );
+					}
+					fclose( $fd );
 				}
-				fclose( $fd );
 				//update job settings
 				if ( ! empty( $job_object->job[ 'jobid' ] ) )
 					BackWPup_Option::update( $job_object->job[ 'jobid' ], 'lastruntime', ( current_time( 'timestamp' ) - $job_object->start_time ) );
@@ -127,18 +129,6 @@ class BackWPup_Cron {
 		if ( ! $job_object ) {
 			//remove restart cron
 			wp_clear_scheduled_hook( 'backwpup_cron', array( 'id' => 'restart' ) );
-			//clear maintenance mode
-			if ( is_file( ABSPATH . '.maintenance' ) or ( defined( 'FB_WM_TEXTDOMAIN' ) && ( get_site_option( FB_WM_TEXTDOMAIN . '-msqld' ) == 1 or get_option( FB_WM_TEXTDOMAIN . '-msqld' ) == 1 ) ) ) {
-				if ( class_exists( 'WPMaintenanceMode' ) ) { //Support for WP Maintenance Mode Plugin (Frank Bueltge)
-					if ( is_multisite() && is_plugin_active_for_network( FB_WM_BASENAME ) )
-						update_site_option( FB_WM_TEXTDOMAIN . '-msqld', 0 );
-					else
-						update_option( FB_WM_TEXTDOMAIN . '-msqld', 0 );
-				}
-				else { //WP Support
-					unlink( ABSPATH . '.maintenance' );
-				}
-			}
 			//temp cleanup
 			if ( $dir = opendir( BackWPup::get_plugin_data( 'TEMP' ) ) ) {
 				while ( FALSE !== ( $file = readdir( $dir ) ) ) {
@@ -152,6 +142,51 @@ class BackWPup_Cron {
 		}
 	}
 
+	
+	/**
+	 * Start job if in cron and run query args are set.
+	 */
+	public static function cron_active() {
+
+		//only if cron active
+		if ( ! defined( 'DOING_CRON' ) || ! DOING_CRON )
+			return;
+			
+		//only work if backwpup_run as query var ist set and nothing else and the value ist right
+		if ( empty( $_GET[ 'backwpup_run' ] ) || ! in_array( $_GET[ 'backwpup_run' ], array( 'test','restart', 'runnow', 'runnowalt', 'runext', 'cronrun' ) ) )
+			return;
+		
+		//set some header
+		send_nosniff_header();
+		nocache_headers();
+		@header( 'x-backwpup-ver: ' . BackWPup::get_plugin_data( 'version' ) );
+		
+		//on test die for fast feedback
+		if ( $_GET[ 'backwpup_run' ] == 'test' ) 
+			die();
+		
+		// generate normal nonce
+		$nonce = substr( wp_hash( wp_nonce_tick() . 'backwup_job_run-' . $_GET[ 'backwpup_run' ], 'nonce' ), - 12, 10 );
+		//special nonce on external start
+		if ( $_GET[ 'backwpup_run' ] == 'runext' )
+			$nonce = BackWPup_Option::get( 'cfg', 'jobrunauthkey' );
+		// check nonce
+		if ( empty( $_GET['_nonce'] ) || $nonce != $_GET['_nonce'] )
+			return;
+
+		//check runext is allowed for job
+		if ( $_GET[ 'backwpup_run' ] == 'runext' ) {
+			$jobids_external = BackWPup_Option::get_job_ids( 'activetype', 'link' );
+			if ( !isset( $_GET[ 'jobid' ] ) || ! in_array( $_GET[ 'jobid' ], $jobids_external ) )
+				return;
+		}
+
+		//run BackWPup job
+		BackWPup_Job::start_http( $_GET[ 'backwpup_run' ] );
+		die();
+	}
+	
+	
 	/**
 	 *
 	 * Get the local time timestamp of the next cron execution

@@ -1,9 +1,9 @@
 === Jetpack by WordPress.com ===
-Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, hew, hugobaeta, iammattthomas, jblz, jeherve, Joen, johnjamesjacoby, jshreve, lancewillett, martinremy, matt, matveb, mdawaffe, nickmomrik, pento, stephdau, tmoorewp, viper007bond, westi, yoavf
+Contributors: automattic, alternatekev, andy, apeatling, azaozz, barry, beaulebens, cfinke, chellycat, danielbachhuber, daniloercoli, designsimply, eoigal, ethitter, gibrown, georgestephanis, hew, hugobaeta, iammattthomas, jblz, jeherve, jkudish, Joen, johnjamesjacoby, jshreve, lancewillett, martinremy, matt, matveb, mdawaffe, migueluy, nickmomrik, pento, stephdau, tmoorewp, viper007bond, westi, yoavf
 Tags: WordPress.com, statistics, stats, views, tweets, twitter, widget, gravatar, hovercards, profile, equations, latex, math, maths, youtube, shortcode, archives, audio, blip, bliptv, dailymotion, digg, flickr, googlevideo, google, googlemaps, kyte, kytetv, livevideo, redlasso, rockyou, rss, scribd, slide, slideshare, soundcloud, vimeo, shortlinks, wp.me, subscriptions, notifications, notes, json, api, rest, mosaic, gallery, slideshow
 Requires at least: 3.3
 Tested up to: 3.5
-Stable tag: 2.2.1
+Stable tag: 2.3.1
 
 Supercharge your WordPress site with powerful features previously only available to WordPress.com users.
 
@@ -36,6 +36,8 @@ Features include:
 * Mobile push notifications for new comments via WordPress mobile apps.
 * The ability to allow applications to securely authenticate and access your site with your permission.
 * Creative formats for your image galleries: mosaic, circles, squares, and a slideshow view.
+* Add post sliders and other highlights to your theme with Featured Content.
+* Search once, get results from everything! A single search box that lets you search posts, pages, comments, and plugins
 * and *many* more to come!
 
 Note: The stats portion of Jetpack uses Quantcast to enhance its data.
@@ -58,25 +60,12 @@ Jetpack requires a connection to [WordPress.com](http://wordpress.com/) to enabl
 
 Once you've installed Jetpack, your stats will be available via the "Site Stats" menu which appears in the new Jetpack menu (under your Dashboard menu within WordPress).
 
-= How do I embed media? =
+= How do I contribute to Jetpack? =
 
-Use [shortcodes](http://support.wordpress.com/shortcodes/) to embed your media.  Currently, Jetpack provides the following shortcodes.
+Easy! There are a couple of ways (more coming soon):
 
-* [[archives]](http://support.wordpress.com/archives-shortcode/)
-* [[audio]](http://support.wordpress.com/audio/)
-* [[blip.tv]](http://support.wordpress.com/videos/bliptv/)
-* [[dailymotion]](http://support.wordpress.com/videos/dailymotion/)
-* [[digg]](http://support.wordpress.com/digg/)
-* [[flickr]](http://support.wordpress.com/videos/flickr-video/)
-* [[googlemaps]](http://en.support.wordpress.com/google-maps/)
-* [[googlevideo]](http://support.wordpress.com/videos/google-video/)
-* [[polldaddy]](http://support.polldaddy.com/wordpress-shortcodes/)
-* [[scribd]](http://support.wordpress.com/scribd/)
-* [[slideshare]](http://support.wordpress.com/slideshows/slideshare/)
-* [[soundcloud]](http://support.wordpress.com/audio/soundcloud-audio-player/)
-* [[videopress]](http://support.wordpress.com/videopress/)
-* [[vimeo]](http://support.wordpress.com/videos/vimeo/)
-* [[youtube]](http://support.wordpress.com/videos/youtube/)
+* Give us a hand answering questions in our [support forum](http://wordpress.org/support/plugin/jetpack)
+* Report bugs, with reproduction steps, or post patches on our [Trac](http://plugins.trac.wordpress.org/newticket?component=jetpack)
 
 == Screenshots ==
 
@@ -91,6 +80,142 @@ Use [shortcodes](http://support.wordpress.com/shortcodes/) to embed your media. 
 
 == Changelog ==
 
+= 2.3.1 =
+* Enhancement: Social Links: Retooling the class for better consistency and performance behind the scenes.
+* Enhancement: Omnisearch: Make it easier to search Custom Post Types.  No longer need to extend the class, if all you want is a basic display.  Just call `new Jetpack_Omnisearch_Posts( 'cpt' );`
+* Enhancement: Sharing Buttons: LinkedIn: Use the official button's sharing link on the Jetpack implementation for a more consistent sharing experience and produce better results on LinkedIn's end.
+* Enhancement: Debug / Connection: Better logic in determining whether the server can use SSL to connect to WPCOM servers.
+* Enhancement: Sharing: Twitter: Calculate the size of the Tweet based on the short URL rather than the full URL size.
+* Enhancement: Debug: More readable and understandable messages.
+* Enhancement: Likes: Including some MP6 styles.
+* Enhancement: Comments: Add new core classes to comment form.  See http://core.trac.wordpress.org/changeset/24525
+* Bug Fix: Omnisearch: Don't load everything initially, run the providers off admin_init, and then issue an action for folks to hook into.
+* Bug Fix: Omnisearch: Modify some child class functions to match the parent's parameters and avoid strict notices in newer versions of PHP.
+* Bug Fix: Omnisearch: Hide the search form in the module description if the current user can't use it.
+* Bug Fix: Comment Form: Use edit_pages, not edit_page (fixes glitch in previous beta, never publicly released).
+* Bug Fix: Twitter Timeline Widget: Additional testing of values and casting to default if they are nonconforming.
+* Bug Fix: Sharing: Pinterest: Make the button wider if there's a count to avoid overlapping with others.
+* Bug Fix: Post By Email: Change configuration_redirect to static.
+* Bug Fix: Likes: Don't call configuration_redirect as a static, do it as a method.
+* Bug Fix: Add some further security measures to module activation.
+
+= 2.3 =
+* Enhancement: Omnisearch: Search once, get results from everything! Omnisearch is a single search box that lets you search many different things
+* Enhancement: Debugger: this module helps you debug connection issues right from your dashboard, and contact the Jetpack support team if needed
+* Enhancement: Social Links: this module is a canonical source, based on Publicize, that themes can use to let users specify where social icons should link to
+* Enhancement: It’s now easier to find out if a module is active or note, thanks to the new Jetpack::is_module_active()
+* Enhancement: Contact Form: You are now able to customize the submit button text thanks to the submit_button_text parameter
+* Enhancement: Comments: We've added a filter to let users customize the Comment Reply label, and users can now also customize the prompt on the comment form again.
+* Enhancement: Mobile Theme: Add genericons.css and registering it so it’s easily accessible to other modules that may want it
+* Enhancement: Tiled Galleries: You can now customize the captions, thanks to the jetpack_slideshow_slide_caption filter
+* Enhancement: Widgets: Twitter Timeline: Add the noscrollbar option
+* Enhancement: Widgets: Facebook Like Box Widget: add a show_border attribute
+* Enhancement: Widgets: FB Like Box: let Jetpack users override the iframe background color set in an inline style attribute by using the jetpack_fb_likebox_bg filter
+* Bug Fix: Carousel: Fix a bug where double-clicking a gallery thumbnail broke the carousel functionality
+* Bug Fix: Comments: Change “must-log-in” to class from ID
+* Bug Fix: Contact Form: Make the Add Contact Form link a button, ala Add Media in core
+* Bug Fix: Contact Form: Fix encoding of field labels
+* Bug Fix: Contact Form: Remove references to missing images
+* Bug Fix: Fix 2 XSS vulnerabilities
+* Bug Fix: JSON API: Minor fixes for bbPress compatibility
+* Bug Fix: JSON API: Fix metadata bugs
+* Bug Fix: JSON API: Add a new hook that is fired when a post is posted using the API
+* Bug Fix: JSON API: Prefork/REST: update path normalizer to accept versions other than 1
+* Bug Fix: JSON API: Remove extra parenthesis in CSS
+* Bug Fix: Custom CSS: Move content width filters higher up so that they’re active for all users, not just logged-in admins.
+* Bug Fix: Custom CSS: All CSS properties that accept images as values need to be allowed to be declared multiple times so that cross-browser gradients work
+* Bug Fix: Infinite Scroll: Allow themes to define a custom function to render the IS footer
+* Bug Fix: Infinite Scroll: Fix up Twenty Thirteen styles for RTL and small viewports.
+* Bug Fix: Likes: Fix ‘Call to undefined function’
+* Bug Fix: Likes: Add scrolling no to iframe to make sure that like button in admin bar does not show scrollbars
+* Bug Fix: Likes: Remove setInterval( JetpackLikesWidgetQueueHandler, 250 ) call that was causing heavy CPU load
+* Bug Fix: Mobile Theme: Remove unused variable & function call
+* Bug Fix: Publicize: Fix LinkedIn profile URL generation
+* Bug Fix: Publicize: Better refresh handling for services such as LinkedIn and Facebook
+* Bug Fix: Shortcodes: Audio shortcode: Treat src as element 0. Fixes audio shortcodes created by wp_embed_register_handler when an audio url is on a line by itself
+* Bug Fix: Bandcamp: Updates to the Bandcamp shortcode
+* Bug Fix: Stats: Fix missing function get_editable_roles on non-admin page loads
+* Bug Fix: Widgets: Twitter Timeline: Fix HTML links in admin; set default values for width/height; change some of the sanitization functions
+* Bug Fix: Widgets: Top Posts Widget: Exclude attachments
+* Bug Fix: Widgets: Top Posts Widget: fix data validation for number of posts
+* Bug Fix: Fix PHP warnings non-static method called dynamically
+* Bug Fix: Fixed an issue in image extraction from HTML content
+* Bug Fix: Open Graph: Change default minimum size for og:image too 200×200
+* Note: The old Twitter widget was removed in favour of Twitter Timeline widget
+* Note: Add is_module_active() to make it easier to detect what is and what isn’t
+* Note: Compressing images via lossless methods
+* Note: Tidying up jetpack’s CSS
+* Note: Set the max DB version for our retina overrides that were meant to stop for WordPress 3.5
+* Note: Updating spin.js to the current version, and shifting to the canonical jquery.spin.js library
+* Note: Adding Jetpack_Options class, and abstracting out options functions to it
+
+= 2.2.5 =
+* Enhancement: Stats: Counting of registered users' views can now be enabled for specific roles
+* Bug Fix: Security tightening for metadata support in the REST API
+* Bug Fix: Update the method for checking Twitter Timeline widget_id and update coding standards
+* Bug Fix: Custom CSS: Allow the content width setting to be larger than the theme's content width
+* Bug Fix: Custom CSS: Fix possible missing argument warning.
+
+= 2.2.4 =
+* Bug Fix: JSON API compat file include was not assigning a variable correctly, thus throwing errors. This has been resolved.
+
+= 2.2.3 =
+* Enhancement: Comments - Add the reply-title H3 to the comment form so that themes or user CSS can style it
+* Enhancement: Custom CSS - Support for the CSS @viewport
+* Enhancement: JSON API - Support for i_like, is_following, and is_reblogged
+* Enhancement: JSON API: Custom Post Type Support
+* Enhancement: JSON API: Meta Data Support
+* Enhancement: JSON API: Bundled Support for bbPress
+* Enhancement: JSON API: Additions of following, reblog, and like status for post endpoints.
+* Enhancement: Shortcodes - Add Bandcamp shortcode
+* Enhancement: Tiled Galleries - Add code to get blog_id
+* Bug Fix: Carousel - Support relative image paths incase a plugin is filtering attachment URLs to be relative instead of absolute
+* Bug Fix: Carousel - Add likes widget to images / Respect comment settings for name/email
+* Bug Fix: Carousel - Make name and email optional if the setting in the admin area says they are
+* Bug Fix: Contact Form - Bug fixes, including a fix for WP-CLI
+* Bug Fix: Contact Form - Remove deprecated .live calls, delegate lazily to jQuery(document) since it's all in an iframe modal
+* Bug Fix: Contact Form - RTL styles
+* Bug Fix: Contact Form - Better handle MP6 icons
+* Bug Fix: Custom CSS - array_shift() took a variable by reference, so avoid passing it the result of a function
+* Bug Fix: Custom CSS - Allow case-insensitive CSS properties (<a href="http://wordpress.org/support/topic/two-issues-with-jetpack-css-module?replies=9">ref</a>)
+* Bug Fix: Infinite Scroll - Maintain main query's `post__not_in` values when querying posts for IS
+* Bug Fix: Infinite Scroll - Ensure that IS's `pre_get_posts` method isn't applied in the admin. Also fixes an incorrect use of `add_filter()` where `add_action()` was meant. Fixes #1696-plugins
+* Bug Fix: Infinite Scroll - CSS update - IS footer was too large in Firefox
+* Bug Fix: Infinite Scroll - Add bundled support for Twenty Thirteen default theme
+* Bug Fix: Infinite Scroll - Include posts table's prefix when modifying the SQL WordPress generates to retrieve posts for Infinite Scroll
+* Bug Fix: JSON API - Use wp_set_comment_status to change the comment status, to make sure actions are run where needed
+* Bug Fix: Likes - Update style and logic for matching id's
+* Bug Fix: Mobile Theme - Ensure that <code>minileven_actual_current_theme()</code> is child-theme compatible + other updates
+* Bug Fix: Mobile Theme - Update method for finding currently active theme.
+* Bug Fix: Notifications - Remove the postmessage.js enqueue since this feature solely supports native postMessage
+* Bug Fix: Notifications - Clean up script enqueues and use core versions of underscore and backbone on wpcom as fallbacks
+* Bug Fix: Notifications - Enqueue v2 scripts and style
+* Bug Fix: Notifications - Prefix module-specific scripts and style to prevent collision
+* Bug Fix: Notifications - Include lang and dir attributes on #wpnt-notes-panel so the notifications iframe can use these to display correctly
+* Bug Fix: Open Graph: Use the profile OG type instead of author. Add tags for first/last names
+* Bug Fix: Publicize - Remove the Yahoo! service because they stopped supporting that API entirely
+* Bug Fix: Publicize - fix fatal errors caused by using a method on a non-object. Props @ipstenu
+* Bug Fix: Sharing - Adding 2x graphics for Pocket sharing service
+* Bug Fix: Sharing - Bug fixes, and a new filter
+* Bug Fix: Shortcodes - Audio: make sure that the Jetpack audion shortcode does not override the 3.6 core audio shortcode. Also, we need to filter the old Jetpack-style shortcode to properly set the params for the Core audio shortcode.
+* Bug Fix: Shortcodes - Audio: Re-enable the flash player
+* Bug Fix: Shortcodes - Slideshow: RTL styling update
+* Bug Fix: Tiled Galleries - Fix IE8 display bug where it doesn't honor inline CSS for width on images
+* Bug Fix: Tiled Galleries - Remove depreacted hover call, use mouseenter mouseleave instead
+* Enhancement: Twitter Timeline Widget: New JavaScript based widget. Old one will discontinue May 7th. 
+
+= 2.2.2 =
+* Enhancement: Mobile Theme: Add controls for custom CSS.
+* Enhancement: Sharing: Add Pocket to the available services.
+* Bug Fix: Custom CSS: Update the method for generating content width setting.
+* Bug Fix: JSON API: Security updates.
+* Bug Fix: Likes: Add settings for email notifications and misc style updates.
+* Bug Fix: Notifications: Add the post types to sync after init.
+* Bug Fix: Publicize: RTL styling.
+* Bug Fix: Shortcodes: security fixes and function prefixing.
+* Bug Fix: Widgets: Update wording on the Top Posts widget for clarity.
+* Bug Fix: Jetpack Post Images security fixes.
+
 = 2.2.1 =
 * Enhancement: Development Mode: Define the `JETPACK_DEV_DEBUG` constant to `true` to enable an offline mode for localhost development. Only modules that don't require a WordPress.com connection can be enabled in this mode.
 * Enhancement: Likes: Added the number of likes to the wp-admin/edit.php screens.
@@ -99,11 +224,11 @@ Use [shortcodes](http://support.wordpress.com/shortcodes/) to embed your media. 
 * Enhancement: Widgets - Filter Jetpack's widgets so that a plugin can control which widgets get loaded
 * Bug Fix: Comments - Add in a wrapper div with id='commentform'
 * Bug Fix: Contact Form - Added date field with datepicker
-* Bug Fix: Contact Form - Allowed non-text widgets to use contact forms by running their output through the widget_text filter 
+* Bug Fix: Contact Form - Allowed non-text widgets to use contact forms by running their output through the widget_text filter
 * Bug Fix: Custom CSS - Allowing color values to be defined multiple times
 * Bug Fix: Custom CSS - Dynamically loading the correct CSS/LESS/SCSS mode for the CSS editor if the user changes the preprocessor
 * Bug Fix: Custom CSS - Using the unminified worker CSS
-* Bug Fix: Custom CSS - Added rule: reminder about using .custom-background on body selector 
+* Bug Fix: Custom CSS - Added rule: reminder about using .custom-background on body selector
 * Bug Fix: Custom CSS - Modified rule: Removed portion of overqualification rule that deems 'a.foo' overqualified if there are no other 'a' rules
 * Bug Fix: Custom CSS - Ensuring that the editor and the textarea behind it are using the same font so that the cursor appears in the correct location
 * Bug Fix: Custom CSS - Fix a bug that caused some sites to always ignore the base theme's CSS when in preview mode

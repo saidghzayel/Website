@@ -5,7 +5,7 @@
  * Description: WordPress Backup and more...
  * Author: Inpsyde GmbH
  * Author URI: http://inpsyde.com
- * Version: 3.0.6
+ * Version: 3.0.12
  * Text Domain: backwpup
  * Domain Path: /languages/
  * Network: true
@@ -70,24 +70,29 @@ if ( ! class_exists( 'BackWPup' ) ) {
 				spl_autoload_register( array( $this, 'autoloader' ) );
 			else //auto loader fallback
 				$this->autoloader_fallback();
+			//start upgrade if needed
+			if ( get_site_option( 'backwpup_version' ) != self::get_plugin_data( 'Version' ) && class_exists( 'BackWPup_Install' ) )
+				BackWPup_Install::activate();
+			//load pro features
+			if ( is_file( dirname( __FILE__ ) . '/inc/features/class-features.php' ) )
+				require dirname( __FILE__ ) . '/inc/features/class-features.php';						
 			//WP-Cron
-			add_action( 'backwpup_cron', array( 'BackWPup_Cron', 'run' ) );
-			add_action( 'backwpup_check_cleanup', array( 'BackWPup_Cron', 'check_cleanup' ) );
+			if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+				// add normal cron actions
+				add_action( 'backwpup_cron', array( 'BackWPup_Cron', 'run' ) );
+				add_action( 'backwpup_check_cleanup', array( 'BackWPup_Cron', 'check_cleanup' ) );
+				// add action for doing thinks if cron active
+				// must done in int before wp-cron control
+				add_action( 'init', array( 'BackWPup_Cron', 'cron_active' ), 1 ); 
+				// if in cron the rest must not needed
+				return;
+			}
 			//deactivation hook
 			register_deactivation_hook( __FILE__, array( 'BackWPup_Install', 'deactivate' ) );
 			//Things that must do in plugin init
 			add_action( 'init', array( $this, 'plugin_init' ) );
-			//start upgrade if needed
-			if ( get_site_option( 'backwpup_version' ) != self::get_plugin_data( 'Version' ) && class_exists( 'BackWPup_Install' ) )
-				BackWPup_Install::activate();
-			//Frontend
-			if ( ! is_admin() && is_main_site() && class_exists( 'BackWPup_FrontEnd' ) )
-				BackWPup_FrontEnd::getInstance();
-			//load Pro Features
-			if ( is_file( dirname( __FILE__ ) . '/inc/features/class-features.php' ) )
-				require dirname( __FILE__ ) . '/inc/features/class-features.php';
 			//only in backend
-			if ( is_admin() && ( current_user_can( 'backwpup' ) || $GLOBALS[ 'pagenow' ] == 'plugins.php' ) && class_exists( 'BackWPup_Admin' ) )
+			if ( is_admin() && class_exists( 'BackWPup_Admin' ) )
 				BackWPup_Admin::getInstance();
 			//work with wp-cli
 			if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -234,12 +239,16 @@ if ( ! class_exists( 'BackWPup' ) ) {
 			//Add Admin Bar
 			if ( ! defined( 'DOING_CRON' ) && current_user_can( 'backwpup' ) && current_user_can( 'backwpup' ) && is_admin_bar_showing() && get_site_option( 'backwpup_cfg_showadminbar', FALSE ) )
 				BackWPup_Adminbar::getInstance();
+			
+			//display about page after Update
+			if ( ! get_site_option( 'backwpup_about_page', FALSE ) && $_REQUEST[ 'page' ] != 'backwpupabout' ) 
+				wp_redirect( network_admin_url( 'admin.php' ) . '?page=backwpupabout' );
 		}
 
 		/**
 		 * Get a array of instances for Backup Destination's
 		 *
-		 * @return array
+		 * @return array BackWPup_Destinations
 		 */
 		public static function get_destinations() {
 
@@ -280,7 +289,7 @@ if ( ! class_exists( 'BackWPup' ) ) {
 		/**
 		 * Gets a array of instances from Job types
 		 *
-		 * @return array
+		 * @return array BackWPup_JobTypes
 		 */
 		public static function get_job_types() {
 
@@ -310,7 +319,7 @@ if ( ! class_exists( 'BackWPup' ) ) {
 		/**
 		 * Gets a array of instances from Wizards Pro version Only
 		 *
-		 * @return array
+		 * @return array BackWPup_Wizards
 		 */
 		public static function get_wizards() {
 

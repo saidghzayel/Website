@@ -69,6 +69,13 @@ return array(
             'class'   => 'Aws\DynamoDb\DynamoDbClient'
         ),
 
+        'dynamodb_20111205' => array(
+            'extends' => 'dynamodb',
+            'params' => array(
+                'version' => '2011-12-05'
+            )
+        ),
+
         'ec2' => array(
             'alias'   => 'Ec2',
             'extends' => 'default_settings',
@@ -187,6 +194,12 @@ return array(
             'alias'   => 'Sts',
             'extends' => 'default_settings',
             'class'   => 'Aws\Sts\StsClient'
+        ),
+
+        'support' => array(
+            'alias'   => 'Support',
+            'extends' => 'default_settings',
+            'class'   => 'Aws\Support\SupportClient'
         ),
 
         'swf' => array(

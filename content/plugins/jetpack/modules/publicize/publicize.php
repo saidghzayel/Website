@@ -101,8 +101,6 @@ abstract class Publicize_Base {
 			 return 'http://' . $cmeta['connection_data']['meta']['tumblr_base_hostname'];
 		} elseif ( 'twitter' == $service_name ) {
 			return 'http://twitter.com/' . substr( $cmeta['external_display'], 1 ); // Has a leading '@'
-		} else if ( 'yahoo' == $service_name ) {
-			return 'http://profile.yahoo.com/' . $cmeta['external_id'];
 		} else if ( 'linkedin' == $service_name ) {
 			if ( !isset( $cmeta['connection_data']['meta']['profile_url'] ) ) {
 				return false;
@@ -110,11 +108,15 @@ abstract class Publicize_Base {
 
 			$profile_url_query = parse_url( $cmeta['connection_data']['meta']['profile_url'], PHP_URL_QUERY );
 			wp_parse_str( $profile_url_query, $profile_url_query_args );
-			if ( !isset( $profile_url_query_args['key'] ) ) {
+			if ( isset( $profile_url_query_args['key'] ) ) {
+				$id = $profile_url_query_args['key'];
+			} elseif ( isset( $profile_url_query_args['id'] ) ) {
+				$id = $profile_url_query_args['id'];
+			} else {
 				return false;
 			}
 
-			return esc_url_raw( add_query_arg( 'id', urlencode( $profile_url_query_args['key'] ), 'http://www.linkedin.com/profile/view' ) );
+			return esc_url_raw( add_query_arg( 'id', urlencode( $id ), 'http://www.linkedin.com/profile/view' ) );
 		} else {
 			return false; // no fallback. we just won't link it
 		}
@@ -140,11 +142,8 @@ abstract class Publicize_Base {
 		}
 	}
 
-	function get_service_label( $service_name ) {
+	public static function get_service_label( $service_name ) {
 		switch ( $service_name ) {
-			case 'yahoo':
-				return 'Yahoo!';
-				break;
 			case 'linkedin':
 				return 'LinkedIn';
 				break;
@@ -286,7 +285,13 @@ abstract class Publicize_Base {
 		 */
 		foreach ( (array) $this->get_services( 'connected' ) as $service_name => $connections ) {
 			foreach ( $connections as $connection ) {
-				if ( false == apply_filters( 'wpas_submit_post?', $submit_post, $post_id, $service_name ) ) {
+				$connection_data = '';
+				if ( method_exists( $connection, 'get_meta' ) )
+					$connection_data = $connection->get_meta( 'connection_data' );
+				elseif ( ! empty( $connection['connection_data'] ) )
+					$connection_data = $connection['connection_data'];
+
+				if ( false == apply_filters( 'wpas_submit_post?', $submit_post, $post_id, $service_name, $connection_data ) ) {
 					delete_post_meta( $post_id, $this->PENDING );
 					continue;
 				}

@@ -1,11 +1,11 @@
-<?php 
+<?php
 /*
  *  Plugin Name: DBC Family
  *  Description: Delete entries from the database of a particular form automatically.
  *  Version: 0.1.1
  *  Author: Patrick Daly
  *  Author URI: http://developdaly.com/
- *  
+ *
  */
 
 // '4' is the ID of the form to remove the entries from
