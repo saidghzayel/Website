@@ -58,7 +58,8 @@ class BackWPup_Page_Editjob {
 				} else {
 					$_POST[ 'type' ]= array();
 				}
-				//test if jobtype makes backup
+				//test if job type makes backup
+				/* @var BackWPup_JobTypes $job_type */
 				$makes_file = FALSE;
 				foreach ( $job_types as $type_id => $job_type) {
 					if ( in_array( $type_id, $_POST[ 'type' ] ) ) {
@@ -76,7 +77,7 @@ class BackWPup_Page_Editjob {
 					foreach ( (array)$_POST[ 'destinations' ] as $key => $destid ) {
 						if ( empty( $destinations[ $destid ] ) ) //remove all destinations that not exists
 							unset( $_POST[ 'destinations' ][ $key ] );
-						if ( $_POST[ 'backuptype' ] == 'sync' ) { //if sync remove all not sync destinations
+						if ( class_exists( 'BackWPup_Features', FALSE ) && $_POST[ 'backuptype' ] == 'sync' ) { //if sync remove all not sync destinations
 							if ( ! $destinations[ $destid ]->can_sync() )
 								unset( $_POST[ 'destinations' ][ $key ] );
 						}
@@ -157,8 +158,8 @@ class BackWPup_Page_Editjob {
 				//reschedule
 				wp_clear_scheduled_hook( 'backwpup_cron', array( 'id' => $jobid ) );
 				if ( BackWPup_Option::get( $jobid, 'activetype' ) == 'wpcron' ) {
-					$cronnxet = BackWPup_Cron::cron_next( BackWPup_Option::get( $jobid, 'cron' ) );
-					wp_schedule_single_event( $cronnxet, 'backwpup_cron', array( 'id' => $jobid ) );
+					$cron_next = BackWPup_Cron::cron_next( BackWPup_Option::get( $jobid, 'cron' ) );
+					wp_schedule_single_event( $cron_next, 'backwpup_cron', array( 'id' => $jobid ) );
 				}
 				break;
 			default:
@@ -305,7 +306,7 @@ class BackWPup_Page_Editjob {
 		echo '<p class="wpcron" id="schedulecron">';
 
 		if ( $crontype == 'advanced' ) {
-			_e( 'Working as <a href="http://wikipedia.org/wiki/Cron">Cron</a> schedule:', 'backwpup' );
+			echo str_replace( '\"','"', __( 'Working as <a href="http://wikipedia.org/wiki/Cron">Cron</a> schedule:', 'backwpup' ) );
 			echo ' <i><b>' . $cronstamp . '</b></i><br />';
 		}
 
@@ -322,13 +323,13 @@ class BackWPup_Page_Editjob {
 				$repeathouer = 1;
 			echo '<span style="color:red;">' . sprintf( __( 'ATTENTION: Job runs every %d hours!', 'backwpup' ), $repeathouer ) . '</span><br />';
 		}
-		$nextrun = BackWPup_Cron::cron_next( $cronstamp ) + ( get_option( 'gmt_offset' ) * 3600 );
-		if ( 2147483647 == $nextrun ) {
+		$cron_next = BackWPup_Cron::cron_next( $cronstamp ) + ( get_option( 'gmt_offset' ) * 3600 );
+		if ( 2147483647 == $cron_next ) {
 			echo '<span style="color:red;">' . __( 'ATTENTION: Can\'t calculate cron!', 'backwpup' ) . '</span><br />';
 		}
 		else {
 			_e( 'Next runtime:', 'backwpup' );
-			echo ' <b>' . date_i18n( 'D, j M Y, H:i', $nextrun, TRUE ) . '</b>';
+			echo ' <b>' . date_i18n( 'D, j M Y, H:i', $cron_next, TRUE ) . '</b>';
 		}
 		echo "</p>";
 
@@ -416,7 +417,7 @@ class BackWPup_Page_Editjob {
 				<h3 class="title"><?php _e( 'Job Name', 'backwpup' ) ?></h3>
 				<p></p>
 				<table class="form-table">
-					<tr valign="top">
+					<tr>
 						<th scope="row"><label for="name"><?php _e( 'Please name this job.', 'backwpup' ) ?></label></th>
 						<td>
 							<input name="name" type="text" id="name"
@@ -428,7 +429,7 @@ class BackWPup_Page_Editjob {
 				<h3 class="title"><?php _e( 'Job Tasks', 'backwpup' ) ?></h3>
 				<p></p>
 				<table class="form-table">
-					<tr valign="top">
+					<tr>
 						<th scope="row"><?php _e( 'This job is a&#160;&hellip;', 'backwpup' ) ?></th>
 						<td>
 							<fieldset>
@@ -452,7 +453,7 @@ class BackWPup_Page_Editjob {
 				<p class="hasdests"></p>
 				<table class="form-table hasdests">
 					<?php if ( class_exists( 'BackWPup_Features', FALSE ) ) { ?>
-					<tr valign="top">
+					<tr>
 						<th scope="row"><?php _e( 'Backup type', 'backwpup' ); ?></th>
 						<td>
 							<fieldset>
@@ -470,7 +471,7 @@ class BackWPup_Page_Editjob {
 						</td>
 					</tr>
 					<?php } ?>
-					<tr valign="top" class="nosync">
+					<tr class="nosync">
 						<th scope="row"><label for="archivename"><?php _e( 'Archive name', 'backwpup' ) ?></label></th>
 						<td>
 							<input name="archivename" type="text" id="archivename"
@@ -505,12 +506,12 @@ class BackWPup_Page_Editjob {
 							$datevars    = array( '%d', '%j', '%m', '%n', '%Y', '%y', '%a', '%A', '%B', '%g', '%G', '%h', '%H', '%i', '%s', '%u', '%U' );
 							$datevalues  = array( date_i18n( 'd' ), date_i18n( 'j' ), date_i18n( 'm' ), date_i18n( 'n' ), date_i18n( 'Y' ), date_i18n( 'y' ), date_i18n( 'a' ), date_i18n( 'A' ), date_i18n( 'B' ), date_i18n( 'g' ), date_i18n( 'G' ), date_i18n( 'h' ), date_i18n( 'H' ), date_i18n( 'i' ), date_i18n( 's' ), date_i18n( 'u' ), date_i18n( 'U' ) );
 							$archivename = str_replace( $datevars, $datevalues, BackWPup_Option::get( $jobid, 'archivename' ) );
-							$archivename = sanitize_title_with_dashes( $archivename );
+							$archivename = sanitize_file_name( $archivename );
 							echo '<p>Preview: <code><span id="archivefilename">' . $archivename . '</span><span id="archiveformat">' . BackWPup_Option::get( $jobid, 'archiveformat' ) . '</span></code></p>';
 							?>
 						</td>
 					</tr>
-					<tr valign="top" class="nosync">
+					<tr class="nosync">
 						<th scope="row"><?php _e( 'Archive Format', 'backwpup' ); ?></th>
 						<td>
 							<fieldset>
@@ -537,7 +538,7 @@ class BackWPup_Page_Editjob {
 				<h3 class="title hasdests"><?php _e( 'Job Destination', 'backwpup' ) ?></h3>
 				<p class="hasdests"></p>
 				<table class="form-table hasdests">
-					<tr valign="top">
+					<tr>
 						<th scope="row"><?php _e( 'Where should your backup file be stored?', 'backwpup' ) ?></th>
 						<td>
 							<fieldset>
@@ -560,7 +561,7 @@ class BackWPup_Page_Editjob {
 				<h3 class="title"><?php _e( 'Log Files', 'backwpup' ) ?></h3>
 				<p></p>
 				<table class="form-table">
-					<tr valign="top">
+					<tr>
 						<th scope="row"><label for="mailaddresslog"><?php _e( 'Send log to e-mail address', 'backwpup' ) ?></label></th>
 						<td>
 							<input name="mailaddresslog" type="text" id="mailaddresslog"
@@ -568,7 +569,7 @@ class BackWPup_Page_Editjob {
 								   class="regular-text" /><?php BackWPup_Help::tip( __( 'Leave empty to not have log sent.', 'backwpup' ) ); ?>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr>
 						<th scope="row"><label for="mailaddresssenderlog"><?php _e( 'E-Mail FROM field', 'backwpup' ) ?></label></th>
 						<td>
 							<input name="mailaddresssenderlog" type="text" id="mailaddresssenderlog"
@@ -576,7 +577,7 @@ class BackWPup_Page_Editjob {
 								   class="regular-text" /><?php BackWPup_Help::tip( __( 'E-Mail "From" field (Name &lt;&#160;you@your-email-address.tld&#160;&gt;)', 'backwpup' ) ); ?>
 						</td>
 					</tr>
-					<tr valign="top">
+					<tr>
 						<th scope="row"><?php _e( 'Errors only', 'backwpup' ); ?></th>
 						<td>
                             <label for="idmailerroronly">
@@ -596,7 +597,7 @@ class BackWPup_Page_Editjob {
 				<h3 class="title"><?php _e( 'Job Schedule', 'backwpup' ) ?></h3>
 				<p></p>
 				<table class="form-table">
-					<tr valign="top">
+					<tr>
                         <th scope="row"><?php _e( 'Start job', 'backwpup' ); ?></th>
                         <td>
                             <fieldset>
@@ -623,11 +624,11 @@ class BackWPup_Page_Editjob {
                             </fieldset>
                         </td>
                     </tr>
-                    <tr valign="top">
+                    <tr>
 						<th scope="row"><?php _e( 'Start job with CLI', 'backwpup' ); ?></th>
 						<td>
 							<?php
-								echo sprintf ( __( 'Use <a href="http://wp-cli.org/">WP-CLI</a> to run jobs from commandline or <a href="%s">get the start script</a>.', 'backwpup' ),  wp_nonce_url( network_admin_url( 'admin.php' ) . '?page=backwpupjobs&action=start_cli&jobid=' . $jobid, 'start_cli' ) );
+								echo str_replace( '\"','"', sprintf ( __( 'Use <a href="http://wp-cli.org/">WP-CLI</a> to run jobs from commandline or <a href="%s">get the start script</a>.', 'backwpup' ),  wp_nonce_url( network_admin_url( 'admin.php' ) . '?page=backwpupjobs&action=start_cli&jobid=' . $jobid, 'start_cli' ) ) );
 								BackWPup_Help::tip( __( 'Generate a server script file to let the job start with the server’s cron on command line interface. Alternatively use WP-CLI commands.', 'backwpup' ) );
 							?>
 						</td>
@@ -636,7 +637,7 @@ class BackWPup_Page_Editjob {
 				<h3 class="title wpcron"><?php _e( 'Schedule execution time', 'backwpup' ) ?></h3>
 				<?php BackWPup_Page_Editjob::ajax_cron_text( array( 'cronstamp' => BackWPup_Option::get( $jobid, 'cron' ), 'crontype' => BackWPup_Option::get( $jobid, 'cronselect' ) ) ); ?>
 				<table class="form-table wpcron">
-					<tr valign="top">
+					<tr>
 						<th scope="row"><?php _e( 'Scheduler type', 'backwpup' ); ?></th>
 						<td>
 							<fieldset>
@@ -677,7 +678,7 @@ class BackWPup_Page_Editjob {
 					else
 						$wday = explode( ',', $cronstr[ 'wday' ] );
 					?>
-                    <tr valign="top" class="wpcronbasic"<?php if ( BackWPup_Option::get( $jobid, 'cronselect' ) != 'basic' ) echo ' style="display:none;"';?>>
+                    <tr class="wpcronbasic"<?php if ( BackWPup_Option::get( $jobid, 'cronselect' ) != 'basic' ) echo ' style="display:none;"';?>>
                         <th scope="row"><?php _e( 'Scheduler', 'backwpup' ); ?></th>
                         <td>
                             <table id="wpcronbasic">
@@ -745,7 +746,7 @@ class BackWPup_Page_Editjob {
                             </table>
                         </td>
                     </tr>
-					<tr valign="top" class="wpcronadvanced"<?php if ( BackWPup_Option::get( $jobid, 'cronselect' ) != 'advanced' ) echo ' style="display:none;"';?>>
+					<tr class="wpcronadvanced"<?php if ( BackWPup_Option::get( $jobid, 'cronselect' ) != 'advanced' ) echo ' style="display:none;"';?>>
 						<th scope="row"><?php _e( 'Scheduler', 'backwpup' ); ?></th>
 						<td>
                             <div id="cron-min-box">
@@ -856,7 +857,7 @@ class BackWPup_Page_Editjob {
     jQuery(document).ready(function ($) {
         // auto post if things changed
         var changed = false;
-        $('input, textarea, select').change(function () {
+        $( '#editjob' ).change( function () {
             changed = true;
         });
 		$( '.nav-tab' ).click( function () {

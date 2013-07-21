@@ -138,52 +138,93 @@ function powerpress_admin_capabilities()
 
 
 // powerpressadmin_editfeed.php
-function powerpress_admin_editfeed($feed_slug=false, $cat_ID =false)
+// function powerpress_admin_editfeed($feed_slug=false, $cat_ID = false, $term_taxonomy_id = false)
+function powerpress_admin_editfeed($type='', $type_value = '')
 {
 	$SupportUploads = powerpressadmin_support_uploads();
 	$General = powerpress_get_settings('powerpress_general');
+	$FeedAttribs = array('type'=>$type, 'channel'=>'', 'category_id'=>0, 'term_taxonomy_id'=>0, 'term_id'=>0, 'taxonomy_type'=>'', 'post_type'=>'');
+	$feed_slug=false; $cat_ID = false; $term_taxonomy_id = false;
 	
-	
-	if( $feed_slug )
-	{
-		$FeedSettings = powerpress_get_settings('powerpress_feed_'.$feed_slug);
-		if( !$FeedSettings )
-		{
-			$FeedSettings = array();
-			$FeedSettings['title'] = '';
-			if( !empty($General['custom_feeds'][$feed_slug]) )
-				$FeedSettings['title'] = $General['custom_feeds'][$feed_slug];
-		}
-		$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed_custom');
-		
-		if( !isset($General['custom_feeds'][$feed_slug]) )
-			$General['custom_feeds'][$feed_slug] = __('Podcast (default)', 'powerpress');
-	}
-	else if( $cat_ID )
-	{
-		$FeedSettings = powerpress_get_settings('powerpress_cat_feed_'.$cat_ID);
-		$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed_custom');
-	}
-	else
-	{
-		$FeedSettings = powerpress_get_settings('powerpress_feed');
-		$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed');
-	}
-		
 	$FeedTitle = __('Feed Settings', 'powerpress');
-	if( $feed_slug )
-	{
-		$FeedTitle = sprintf( 'Edit Podcast Channel: %s', $General['custom_feeds'][$feed_slug]);
-		echo sprintf('<input type="hidden" name="feed_slug" value="%s" />', $feed_slug);
-	}
-	else if( $cat_ID )
-	{
-		$category = get_category_to_edit($cat_ID);
-		$FeedTitle = sprintf( __('Edit Category Feed: %s', 'powerpress'), $category->name);
-		echo sprintf('<input type="hidden" name="cat" value="%s" />', $cat_ID);
-	}
 	
-		echo '<h2>'. $FeedTitle .'</h2>';
+	switch( $type )
+	{
+		case 'channel': {
+			$feed_slug = $type_value;
+			$FeedAttribs['channel'] = $type_value;
+			$FeedSettings = powerpress_get_settings('powerpress_feed_'.$feed_slug);
+			if( !$FeedSettings )
+			{
+				$FeedSettings = array();
+				$FeedSettings['title'] = '';
+				if( !empty($General['custom_feeds'][$feed_slug]) )
+					$FeedSettings['title'] = $General['custom_feeds'][$feed_slug];
+			}
+			$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed_custom');
+			
+			if( !isset($General['custom_feeds'][$feed_slug]) )
+				$General['custom_feeds'][$feed_slug] = __('Podcast (default)', 'powerpress');
+				
+			$FeedTitle = sprintf( 'Podcast Settings for Channel: %s', $General['custom_feeds'][$feed_slug]);
+			echo sprintf('<input type="hidden" name="feed_slug" value="%s" />', $feed_slug);
+			
+		}; break;
+		case 'category': {
+			$cat_ID = $type_value; 
+			$FeedAttribs['category_id'] = $type_value;
+			$FeedSettings = powerpress_get_settings('powerpress_cat_feed_'.$cat_ID);
+			$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed_custom');
+			
+			$category = get_category_to_edit($cat_ID);
+			$FeedTitle = sprintf( __('Podcast Settings for Category: %s', 'powerpress'), htmlspecialchars($category->name) );
+			echo sprintf('<input type="hidden" name="cat" value="%s" />', $cat_ID);
+			
+		}; break;
+		case 'ttid': {
+			$term_taxonomy_id = $type_value;
+			$FeedAttribs['term_taxonomy_id'] = $type_value;
+			$FeedSettings = powerpress_get_settings('powerpress_taxonomy_'.$term_taxonomy_id);
+			$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed_custom');
+			
+			global $wpdb;
+			$term_info = $wpdb->get_results("SELECT term_id, taxonomy FROM $wpdb->term_taxonomy WHERE term_taxonomy_id = $term_taxonomy_id",  ARRAY_A);
+			if( !empty( $term_info[0]['term_id']) ) {
+				$term_ID = $term_info[0]['term_id'];
+				$taxonomy_type = $term_info[0]['taxonomy'];
+				$FeedAttribs['term_id'] = $term_ID;
+				$FeedAttribs['taxonomy_type'] = $taxonomy_type;
+
+				$term_object = get_term_to_edit($term_ID, $taxonomy_type);
+				$FeedTitle = sprintf( __('Podcast Settings for Taxonomy Term: %s', 'powerpress'), htmlspecialchars($term_object->name));
+			}
+			else
+			{
+				$FeedTitle = sprintf( __('Podcast Settings for Taxonomy Term: %s', 'powerpress'), 'Term ID '.htmlspecialchars($term_taxonomy_id));
+			}
+			echo sprintf('<input type="hidden" name="ttid" value="%s" />', $term_taxonomy_id);
+			
+		}; break;
+		case 'post_type': {
+			
+			$FeedAttribs['post_type'] = $type_value;
+			$FeedSettings = powerpress_get_settings('powerpress_post_type_'.$FeedAttribs['post_type']);
+			$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed_custom');
+			
+			//$category = get_category_to_edit($cat_ID);
+			$PostTypeTitle = 'TODO';
+			$FeedTitle = sprintf( __('Podcast Settings for Post Type: %s', 'powerpress'), htmlspecialchars($PostTypeTitle) );
+			echo sprintf('<input type="hidden" name="post_type" value="%s" />', $FeedAttribs['post_type']);
+			
+		}; break;
+		default: {
+			$FeedSettings = powerpress_get_settings('powerpress_feed');
+			$FeedSettings = powerpress_default_settings($FeedSettings, 'editfeed');
+		}; break;
+	}
+		
+	
+	echo '<h2>'. $FeedTitle .'</h2>';
 	
 	if( $cat_ID && (isset($_GET['from_categories']) || isset($_POST['from_categories'])) )
 	{
@@ -200,7 +241,7 @@ function powerpress_admin_editfeed($feed_slug=false, $cat_ID =false)
 		<li><a href="#feed_tab_appearance"><span><?php echo htmlspecialchars(__('Media Appearance', 'powerpress')); ?></span></a></li>
 		<li><a href="#feed_tab_other"><span><?php echo htmlspecialchars(__('Other Settings', 'powerpress')); ?></span></a></li> 
 	<?php } ?>
-	<?php if( $cat_ID ) { ?>
+	<?php if( in_array($FeedAttribs['type'], array('category', 'ttid', 'post_type') ) ) { ?>
 		<li><a href="#feed_tab_other"><span><?php echo htmlspecialchars(__('Other Settings', 'powerpress')); ?></span></a></li> 
 	<?php } ?>
   </ul>
@@ -210,7 +251,7 @@ function powerpress_admin_editfeed($feed_slug=false, $cat_ID =false)
 		<?php
 		//powerpressadmin_edit_feed_general($FeedSettings, $General);
 		//powerpressadmin_edit_feed_settings($FeedSettings, $General);
-		powerpressadmin_edit_feed_settings($FeedSettings, $General, $cat_ID, $feed_slug );
+		powerpressadmin_edit_feed_settings($FeedSettings, $General, $cat_ID, $feed_slug, $FeedAttribs );
 		?>
 	</div>
 	
@@ -219,7 +260,7 @@ function powerpress_admin_editfeed($feed_slug=false, $cat_ID =false)
 		//powerpressadmin_edit_itunes_general($General);
 		if( $feed_slug != 'podcast' )
 			powerpressadmin_edit_itunes_general($General, $FeedSettings, $feed_slug, $cat_ID);
-		powerpressadmin_edit_itunes_feed($FeedSettings, $General, $feed_slug, $cat_ID);
+		powerpressadmin_edit_itunes_feed($FeedSettings, $General, $feed_slug, $cat_ID, $FeedAttribs);
 		?>
 	</div>
 	
@@ -233,7 +274,7 @@ function powerpress_admin_editfeed($feed_slug=false, $cat_ID =false)
 	<div id="feed_tab_appearance" class="powerpress_tab">
 		<?php
 		//powerpressadmin_appearance($General);
-		powerpressadmin_edit_appearance_feed($General, $FeedSettings, $feed_slug);
+		powerpressadmin_edit_appearance_feed($General, $FeedSettings, $feed_slug, $FeedAttribs);
 		?>
 	</div>
 	
@@ -244,10 +285,10 @@ function powerpress_admin_editfeed($feed_slug=false, $cat_ID =false)
 	</div>
 	<?php } ?>
 	
-	<?php if( $cat_ID ) { ?>
+	<?php if( $FeedAttribs['type'] == 'category' || $FeedAttribs['type'] == 'ttid' ) { ?>
 	<div id="feed_tab_other" class="powerpress_tab">
 		<?php
-		powerpressadmin_edit_basics_feed($General, $FeedSettings, $feed_slug, $cat_ID)
+		powerpressadmin_edit_basics_feed($General, $FeedSettings, $feed_slug, $cat_ID, $FeedAttribs)
 		?>
 	</div>
 	<?php } ?>
@@ -390,7 +431,7 @@ function powerpressadmin_edit_feed_general($FeedSettings, $General)
 <?php
 }
 
-function powerpressadmin_edit_feed_settings($FeedSettings, $General, $cat_ID = false, $feed_slug = false)
+function powerpressadmin_edit_feed_settings($FeedSettings, $General, $cat_ID = false, $feed_slug = false, $FeedAttribs = array() )
 {
 	$SupportUploads = powerpressadmin_support_uploads();
 	if( !isset($FeedSettings['posts_per_rss']) )
@@ -402,9 +443,29 @@ function powerpressadmin_edit_feed_settings($FeedSettings, $General, $cat_ID = f
 	if( !isset($FeedSettings['title']) )
 		$FeedSettings['title'] = '';
 	if( !isset($FeedSettings['rss_language']) )
-		$FeedSettings['rss_language'] = '';	
+		$FeedSettings['rss_language'] = '';
+		
+	$feed_link = '';
+	switch( $FeedAttribs['type'])
+	{
+		case 'category': {
+			$feed_link = get_category_feed_link($FeedAttribs['category_id']);
+		}; break;
+		case 'ttid': {
+			$feed_link = get_term_feed_link($FeedAttribs['term_taxonomy_id'], $FeedAttribs['taxonomy_type'], 'rss2');
+		}; break;
+		case 'post_type': {
+			$feed_link = get_post_type_archive_feed_link($FeedAttribs['post_type'], 'podcast');
+		}; break;
+		case 'channel': {
+			$feed_link = get_feed_link($FeedAttribs['channel']);
+		}; break;
+		default: {
+			$feed_link = get_feed_link();
+		}; break;
+	}
 	
-	if( $cat_ID || $feed_slug )
+	if( $FeedAttribs['type'] == 'channel' && !empty($FeedAttribs['type'])	)
 	{
 ?>
 <h3><?php echo __('Feed Information', 'powerpress'); ?></h3>
@@ -414,16 +475,12 @@ function powerpressadmin_edit_feed_settings($FeedSettings, $General, $cat_ID = f
 <?php echo __('Feed URL', 'powerpress'); ?>
 </th>
 <td>
-<?php if( $cat_ID ) { ?>
-<p style="margin-top: 0;"><a href="<?php echo get_category_feed_link($cat_ID); ?>" target="_blank"><?php echo get_category_feed_link($cat_ID); ?></a> | <a href="http://www.feedvalidator.org/check.cgi?url=<?php echo urlencode( str_replace('&amp;', '&', get_category_feed_link($cat_ID))); ?>" target="_blank"><?php echo __('validate', 'powerpress'); ?></a></p>
-<?php } else { ?>
-<p style="margin-top: 0;"><a href="<?php echo get_feed_link($feed_slug); ?>" target="_blank"><?php echo get_feed_link($feed_slug); ?></a><?php if( empty($FeedSettings['premium']) ) { ?> | <a href="http://www.feedvalidator.org/check.cgi?url=<?php echo urlencode(get_feed_link($feed_slug)); ?>" target="_blank"><?php echo __('validate', 'powerpress'); ?></a><?php } ?></p>
-	<?php
+<p style="margin-top: 0;"><a href="<?php echo $feed_link; ?>" target="_blank"><?php echo $feed_link; ?></a> | <a href="http://www.feedvalidator.org/check.cgi?url=<?php echo urlencode( str_replace('&amp;', '&', $feed_link)); ?>" target="_blank"><?php echo __('validate', 'powerpress'); ?></a></p>
+<?php
 		if( !empty($FeedSettings['premium']) )
 		{
 			echo __('WARNING: This feed is password protected, it cannot be accessed by public services such as feedvalidator.org or the iTunes podcast directory.', 'powerpress');
 		} ?>
-<?php } ?>
 </td>
 </tr>
 </table>
@@ -434,7 +491,7 @@ function powerpressadmin_edit_feed_settings($FeedSettings, $General, $cat_ID = f
 <table class="form-table">
 
 <?php
-if( $feed_slug || $cat_ID )
+if( !empty($FeedAttribs['type']) )
 {
 ?>
 <tr valign="top">
@@ -448,7 +505,7 @@ if( $feed_slug || $cat_ID )
 <?php } else { ?>
 (<?php echo __('leave blank to use blog title', 'powerpress'); ?>)
 <?php } ?>
-<?php if( $cat_ID ) { 
+<?php if( $FeedAttribs['type'] == 'ttid' ) { } else if( $cat_ID ) { 
 	$category = get_category_to_edit($cat_ID);
 	$CategoryName = htmlspecialchars($category->name);
 ?>
@@ -501,16 +558,12 @@ if( $feed_slug || $cat_ID )
 
 <p style="margin-top: 0px; margin-bottomd: 0;"><?php echo powerpressadmin_notice( __('NOTE: FeedBurner is not required for podcasting.', 'powerpress') ); ?> <br /> 
 <?php echo powerpressadmin_notice( __('No support is available from blubrry if you are using Feedburner or other feed hosted services.', 'powerpress') ); ?><br /> 
-<a href="http://www.podcastfaq.com/syndicating-your-podcast/feedburner-for-podcasting/" target="_blank"><?php echo __('Learn more about FeedBurner and Podcasitng', 'powerpress'); ?></a>
+<a href="http://create.blubrry.com/manual/syndicating-your-podcast-rss-feeds/feedburner-for-podcasting/" target="_blank"><?php echo __('Learn more about FeedBurner and Podcasitng', 'powerpress'); ?></a>
 </p>
 
 <p><?php echo __('Use this option to redirect this feed to a hosted feed service such as FeedBurner.', 'powerpress'); ?></p>
 <?php
-if( $cat_ID )
-	$link = get_category_feed_link($cat_ID);
-else
-	$link = get_feed_link($feed_slug);
-	
+$link = $feed_link;
 if( strstr($link, '?') )
 	$link .= "&redirect=no";
 else
@@ -528,7 +581,7 @@ else
 </th>
 <td>
 <input type="text" name="Feed[posts_per_rss]"style="width: 50px;"  value="<?php echo ( !empty($FeedSettings['posts_per_rss'])? $FeedSettings['posts_per_rss']:''); ?>" maxlength="5" /> <?php echo __('episodes / posts per feed (leave blank to use blog default', 'powerpress'); ?>: <?php form_option('posts_per_rss'); ?>)
-<?php if( !$feed_slug && !$cat_ID ) { ?>
+<?php if( empty($FeedAttribs['type']) ) { ?>
 <p style="margin-top: 5px; margin-bottomd: 0;"><?php echo __('Note: Setting above applies only to podcast channel feeds', 'powerpress'); ?></p>
 <?php } ?>
 <p style="margin-top: 5px; margin-bottomd: 0;"><?php echo __('WARNING: Setting this value larger than 10 may cause feed timeout errors and delay podcast directory listings from updating.', 'powerpress'); ?></p>
@@ -652,14 +705,14 @@ if( isset($Languages[ $rss_language ]) )
 }
 
 
-function powerpressadmin_edit_basics_feed($General, $FeedSettings, $feed_slug, $cat_ID = false)
+function powerpressadmin_edit_basics_feed($General, $FeedSettings, $feed_slug, $cat_ID = false,  $FeedAttribs = array() )
 {
 	if( !isset($FeedSettings['redirect']) )
 		$FeedSettings['redirect'] = '';
 	if( !isset($FeedSettings['premium_label']) )
 		$FeedSettings['premium_label'] = '';
 
-	if( $cat_ID )
+	if( !empty($FeedAttribs['type']) && ($FeedAttribs['type'] == 'ttid' || $FeedAttribs['type'] == 'category')  )
 	{
 ?>
 	<h3><?php echo __('Media Statistics', 'powerpress'); ?></h3>
@@ -674,13 +727,17 @@ function powerpressadmin_edit_basics_feed($General, $FeedSettings, $feed_slug, $
 	</th>
 	<td>
 	<input type="text" style="width: 60%;" name="Feed[redirect]" value="<?php echo $FeedSettings['redirect']; ?>" maxlength="250" />
+<?php if( $FeedAttribs['type'] == 'category' ) { ?>
 	<p><?php echo __('Note: Category Media Redirect URL is applied to category feeds and pages only. The redirect will also apply to single pages if this is the only category associated with the blog post.', 'powerpress'); ?></p>
+<?php } else if( $FeedAttribs['type'] == 'ttid' ) { ?>
+	<p><?php echo __('Note: Media Redirect URL is applied to this podcast feed only. The redirect will NOT apply to pages.', 'powerpress'); ?></p>
+<?php } ?>
 	</td>
 	</tr>
 	</table>
 <?php
 	}
-	else // end if category, else channel...
+	else if( $feed_slug ) // end if category, else channel...
 	{
 ?>
 
@@ -823,6 +880,7 @@ function powerpress_default_premium_label(event)
 <?php ?>
 <select name="Feed[custom_post_type]" class="bpp_input_med">
 <?php
+
 			$post_types = powerpress_admin_get_post_types_by_capability_type('post');
 			$custom_post_type = '';
 			if( !empty($FeedSettings['custom_post_type']) )
@@ -837,6 +895,23 @@ function powerpress_default_premium_label(event)
 				if( !empty($postTypeObj->labels->name ) )
 					$desc = $postTypeObj->labels->name . ' ('. $value .')';
 				echo "\t<option value=\"$value\"". ($custom_post_type==$value?' selected':''). ">".htmlspecialchars($desc)."</option>\n";
+			}
+			
+			if( defined('POWERPRESS_CUSTOM_CAPABILITY_TYPE') )
+			{
+				$post_types = powerpress_admin_get_post_types_by_capability_type( POWERPRESS_CUSTOM_CAPABILITY_TYPE );
+				if( !empty($post_types) )
+				{
+					while( list($index,$value) = each($post_types) )
+					{
+						$desc = $value;
+						// TODO: See if we can get a post type label somehow
+						$postTypeObj = get_post_type_object($value);
+						if( !empty($postTypeObj->labels->name ) )
+							$desc = $postTypeObj->labels->name . ' ('. $value .')';
+						echo "\t<option value=\"$value\"". ($custom_post_type==$value?' selected':''). ">".htmlspecialchars($desc)."</option>\n";
+					}
+				}
 			}
 ?>
 </select>
@@ -871,7 +946,7 @@ function powerpressadmin_edit_appearance_feed($General,  $FeedSettings, $feed_sl
 
 }
 
-function powerpressadmin_edit_itunes_feed($FeedSettings, $General, $feed_slug=false, $cat_ID=false)
+function powerpressadmin_edit_itunes_feed($FeedSettings, $General, $feed_slug=false, $cat_ID=false, $FeedAttribs = array() )
 {
 	$SupportUploads = powerpressadmin_support_uploads();
 	if( !isset($FeedSettings['itunes_subtitle']) )
@@ -1143,7 +1218,7 @@ while( list($value,$desc) = each($explicit) )
 			 </strong> 
 			 </p>
 			 <p>
-			 <?php echo __('Learn more:', 'powerpress'); ?> <a href="http://www.podcastfaq.com/syndicating-your-podcast/changing-your-podcast-rss-feed-address-url/" target="_blank"><?php echo __('Changing Your Podcast RSS Feed Address (URL)', 'powerpress'); ?></a>
+			 <?php echo __('Learn more:', 'powerpress'); ?> <a href="http://create.blubrry.com/manual/syndicating-your-podcast-rss-feeds/changing-your-podcast-rss-feed-address-url/" target="_blank"><?php echo __('Changing Your Podcast RSS Feed Address (URL)', 'powerpress'); ?></a>
 			</p>
 		</div>
 		<div id="new_feed_url_step_2" style="display: <?php echo ( !empty($FeedSettings['itunes_new_feed_url']) || !empty($FeedSettings['itunes_new_feed_url_podcast'])  ?'block':'none'); ?>;">
@@ -1170,6 +1245,12 @@ while( list($value,$desc) = each($explicit) )
 					$FeedName = __('Podcast', 'powerpress');
 				$FeedName = trim($FeedName).' '.__('feed', 'powerpress');
 				$FeedURL = get_feed_link($feed_slug);
+			}
+			else if( $FeedAttribs['type'] == 'ttid' )
+			{
+				$term_object = get_term_to_edit($FeedAttribs['term_id'],$FeedAttribs['taxonomy_type']);
+				$FeedName = sprintf( __('%s taxonomy term feed', 'powerpress'), htmlspecialchars($term_object->name) );
+				$FeedURL = get_term_feed_link($FeedAttribs['term_id'],$FeedAttribs['taxonomy_type'], 'rss2');
 			}
 			
 			echo sprintf(__('The New Feed URL value below will be applied to the %s (%s).', 'powerpress'), $FeedName, $FeedURL);

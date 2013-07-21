@@ -31,8 +31,6 @@ final class BackWPup_Admin {
 			add_action( 'network_admin_menu', array( $this, 'admin_menu' ) );
 		else
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-		//add notices
-		add_action('admin_notices', array( $this, 'admin_notices' ) );
 		//add Plugin links
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_links' ), 10, 2 );
 		//add more actions
@@ -46,6 +44,12 @@ final class BackWPup_Admin {
 		//Admin Footer Text replacement
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 100 );
 		add_filter( 'update_footer', array( $this, 'update_footer' ), 100 );
+		//User Profile fields
+		if ( current_user_can( 'administrator' ) || current_user_can( 'backwpup_admin' ) ) {
+			add_action( 'show_user_profile', array( $this, 'user_profile_fields' ) );
+			add_action( 'edit_user_profile',  array( $this, 'user_profile_fields' ) );
+			add_action( 'profile_update',  array( $this, 'save_profile_update' ) );
+		}
 	}
 
 	/**
@@ -72,8 +76,6 @@ final class BackWPup_Admin {
 			//ajax calls
 			add_action( 'wp_ajax_backwpup_working', array( 'BackWPup_Page_Jobs', 'ajax_working' ) );
 			add_action( 'wp_ajax_backwpup_cron_text', array( 'BackWPup_Page_Editjob', 'ajax_cron_text' ) );
-			//ajax handler for jobtypes
-			add_action( 'wp_ajax_backwpup_jobtype', array( $this, 'jobtype_edit_ajax' ) );
 			//ajax or view logs
 			add_action( 'wp_ajax_backwpup_view_log', array( 'BackWPup_Page_Logs', 'ajax_view_log' ) );
 			//ajax calls for job types
@@ -131,23 +133,16 @@ final class BackWPup_Admin {
 	 */
 	public function admin_menu() {
 
-		if ( ! get_site_option( 'backwpup_about_page' ) ) {  //display about page only
-			$this->page_hooks[ 'backwpup' ] = add_menu_page( BackWPup::get_plugin_data( 'name' ), BackWPup::get_plugin_data( 'name' ), 'activate_plugins', 'backwpup', array( 'BackWPup_Page_About', 'page' ), BackWPup::get_plugin_data( 'URL' ) . '/images/BackWPup16.png' );
-			add_action( 'load-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Admin', 'init_generel' ) );
-			add_action( 'admin_print_styles-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_About', 'admin_print_styles' ) );
-			add_action( 'admin_print_scripts-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_About', 'admin_print_scripts' ) );
-		} else { // Display normal pages
-			add_menu_page( BackWPup::get_plugin_data( 'name' ), BackWPup::get_plugin_data( 'name' ), 'backwpup', 'backwpup', array( 'BackWPup_Page_Backwpup', 'page' ), BackWPup::get_plugin_data( 'URL' ) . '/images/BackWPup16.png' );
-			$this->page_hooks[ 'backwpup' ] = add_submenu_page( 'backwpup', __( 'BackWPup Dashboard', 'backwpup' ), __( 'Dashboard', 'backwpup' ), 'backwpup', 'backwpup', array( 'BackWPup_Page_Backwpup', 'page' ) );
-			add_action( 'load-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Admin', 'init_generel' ) );
-			add_action( 'load-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_Backwpup', 'load' ) );
-			add_action( 'admin_print_styles-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_Backwpup', 'admin_print_styles' ) );
-			add_action( 'admin_print_scripts-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_Backwpup', 'admin_print_scripts' ) );
+		add_menu_page( BackWPup::get_plugin_data( 'name' ), BackWPup::get_plugin_data( 'name' ), 'backwpup', 'backwpup', array( 'BackWPup_Page_Backwpup', 'page' ), BackWPup::get_plugin_data( 'URL' ) . '/images/BackWPup16.png' );
+		$this->page_hooks[ 'backwpup' ] = add_submenu_page( 'backwpup', __( 'BackWPup Dashboard', 'backwpup' ), __( 'Dashboard', 'backwpup' ), 'backwpup', 'backwpup', array( 'BackWPup_Page_Backwpup', 'page' ) );
+		add_action( 'load-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Admin', 'init_generel' ) );
+		add_action( 'load-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_Backwpup', 'load' ) );
+		add_action( 'admin_print_styles-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_Backwpup', 'admin_print_styles' ) );
+		add_action( 'admin_print_scripts-' . $this->page_hooks[ 'backwpup' ], array( 'BackWPup_Page_Backwpup', 'admin_print_scripts' ) );		
 
-			//Add pages form plugins
-			$this->page_hooks = apply_filters( 'backwpup_admin_pages' ,$this->page_hooks );
-		}
-
+		//Add pages form plugins
+		$this->page_hooks = apply_filters( 'backwpup_admin_pages' ,$this->page_hooks );
+		
 	}
 
 
@@ -232,7 +227,7 @@ final class BackWPup_Admin {
 	 */
 	public function admin_page_about( $page_hooks ) {
 
-		$this->page_hooks[ 'backwpupabout' ] = add_submenu_page( 'backwpup', __( 'About', 'backwpup' ), __( 'About', 'backwpup' ), 'backwpup', 'backwpupabout', array( 'BackWPup_Page_About', 'page' ) );
+		$this->page_hooks[ 'backwpupabout' ] = add_submenu_page( 'backwpup', __( 'About', 'backwpup' ), __( 'About', 'backwpup' ), 'install_plugins', 'backwpupabout', array( 'BackWPup_Page_About', 'page' ) );
 		add_action( 'load-' . $this->page_hooks[ 'backwpupabout' ], array( 'BackWPup_Admin', 'init_generel' ) );
 		add_action( 'admin_print_styles-' . $this->page_hooks[ 'backwpupabout' ], array( 'BackWPup_Page_About', 'admin_print_styles' ) );
 		add_action( 'admin_print_scripts-' . $this->page_hooks[ 'backwpupabout' ], array( 'BackWPup_Page_About', 'admin_print_scripts' ) );
@@ -245,9 +240,6 @@ final class BackWPup_Admin {
 	 * Load for all BackWPup pages
 	 */
 	public static function init_generel() {
-
-		//start using sessions
-		session_start();
 		
 		add_thickbox();
 
@@ -272,9 +264,6 @@ final class BackWPup_Admin {
 	 * Called on save form. Only POST allowed.
 	 */
 	public function save_post_form() {
-
-		//start using sessions
-		session_start();
 
 		//Allowed Pages
 		if ( ! in_array( $_POST[ 'page' ], array ( 'backwpupeditjob', 'backwpupinformation', 'backwpupsettings' ) ) )
@@ -335,13 +324,15 @@ final class BackWPup_Admin {
 	 */
 	public static function message( $message ) {
 
-		if( empty( $_SESSION[ 'backwpup_messages' ] ) )
-			$_SESSION[ 'backwpup_messages' ] = array();
+		
+		$saved_message = self::get_message();
 
 		if ( is_array( $message ) )
-			$_SESSION[ 'backwpup_messages' ] = array_merge( $_SESSION[ 'backwpup_messages' ], $message );
+			$saved_message = array_merge( $saved_message, $message );
 		else
-			$_SESSION[ 'backwpup_messages' ][] = $message;
+			$saved_message[] = $message;
+		
+		update_site_option( 'backwpup_messages', $saved_message);
 
 	}
 
@@ -350,9 +341,9 @@ final class BackWPup_Admin {
 	 *
 	 * @return array
 	 */
-	public static function get_message( ) {
+	public static function get_message() {
 
-		return $_SESSION[ 'backwpup_messages' ];
+		return get_site_option( 'backwpup_messages', array(), FALSE );
 	}
 
 	/**
@@ -364,21 +355,24 @@ final class BackWPup_Admin {
 	public static function display_messages( $echo = TRUE ) {
 
 		$message = '';
+		$saved_message = self::get_message();
 
-		if ( ! empty( $_SESSION[ 'backwpup_messages' ] ) ) {
-			foreach( $_SESSION[ 'backwpup_messages' ] as $saved)
+		if ( ! empty( $saved_message ) ) {
+			foreach( $saved_message as $saved)
 				$message .= '<p>' .  $saved  . '</p>';
 				//clean messages
-				$_SESSION[ 'backwpup_messages' ] = array();
+				delete_site_option( 'backwpup_messages' );
 		}
 
 		if( empty( $message ) )
 			return '';
 
-		if ( $echo )
+		if ( $echo ) {
 			echo '<div id="message" class="updated">' . $message . '</div>';
-		else
+			return '';
+		} else {
 			return '<div id="message" class="updated">' . $message . '</div>';
+		}
 	}
 
 	/**
@@ -390,7 +384,7 @@ final class BackWPup_Admin {
 	public function admin_footer_text( $admin_footer_text ) {
 
 		if ( isset( $_REQUEST[ 'page' ] ) && strstr( $_REQUEST[ 'page' ], 'backwpup') ) {
-			$admin_footer_text  = '<span class="ip_logo">' . sprintf( _x( 'A project of %s', 'link to Inpsyde.com, link text: Inpsyde GmbH', 'backwpup' ), '<a href="http://inpsyde.com">Inpsyde GmbH</a>' ) . '</span>';
+			$admin_footer_text = '<span class="mp_logo">' . sprintf( __( '<img src="%s"/> <a href="%s">Get BackWPup Pro now.</a>', 'backwpup' ), BackWPup::get_plugin_data( 'URL' ) . '/images/mp_logo_small.png', __( 'http://marketpress.com/product/backwpup-pro/', 'backwpup' ) ) . '</span>';
 			$admin_footer_text .=  sprintf( _x( 'Developer: %s', 'developer name, link text: Daniel Hüsken', 'backwpup' ), '<a href="http://danielhuesken.de">Daniel Hüsken</a>' );
 
 			return $admin_footer_text;
@@ -416,15 +410,76 @@ final class BackWPup_Admin {
 		return $update_footer_text;
 	}
 
+
 	/**
-	 * Display admin notices
+	 *  Add filed for selecting user role in user section
+	 * 
+	 * @param $user WP_User
 	 */
-	public function admin_notices() {
-		if ( ! current_user_can( 'activate_plugins') )
-			return;
-
-		if ( ! get_site_option( 'backwpup_about_page' ) && ! ( isset( $_REQUEST[ 'page' ] ) && $_REQUEST[ 'page' ] == 'backwpup' ) )
-			echo '<div class="updated"><p>' . sprintf( __( 'You have activated or updated BackWPup. Please check <a href="%s">this page</a>.', 'backwpup'), network_admin_url( 'admin.php').'?page=backwpup' ) . '</p></div>';
-
+	public function user_profile_fields( $user ) {
+		global $wp_roles;
+		
+		?>
+		    <h3><?php echo BackWPup::get_plugin_data( 'name' ); ?></h3>		    
+		    <table class="form-table">
+		        <tr>
+		            <th>
+		                <label for="backwpup_role"><?php _e('BackWPup Role', 'backwpup'); ?>
+		            </label></th>
+		            <td>
+		                <select name="backwpup_role" id="backwpup_role" style="display:inline-block; float:none;">
+							<option value=""><?php _e('&mdash; No role for BackWPup &mdash;', 'backwpup'); ?></option>
+							<?php
+							foreach ( $wp_roles->roles as $role => $rolevalue ) {
+								if ( ! strstr( $role, 'backwpup_' ) )
+									continue;
+								echo '<option value="'.$role.'" '. selected( in_array( $role, $user->roles ), TRUE, FALSE ) .'>'. $rolevalue[ 'name' ] . '</option>';
+							}
+							?>						
+		                </select>
+						<br />
+		                <span class="description"><?php _e('Role that the user have on BackWPup', 'backwpup'); ?></span>
+		            </td>
+		        </tr>
+		    </table>
+		<?php
 	}
+
+	/**
+	 * Save for user role adding
+	 * 
+	 * @param $user_id int
+	 */
+	public function save_profile_update( $user_id ) {
+		global $wp_roles;
+		
+		if ( empty( $user_id ) )
+			return;
+		
+		if ( ! isset( $_POST['backwpup_role'] ) )
+			return;
+		
+		// get BackWPup roles
+		$backwpup_roles = array();
+		foreach ( array_keys( $wp_roles->roles ) as $role ) {
+			if ( ! strstr( $role, 'backwpup_' ) )
+				continue;
+			$backwpup_roles[] = $role;
+		}
+		
+		//get user for adding/removing role
+		$user = new WP_User( $user_id );
+		//remove BackWPup role from user
+		foreach ( $user->roles as $role ) {
+			if ( ! strstr( $role, 'backwpup_' ) )
+				continue;
+			$user->remove_role( $role );
+		}
+		//add new role to user
+		if ( ! empty( $_POST['backwpup_role'] ) && in_array( $_POST['backwpup_role'], $backwpup_roles ) )
+			$user->add_role( $_POST['backwpup_role'] );
+		
+		return;		
+	}
+	
 }

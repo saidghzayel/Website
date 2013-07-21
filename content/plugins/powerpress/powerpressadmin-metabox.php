@@ -116,6 +116,14 @@ function powerpress_meta_box($object, $box)
 			}
 		}
 		
+		if( defined('POWERPRESS_AUTO_DETECT_ONCE') && POWERPRESS_AUTO_DETECT_ONCE != false )
+		{
+			if( $EnclosureLength )
+				$GeneralSettings['set_size'] = 1; // specify
+			if( $iTunesDuration )
+				$GeneralSettings['set_duration'] = 1; // specify
+		}
+		
 		if( $FeedSlug == 'podcast' && !$iTunesDuration ) // Get the iTunes duration the old way (very old way)
 			$iTunesDuration = get_post_meta($object->ID, 'itunes:duration', true);
 			
@@ -175,8 +183,8 @@ function powerpress_meta_box($object, $box)
 			<label for="Powerpress[<?php echo $FeedSlug; ?>][url]"><?php echo __('Media URL', 'powerpress'); ?></label>
 			<div class="powerpress_row_content">
 				<input id="powerpress_url_<?php echo $FeedSlug; ?>" class="powerpress-url" name="Powerpress[<?php echo $FeedSlug; ?>][url]" value="<?php echo $EnclosureURL; ?>" <?php echo ( !empty($ExtraData['hosting']) ?'readOnly':''); ?> style="width: 70%; font-size: 90%;" />
-				<?php if( !empty($GeneralSettings['blubrry_hosting']) ) { ?>
-				<a href="<?php echo admin_url(); ?>?action=powerpress-jquery-media&podcast-feed=<?php echo $FeedSlug; ?>&KeepThis=true&TB_iframe=true&modal=true" title="<?php echo __('Browse Media File', 'powerpress'); ?>" class="thickbox"><img src="<?php echo powerpress_get_root_url(); ?>/images/blubrry_folder.png" alt="<?php echo __('Browse Media Files', 'powerpress'); ?>" /></a>
+				<?php if( !empty($GeneralSettings['blubrry_hosting']) || empty($GeneralSettings['no_media_url_folder']) ) { ?>
+				<a href="<?php echo admin_url('admin.php'); ?>?action=powerpress-jquery-media&podcast-feed=<?php echo $FeedSlug; ?>&KeepThis=true&TB_iframe=true&modal=true" title="<?php echo __('Browse Media File', 'powerpress'); ?>" class="thickbox"><img src="<?php echo powerpress_get_root_url(); ?>/images/blubrry_folder.png" alt="<?php echo __('Browse Media Files', 'powerpress'); ?>" /></a>
 				<?php } ?>
 				<input type="button" id="powerpress_check_<?php echo $FeedSlug; ?>_button" name="powerpress_check_<?php echo $FeedSlug; ?>_button" value="<?php echo __('Verify', 'powerpress'); ?>" onclick="powerpress_get_media_info('<?php echo $FeedSlug; ?>');" alt="<?php echo __('Verify Media', 'powerpress'); ?>" class="button" />
 				<img id="powerpress_check_<?php echo $FeedSlug; ?>" src="<?php echo admin_url(); ?>images/loading.gif" style="vertical-align:text-top; display: none;" alt="<?php echo __('Checking Media', 'powerpress'); ?>" />

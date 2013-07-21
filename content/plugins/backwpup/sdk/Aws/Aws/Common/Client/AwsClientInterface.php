@@ -35,6 +35,15 @@ interface AwsClientInterface extends ClientInterface
     public function getCredentials();
 
     /**
+     * Sets the credentials object associated with the client
+     *
+     * @param CredentialsInterface $credentials Credentials object to use
+     *
+     * @return self
+     */
+    public function setCredentials(CredentialsInterface $credentials);
+
+    /**
      * Returns the signature implementation used with the client
      *
      * @return SignatureInterface
@@ -99,4 +108,11 @@ interface AwsClientInterface extends ClientInterface
      * @return WaiterInterface
      */
     public function getWaiter($waiter, array $input = array());
+
+    /**
+     * Get the API version of the client (e.g. 2006-03-01)
+     *
+     * @return string
+     */
+    public function getApiVersion();
 }

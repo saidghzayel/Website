@@ -71,7 +71,7 @@ class Publicize_UI {
 		add_thickbox();
 	}
 
-	function connected_notice( $service_name ) { ?>
+	public static function connected_notice( $service_name ) { ?>
 		<div class='updated'>
 			<p><?php printf( __( 'You have successfully connected your blog with your %s account.', 'jetpack' ), Publicize::get_service_label( $service_name ) ); ?></p>
 		</div><?php
@@ -91,14 +91,14 @@ class Publicize_UI {
 	  			<?php esc_html_e( 'Connect your blog to popular social networking sites and automatically share new posts with your friends.', 'jetpack' ) ?>
 	  			<?php esc_html_e( 'You can make a connection for just yourself or for all users on your blog. Shared connections are marked with the (Shared) text.', 'jetpack' ); ?>
 	  		</p>
-	  		
+
   			<?php
   			if ( $this->in_jetpack )
   				$doc_link = "http://jetpack.me/support/publicize/";
   			else
   				$doc_link = "http://en.support.wordpress.com/publicize/";
   			?>
-	  		
+
 	  		<p>&rarr; <a href="<?php echo esc_url( $doc_link ); ?>"><?php esc_html_e( 'More information on using Publicize.', 'jetpack' ); ?></a></p>
 
 	  		<div id="publicize-services-block">
@@ -190,7 +190,7 @@ class Publicize_UI {
 
 	}
 
-	function global_checkbox( $service_name, $id ) {
+	public static function global_checkbox( $service_name, $id ) {
 		global $publicize;
 		if ( current_user_can( $publicize->GLOBAL_CAP ) ) : ?>
 			<p>
@@ -208,7 +208,7 @@ class Publicize_UI {
 		</div><?php
 	}
 
-	function options_page_other( $service_name ) {
+	public static function options_page_other( $service_name ) {
 		// Nonce check
 		check_admin_referer( "options_page_{$service_name}_" . $_REQUEST['connection'] );
 		?>
@@ -413,7 +413,13 @@ jQuery( function($) {
 
 					foreach ( $services as $name => $connections ) {
 						foreach ( $connections as $connection ) {
-							if ( !$continue = apply_filters( 'wpas_submit_post?', true, $post->ID, $name ) )
+							$connection_data = '';
+							if ( method_exists( $connection, 'get_meta' ) )
+								$connection_data = $connection->get_meta( 'connection_data' );
+							elseif ( ! empty( $connection['connection_data'] ) )
+								$connection_data = $connection['connection_data'];
+
+							if ( !$continue = apply_filters( 'wpas_submit_post?', true, $post->ID, $name, $connection_data ) )
 								continue;
 
 							if ( !empty( $connection->unique_id ) )

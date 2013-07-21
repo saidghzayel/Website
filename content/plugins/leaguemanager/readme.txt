@@ -1,10 +1,10 @@
 === LeagueManager ===
 Contributors: Kolja Schleich
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=2329191
-Tags: sport, sport league, sidebar, widget, post
+Tags: sport, widget, basketball, football, hockey, league, soccer, volleyball, gymnastics, tennis, baseball, rugby
 Requires at least: 2.7
-Tested up to: 3.3.2
-Stable tag: 3.8.3
+Tested up to: 3.5.1
+Stable tag: 3.8.8.1
 
 Plugin to manage and present Sports Leagues
 
@@ -23,9 +23,9 @@ This Plugin is designed to manage sports leagues and display them on your blog.
 * link posts with specific match for match reports
 * unlimited number of widgets
 * modular setup for easy implementation of sport types
-* seperate capability to control access and compatibility with Role Manager
+* separate capability to control access and compatibility with Role Manager
 * dynamic match statistics
-* Championchip mode with preliminary and k/o rounds
+* Championship mode with preliminary and k/o rounds
 
 
 **Translations**
@@ -69,12 +69,56 @@ Replace *league_ID* with the ID of the league you want to display. This will dis
 3. Adding of up to 15 matches simultaneously for one date
 4. Easy insertion of tags via TinyMCE Button
 5. Widget control panel
+6. Example of 'Last 5' (shows 'Last 3') Functionality
 
 
 == Credits ==
 The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 
 == Changelog ==
+
+= 3.8.8.1 =
+* TEST: Test version to add 'Last 5' function to standings. Only update to this version if you're willing to test.
+use this shortcode to test:
+[standings league_id=1 template=last5] or
+[standings league_id=1 group=A template=last5 logo=true]
+(group and logo are optional)
+
+If you test and find that the icons at the end of each line in the standings are moving to a second line it means you don't have enough room on your template for five past results. You can then change to a lesser number in the template, named 'standings-last5.php' in the 'admin/templates' folder. Go to 43:
+
+	<th width="100" class="last5"><?php _e( 'Last 5', 'leaguemanager' ) ?></th>
+
+change the 'Last 5' text to 'Last 3' if you're going to use three past results, or whatever you choose. Then go to line 93:
+
+    $results = get_latest_results($team->id, 5);
+
+Change the '5' at the end to '3' if you want three past results.
+
+The final version will probably have this as a preference option.
+
+= 3.8.8 =
+* BUGFIX: add matches in championship mode not working.
+
+= 3.8.7 =
+* BUGFIX: various
+* ADDED: Shortcode additions for: option of using website link on standings, standings and crosstables by group.
+* ADDED: when adding a team from db, bring the stadium info into the form with the rest of the information.
+
+= 3.8.6 =
+* BUGFIX: standings
+
+= 3.8.5 =
+
+*** IF YOU'VE DONE ANY MANUAL MODIFICATIONS, DOWNLOAD THIS AND CHECK THAT YOU AREN'T GOING TO LOSE THEM WHEN YOU UPDATE (INSTEAD OF DOING AN AUTO UPDATE). THIS UPDATE TOUCHES A NUMBER OF FILES (17). IF YOU HAVE QUESTIONS BEFORE UPDATING, LEAVE A MESSAGE ON THE SUPPORT FORUM ON WORDPRESS.ORG. A LIST OF ALL FILES UPDATED IS LISTED IN A POST THERE. ***
+
+http://wordpress.org/support/topic/leaguemanager-385-changes-info
+
+* CHANGED: 'championchip' to 'championship' throughout the plugin
+* BUGFIX: fixed missing '>' in core.php that was causing white screen after adding or editing matches.
+* BUGFIX: fixed date format in widget.php so date shows.
+
+= 3.8.4 =
+* BUGFIX: export function
 
 = 3.8.3 =
 * BUGFIX: export function
@@ -131,9 +175,9 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 
 = 3.6 =
 * NEW: documentation
-* NEW: add stadium for teams and automatically add loaction for matches when choosing team
+* NEW: add stadium for teams and automatically add location for matches when choosing team
 * NEW: Arabian translation
-* CHANGED: add 15 matches at once indepenent of team number
+* CHANGED: add 15 matches at once independent of team number
 * BUGFIX: Link to match report in widget
 * BUGFIX: Championship advancement to finals
 * UPDATED: French translation
@@ -142,7 +186,7 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 * NEW: limit number of matches in shortcode [matches] with limit=X
 
 = 3.5.5 =
-* CHANGED: use first group if none is selected to add matches in championchip preliminary rounds
+* CHANGED: use first group if none is selected to add matches in championship preliminary rounds
 
 = 3.5.4 =
 * BUGFIX: stripslashes for team name to allow ' and "
@@ -160,9 +204,9 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 * BUGFIX: row colors for ascending/descending teams
 
 = 3.5 =
-* NEW: cut down standings to home teams with surrounding teams. Attribute home=X where X is an integer controling the number of surrounding teams up and down
+* NEW: cut down standings to home teams with surrounding teams. Attribute home=X where X is an integer controlling the number of surrounding teams up and down
 * BUGFIX: teams tied only when they have same points, point difference and goals
-* BUGFIX: championchip mode
+* BUGFIX: championship mode
 * NEW: css class "ascend" and "descend" for first and last two teams. class "homeTeam" for home team row. Table rows (tr)
 * CHANGED: ranking of teams in soccer by points, goal difference and shot goals
 
@@ -188,13 +232,13 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 * UPDATED: template tag for single team to display individual team member information
 * BUGFIX: match scrambling
 * BUGFIX: ranking in soccer
-* BUGFIX: plus/minus points affects ranking (reload of page neccessary)
+* BUGFIX: plus/minus points affects ranking (reload of page necessary)
 * BUGFIX: widget prev match does not show latest match
 
 = 3.4-RC2 =
-* NEW: improved administration of championchip
-* NEW: template tag for championchip
-* NEW: updated championchip template and archive template
+* NEW: improved administration of championship
+* NEW: template tag for championship
+* NEW: updated championship template and archive template
 * NEW: display team roster if present on team info page (requires ProjectManager 2.8+)
 * CHANGED: Widget design upgrade
 * CHANGED: single match template layout
@@ -202,7 +246,7 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 
 
 * NEW: group teams and individual ranking in groups
-* NEW: full championchip mode
+* NEW: full championship mode
 * NEW: mach with unspecific date N/A
 * NEW: Widget with 2.8 API
 
@@ -287,7 +331,7 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 * NEW: Team Roster for each team if ProjectManager is installed
 * NEW: Basic support for racing
 * NEW: standings actions in Frontend templates
-* CHANGED: restructered settings in one database longtext field
+* CHANGED: restructured settings in one database longtext field
 * BUGFIX: crosstable score
 
 = 2.9.3 =
@@ -312,7 +356,7 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 * NEW: modular setup of plugin
 * NEW: actions and filters for specific sport types
 * NEW: shortcodes to display list of teams and team info
-* NEW: three dropdown menus for leagues, seasons and matches on post page
+* NEW: three drop-down menus for leagues, seasons and matches on post page
 * NEW: track status of team ranking compared to last standing
 * NEW: several new sports
 * NEW: Match Statistics with Team Roster from ProjectManager
@@ -331,13 +375,13 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 * NEW: import and export of teams/matches (experimental)
 * NEW: option to manually save standings in admin panel
 * NEW: manually rank teams via drag & drop if needed
-* NEW: field to add/substract points (useful, e.g. for Rugby)
+* NEW: field to add/subtract points (useful, e.g. for Rugby)
 * NEW: option to show/hide logos in match widget
 * BUGFIX: display of next match in widget
 * BUGFIX: no update of diff if saving standings manually
 * CHANGED: Update logo name in database if image already exists on server
 * CHANGED: included updated dutch translation
-* CHANGED: added some desriptions to translation
+* CHANGED: added some descriptions to translation
 
 = 2.7.1 =
 * BUGFIX: plugin installation missed `coach` field for teams
@@ -366,7 +410,7 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 = 2.6.1 =
 * BUGFIX: TinyMCE Button
 * BUGFIG: PHP4 compatibility
-* CHANGED: don't show match day dropdown if number of match days is 0
+* CHANGED: don't show match day drop-down if number of match days is 0
 * CHANGED: warning message if number of match days is 0
 
 = 2.6 =
@@ -436,7 +480,7 @@ The LeagueManager icon is taken from the Fugue Icons of http://www.pinvoke.com/.
 
 = 1.4 =
 * NEW: wp_nonce_field for higher security
-* NEW: seperate capability to control access
+* NEW: separate capability to control access
 * BUGFIX: some minor bugfixes
 
 = 1.3 =

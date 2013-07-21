@@ -79,9 +79,9 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
           /* get current post meta data */
           $field_value = get_post_meta( $post->ID, $field['id'], true );
           
-          /* set default to standard value */
-          if ( '' == $field_value && isset( $field['std'] ) ) {  
-            $field_value = trim( $field['std'] );
+          /* set standard value */
+          if ( isset( $field['std'] ) ) {  
+            $field_value = ot_filter_std_value( $field_value, $field['std'] );
           }
           
           /* build the arguments array */

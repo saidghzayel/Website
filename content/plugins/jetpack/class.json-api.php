@@ -12,6 +12,7 @@ class WPCOM_JSON_API {
 	var $method = '';
 	var $url = '';
 	var $path = '';
+	var $version = null;
 	var $query = array();
 	var $post_body = null;
 	var $files = null;
@@ -78,7 +79,7 @@ class WPCOM_JSON_API {
 			$this->accept = $_SERVER['HTTP_ACCEPT'];
 		}
 
-		if ( 'POST' == $this->method ) {
+		if ( 'POST' === $this->method ) {
 			if ( is_null( $post_body ) ) {
 				$this->post_body = file_get_contents( 'php://input' );
 
@@ -124,9 +125,11 @@ class WPCOM_JSON_API {
 
 		$this->initialize();
 
-		// Normalize path
+		// Normalize path and extract API version
 		$this->path = untrailingslashit( $this->path );
-		$this->path = preg_replace( '#^/rest/v1#', '', $this->path );
+		preg_match( '#^/rest/v(\d+(\.\d+)*)#', $this->path, $matches );
+		$this->path = substr( $this->path, strlen( $matches[0] ) );
+		$this->version = $matches[1];
 
 		$allowed_methods = array( 'GET', 'POST' );
 		$four_oh_five = false;
@@ -156,7 +159,7 @@ class WPCOM_JSON_API {
 				$methods = $allowed_methods;
 				$find_all_matching_endpoints = true;
 				$four_oh_five = true;
-			} 
+			}
 		}
 
 		// Find which endpoint to serve
@@ -354,6 +357,18 @@ class WPCOM_JSON_API {
 
 	function post_like_count( $blog_id, $post_id ) {
 		return 0;
+	}
+
+	function is_liked( $blog_id, $post_id ) {
+		return false;
+	}
+
+	function is_reblogged( $blog_id, $post_id ) {
+		return false;
+	}
+
+	function is_following( $blog_id ) {
+		return false;
 	}
 
 	function get_avatar_url( $email ) {

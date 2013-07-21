@@ -3,7 +3,7 @@
  * Plugin Name: OptionTree
  * Plugin URI:  http://wp.envato.com
  * Description: Theme Options UI Builder for WordPress. A simple way to create & save Theme Options and Meta Boxes for free or premium themes.
- * Version:     2.0.14
+ * Version:     2.0.16
  * Author:      Derek Herman
  * Author URI:  http://valendesigns.com
  * License:     GPLv2
@@ -55,12 +55,12 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @access    private
      * @since     2.0
      */
-    public function constants() {
+    private function constants() {
       
       /**
        * Current Version number.
        */
-      define( 'OT_VERSION', '2.0.14' );
+      define( 'OT_VERSION', '2.0.16' );
       
       /**
        * For developers: Allow Unfiltered HTML in all the textareas.
@@ -85,6 +85,18 @@ if ( ! class_exists( 'OT_Loader' ) ) {
        * @since     2.0
        */
       define( 'OT_THEME_MODE', apply_filters( 'ot_theme_mode', false ) );
+      
+      /**
+       * For developers: Child Theme mode. TODO document
+       *
+       * Run a filter and set to true to enable OptionTree child theme mode.
+       * You must have this files parent directory inside of 
+       * your themes root directory. As well, you must include 
+       * a reference to this file in your themes functions.php.
+       *
+       * @since     2.0.15
+       */
+      define( 'OT_CHILD_THEME_MODE', apply_filters( 'ot_child_theme_mode', false ) );
       
       /**
        * For developers: Show Pages.
@@ -119,18 +131,23 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       /**
        * Check if in theme mode.
        *
-       * If OT_THEME_MODE is false, set the directory path & URL
-       * like any other plugin. Otherwise, use the parent themes 
-       * root directory. 
+       * If OT_THEME_MODE and OT_CHILD_THEME_MODE is false, set the 
+       * directory path & URL like any other plugin. Otherwise, use 
+       * the parent or child themes root directory. 
        *
        * @since     2.0
        */
-      if ( false == OT_THEME_MODE ) {
+      if ( false == OT_THEME_MODE && false == OT_CHILD_THEME_MODE ) {
         define( 'OT_DIR', plugin_dir_path( __FILE__ ) );
         define( 'OT_URL', plugin_dir_url( __FILE__ ) );
       } else {
-        define( 'OT_DIR', trailingslashit( get_template_directory() ) . trailingslashit( basename( dirname( __FILE__ ) ) ) );
-        define( 'OT_URL', trailingslashit( get_template_directory_uri() ) . trailingslashit( basename( dirname( __FILE__ ) ) ) );
+        if ( true == OT_CHILD_THEME_MODE ) {
+          define( 'OT_DIR', trailingslashit( get_stylesheet_directory() ) . trailingslashit( basename( dirname( __FILE__ ) ) ) );
+          define( 'OT_URL', trailingslashit( get_stylesheet_directory_uri() ) . trailingslashit( basename( dirname( __FILE__ ) ) ) );
+        } else {
+          define( 'OT_DIR', trailingslashit( get_template_directory() ) . trailingslashit( basename( dirname( __FILE__ ) ) ) );
+          define( 'OT_URL', trailingslashit( get_template_directory_uri() ) . trailingslashit( basename( dirname( __FILE__ ) ) ) );
+        }
       }
       
       /**
@@ -151,7 +168,7 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @access    private
      * @since     2.0
      */
-    public function admin_includes() {
+    private function admin_includes() {
       
       /* exit early if we're not on an admin page */
       if ( ! is_admin() )
@@ -178,13 +195,9 @@ if ( ! class_exists( 'OT_Loader' ) ) {
         $files[] = 'ot-ui-admin';
       }
       
-      // Temporary patch to fix PHP notice regression after Theme Check update
-      global $wp_query;
-      $wp_query->query_vars['option_tree'] = true;
-      
       /* require the files */
       foreach ( $files as $file ) {
-        load_template( OT_DIR . "includes/{$file}.php" );
+        $this->load_file( OT_DIR . "includes/{$file}.php" );
       }
       
     }
@@ -200,21 +213,16 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @access    private
      * @since     2.0
      */
-    public function includes() {
-      
+    private function includes() {
 		
       $files = array( 
         'ot-functions',
         'ot-functions-deprecated'
       );
-      
-      // Temporary patch to fix PHP notice regression after Theme Check update
-      global $wp_query;
-      $wp_query->query_vars['option_tree'] = true;
-      
+
       /* require the files */
       foreach ( $files as $file ) {
-        load_template( OT_DIR . "includes/{$file}.php" );
+        $this->load_file( OT_DIR . "includes/{$file}.php" );
       }
       
     }
@@ -227,10 +235,10 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @access    public
      * @since     2.0
      */
-    public function hooks() {
+    private function hooks() {
       
       /* load the text domain  */
-      if ( false == OT_THEME_MODE ) {
+      if ( false == OT_THEME_MODE && false == OT_CHILD_THEME_MODE ) {
         add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) );
       } else {
         add_action( 'after_setup_theme', array( &$this, 'load_textdomain' ) );
@@ -306,6 +314,20 @@ if ( ! class_exists( 'OT_Loader' ) ) {
     }
     
     /**
+     * Load a file
+     *
+     * @return    void
+     *
+     * @access    private
+     * @since     2.0.15
+     */
+    private function load_file( $file ){
+      
+      include_once( $file );
+      
+    }
+    
+    /**
      * Load the text domain.
      *
      * @return    void
@@ -314,7 +336,7 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @since     2.0
      */
     public function load_textdomain() {
-      if ( false == OT_THEME_MODE ) {
+      if ( false == OT_THEME_MODE && false == OT_CHILD_THEME_MODE ) {
         load_plugin_textdomain( 'option-tree', false, OT_LANG_DIR . 'plugin' );
       } else {
         load_theme_textdomain( 'option-tree', OT_LANG_DIR . 'theme-mode' );
@@ -327,7 +349,7 @@ if ( ! class_exists( 'OT_Loader' ) ) {
     public function global_admin_css() {
       echo '
       <style>
-        #adminmenu #toplevel_page_ot-settings .wp-menu-image img { padding: 4px 0px 1px 2px !important; }
+        #adminmenu #toplevel_page_ot-settings .wp-menu-image img { padding: 5px 0px 1px 6px !important; }
       </style>
       ';
     }

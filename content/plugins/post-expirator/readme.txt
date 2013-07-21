@@ -3,7 +3,7 @@ Contributors: axelseaa
 Tags: expire, posts, pages, schedule
 Requires at least: 3.2
 Tested up to: 3.5.1
-Stable tag: 2.0.1
+Stable tag: 2.1.1
 
 Allows you to add an expiration date to posts which you can configure to either delete the post, change it to a draft, or update the 
 post categories.
@@ -46,6 +46,20 @@ This section describes how to install the plugin and get it working.
 3. Settings screen
 
 == Changelog ==
+
+**Version 2.1.1**
+
+* FIX: Fixed php warning issue cause when post type defaults are not set
+* NEW: Added the option to disable post expirator for certain post types if desired
+
+**Version 2.1.0**
+
+* New: Added support for heirarchical custom taxonomy
+* New: Enhanced custom post type support
+* Fix: Updated debug function to be friendly for scripted calls 
+* Fix: Change to only show public custom post types on defaults screen
+* Fix: Removed category expiration options for 'pages', which is currently unsupported
+* Fix: Some date calls were getting "double" converted for the timezone pending how other plugins handled date - this issue should now be resolved
 
 **Version 2.0.1**
 

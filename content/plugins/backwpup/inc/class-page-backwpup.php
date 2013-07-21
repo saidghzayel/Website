@@ -96,7 +96,8 @@ class BackWPup_Page_BackWPup {
 				<?php }
 
 				if ( class_exists( 'BackWPup_Features' ) ) {
-
+					/* @var BackWPup_Wizards $wizard_class */
+					
 					foreach ( $wizards as $wizard_class ) {
 						//check permissions
 						if ( ! current_user_can( $wizard_class->info[ 'cap' ] ) )
@@ -122,11 +123,29 @@ class BackWPup_Page_BackWPup {
 						echo '</form></div>';
 					}
 				}
+				?><div style="clear:both"><?php
+					self::mb_next_jobs();
+					self::mb_last_logs();
 				?>
+				</div>
 			</div>
 
+			<div style="width:35%;float:left;">
+				<?php if ( ! class_exists( 'BackWPup_Features' ) ) { ?>
+					<div class="metabox-holder postbox" style="padding-top:0;margin:10px;cursor:auto;width:30%;float:left;min-width:320px">
+						<h3 class="hndle" style="cursor: auto;"><span><?php  _e( 'Thank you for using BackWPup!', 'backwpup' ); ?></span></h3>
+						<div class="inside backwpuppro">
+							<img src="<?php echo BackWPup::get_plugin_data( 'URL' ) . '/images/backwpupbanner-pro.png'; ?>" alt="BackWPup Banner" />
+							<?php _e( 'BackWPup Pro offers you first-class premium support and more features like a wizard for scheduled backup jobs, differential backup of changed directories in the cloud and much more!', 'backwpup' ); ?>.
+							<div style="text-align: center;margin-top:10px;">
+								<a href="<?php _e( 'http://marketpress.com/product/backwpup-pro/', 'backwpup' ); ?>" class="button-primary" title="<?php _e( 'Get BackWPup Pro now', 'backwpup' ); ?>"><?php _e( 'Get BackWPup Pro now', 'backwpup' ); ?></a><br />
+							</div>
+						</div>
+					</div>
+				<?php } ?>
+
 				<?php if ( current_user_can( 'backwpup_jobs_edit' ) && current_user_can( 'backwpup_logs' ) && current_user_can( 'backwpup_jobs_start' ) ) {?>
-					<div class="metabox-holder postbox" style="padding-top:0;margin:10px;cursor:auto;width:30%;float:left;min-width:300px">
+					<div class="metabox-holder postbox" style="padding-top:0;margin:10px;cursor:auto;width:30%;float:left;min-width:320px">
 						<h3 class="hndle" style="cursor: auto;"><span><?php  _e( 'First Steps', 'backwpup' ); ?></span></h3>
 						<div class="inside">
 							<ul style="margin-left: 30px;">
@@ -145,18 +164,14 @@ class BackWPup_Page_BackWPup {
 				<?php }
 
 				if ( current_user_can( 'backwpup_jobs_start' ) ) {?>
-					<div class="metabox-holder postbox" style="padding-top:0;margin:10px;cursor:auto;width:30%;float:left;min-width:300px">
+					<div class="metabox-holder postbox" style="padding-top:0;margin:10px;cursor:auto;width:30%;float:left;min-width:320px">
 						<h3 class="hndle" style="cursor: auto;"><span><?php  _e( 'One click backup', 'backwpup' ); ?></span></h3>
 						<div class="inside" style="text-align: center;">
 							<a href="<?php echo wp_nonce_url( network_admin_url( 'admin.php' ). '?page=backwpup&action=dbdumpdl', 'backwpupdbdumpdl' ); ?>" class="button-primary" title="<?php _e( 'Generate a database backup of WordPress tables and download it right away!', 'backwpup' ); ?>"><?php _e( 'Download database backup', 'backwpup' ); ?></a><br />
 						</div>
 					</div>
-				<?php }
-
-					self::mb_next_jobs();
-					self::mb_last_logs();
-				?>
-
+				<?php }	?>
+			</div>
         </div>
 	<?php
 	}
@@ -169,7 +184,7 @@ class BackWPup_Page_BackWPup {
 		if ( ! current_user_can( 'backwpup_logs' ) )
 			return;
 		?>
-		<table class="wp-list-table widefat" cellspacing="0" style="margin:10px;width:30%;float:left;clear:none;min-width:300px">
+		<table class="wp-list-table widefat" cellspacing="0" style="margin:10px;width:47%;float:left;clear:none;min-width:300px">
 			<thead>
 			<tr><th colspan="3" style="font-size:15px"><?php _e( 'Last logs', 'backwpup' ); ?></tr>
 			<tr><th style="width:30%"><?php _e( 'Time', 'backwpup' ); ?></th><th style="width:55%"><?php  _e( 'Job', 'backwpup' ); ?></th><th style="width:20%"><?php  _e( 'Result', 'backwpup' ); ?></th></tr>
@@ -229,7 +244,7 @@ class BackWPup_Page_BackWPup {
 		if ( ! current_user_can( 'backwpup_jobs' ) )
 			return;
 		?>
-		<table class="wp-list-table widefat" cellspacing="0" style="margin:10px;width:30%;float:left;clear:none;min-width:300px">
+		<table class="wp-list-table widefat" cellspacing="0" style="margin:10px;width:47%;float:left;clear:none;min-width:300px">
 			<thead>
 			<tr><th colspan="2" style="font-size:15px"><?php _e( 'Next scheduled jobs', 'backwpup' ); ?></th></tr>
 			<tr>
@@ -239,17 +254,17 @@ class BackWPup_Page_BackWPup {
 			</thead>
 			<?php
 			//get next jobs
-			$job_object  = BackWPup_Job::get_working_data();
 			$mainsactive = BackWPup_Option::get_job_ids( 'activetype', 'wpcron' );
 			sort( $mainsactive );
 			$alternate = TRUE;
 			// add working job if it not in active jobs
-			if ( is_object( $job_object ) && ! empty( $job_object->job[ 'jobid' ] ) && ! in_array( $job_object->job[ 'jobid' ], $mainsactive ) )
-				$mainsactive[ ] = $job_object->job[ 'jobid' ];
+			$active_jobid = get_site_option( 'backwpup_working_job' );
+			if ( $active_jobid && ! in_array( $active_jobid, $mainsactive ) )
+				$mainsactive[ ] = $active_jobid;
 			foreach ( $mainsactive as $jobid ) {
 				$name = BackWPup_Option::get( $jobid, 'name' );
-				if ( is_object( $job_object )  && ! empty( $job_object->job[ 'jobid' ] ) && $job_object->job[ 'jobid' ] == $jobid ) {
-					$runtime  = current_time( 'timestamp' ) - $job_object->start_time;
+				if ( ! empty( $active_jobid ) && $active_jobid == $jobid ) {
+					$runtime  = current_time( 'timestamp' ) - BackWPup_Option::get( $active_jobid, 'lastrun' );
 					if ( ! $alternate ) {
 						echo '<tr>';
 						$alternate = TRUE;
@@ -278,7 +293,7 @@ class BackWPup_Page_BackWPup {
 					echo '<td><a href="' . wp_nonce_url( network_admin_url( 'admin.php' ) . '?page=backwpupeditjob&jobid=' . $jobid, 'edit-job' ) . '" title="' . esc_attr( __( 'Edit Job', 'backwpup' ) ) . '">' . $name . '</a></td></tr>';
 				}
 			}
-			if ( empty( $mainsactive ) and ! $job_object ) {
+			if ( empty( $mainsactive ) and ! $active_jobid ) {
 				echo '<tr><td colspan="2"><i>' . __( 'none', 'backwpup' ) . '</i></td></tr>';
 			}
 			?>

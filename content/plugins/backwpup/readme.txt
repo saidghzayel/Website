@@ -1,19 +1,19 @@
-=== BackWPup ===
+=== BackWPup - WordPress Backup Plugin ===
 Contributors: inpsyde, danielhuesken, Bueltge, nullbyte
-Tags: backup, dump, database, file, ftp, xml, time, upload, multisite, cloud, dropbox, storage, S3
+Tags: Amazon, Amazon S3, back up, backup, chinese, cloud, cloud files, database, db backup, dropbox, dump, file, french, ftp, ftps, german, migrate, multisite, russian, schedule, sftp, storage, S3, time, upload, xml
 Requires at least: 3.2
 Tested up to: 3.5.1
-Stable tag: 3.0.6
+Stable tag: 3.0.12
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Flexible, scheduled WordPress backups to any location
+Schedule easy, and complete automatic backups for your WordPress installation. Decide which content will be stored where and when (Dropbox, S3, FTP). 
 
 == Description ==
 
-The backup files can be used to save your whole installation including `/wp-content/`
-and push them to an external Backup Service, if you don’t want to save the backups on
-the same server. With the single backup .zip file you are able to restore an installation.
+The **backup plugin** **[BackWPup](http://marketpress.com/product/backwpup-pro/)** can be used to save your complete installation including /wp-content/ and push them to an external Backup Service, like **Dropbox**, **S3**, **FTP** and many more, see list below. With a single backup .zip file you are able to easily restore an installation.
+
+BackWPup is the number 1 backup-plugin for WordPress with more than 60.000 users, 750.000 downloads and in the top 50 of all WordPress Plugins (checked on rankwp.com)
 
 * Database Backup  *(needs mysqli)*
 * WordPress XML Export
@@ -24,27 +24,34 @@ the same server. With the single backup .zip file you are able to restore an ins
 * Backups in zip, tar, tar.gz, tar.bz2 format *(needs gz, bz2, ZipArchive)*
 * Store backup to directory
 * Store backup to FTP server *(needs ftp)*
+* Store backup to Dropbox *(needs curl)*
 * Store backup to S3 services *(needs curl)*
 * Store backup to Microsoft Azure (Blob) *(needs PHP 5.3.2, curl)*
 * Store backup to RackSpaceCloud *(needs PHP 5.3.2, curl)*
-* Store backup to Dropbox *(needs curl)*
 * Store backup to SugarSync *(needs curl)*
 * Send logs and backups by email
 * Multi-site support only as network admin
+* Pro version and support available - [BackWPup Pro](http://marketpress.com/product/backwpup-pro/)
 
-Get the Pro Version: http://marketpress.com/product/backwpup-pro/
+= Available languages =  
+* english (standard)
+* french / français (fr_FR)
+* german / deutsch (de_DE)
+* russian / pоссия (ru_RU)
+* simplified chinese (zh_CN)
 
-**WordPress 3.2 and PHP 5.2.6 required!**
+= Requirements =  
+* WordPress 3.2 and PHP 5.2.6 required!
+* To use the Plugin with full functionality PHP 5.3.3 with mysqli, FTP,gz, bz2,  ZipArchive and curl is needed.
+* Plugin functions that don't work because of your server settings, will not be displayed in admin area.
 
-**To use the Plugin with full functionality PHP 5.3.3 with mysqli, FTP,gz, bz2,  ZipArchive and curl is needed.**
+**Remember: The most expensive backup is the one you never did! And please test your backups!**
 
-**Plugin functions that don't work will be not displayed.**
-
-**Test your Backups!**
+Get the [BackWPup Pro](http://marketpress.com/product/backwpup-pro/) Version with more features on [MarketPress.com](http://marketpress.com/product/backwpup-pro/)
 
 **Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress**
 
-Have a look at the premium plugins in our [market](http://marketpress.com).
+Have a look at our other premium plugins at [MarketPress.com](http://marketpress.com).
 
 == Frequently Asked Questions ==
 
@@ -81,7 +88,6 @@ Not really a solution, but a way to identify the real problem: see remarks on WP
 = I get this error message: `The HTTP response test get a error "Connection time-out"` =
 
 BackWPup performs a simple HTTP request to the server itself every time you click `run now` or whenever a backup job starts automatically. The HTTP response test message could mean:
-
 * Your host does not allow *loop back connections*. (If you know what `WP_ALTERNATE_CRON` is, try it.)
 * Your WordPress root directory or backup directory requires authetification. Set username and password in Settings->Network.
 * The Server can’t resolve its own hostname.
@@ -118,12 +124,10 @@ Go to Settings->Jobs and try a different option for “Reduce server load”.
 
 
 = Can I cancel a running backup job via FTP? =
-
 Yes. Go to your BackWPup temp directory and find a file named `backwpup-xyz-working.php` where “xyz” is a random string of numbers and characters. Delete that file to cancel the currently running backup job.
 
 
 = Can I move the temp directory to a different location? =
-
 Yes. You need to have writing access to the wp-config.php file (usually residing in the root directory of your WordPress installation). 
 
 * Open wp-config.php and find the line where it says `if ( !defined('ABSPATH') )`. 
@@ -179,6 +183,55 @@ Please check all settings after the update:
 
 
 == Changelog ==
+= Version 3.0.12 =
+* Fixed: Redirect when accessing the WordPress backend
+* Added: Russian translation
+* Added: Simplified chinese translation
+* Fixed: German log string typo
+
+= Version 3.0.11 =
+* Improved: About page will only be shown after install
+* Updated: AWS SDK to Version 2.3.1 (PHP 5.3.3+)
+* Fixed: some notices and warnings
+* Fixed: Change of BackWPup role for other users
+* Added: Message for Pro version to support plugin
+
+= Version 3.0.10 =
+* Fixed only Version on WordPress.org because of SVN upload problems with Symfony folder from AWS
+
+= Version 3.0.9 =
+* Fixed: Fixed bug in Dropbox temp file fallback
+* Fixed: Not working if WP-Cron Control active
+* PRO Fixed: Synchronisation of files to Dropbox
+* PRO Changed: About page only displays on new installation not on updates
+* Added: Sending auth cookie for self requests
+* Added: Displaying off last error or waring in execution screen
+* Added: Job end message depending on error's or waring's
+* Added: Setting of BackWPup role in the user settings
+* Improved: Wait time after job start
+* Improved: Rights management to work better with Role management Plugins
+* Changed: Sessions now only used for wizards in pro version
+* Removed: Maintenance Mode support, because to many problems and not really needed
+* Updated: RSC SDK to Version 1.5.4
+* Updated: AWS SDK to Version 1.6.2
+* Updated: AWS SDK to Version 2.3.0 (PHP 5.3.3+)
+
+= Version 3.0.8 =
+* Fixed: Selected database tables not save on tab change
+* Fixed: Database tables selection on new job
+* Fixed: adding empty folder names tow archive
+* Improved/Fixed: Dropbox Authentication
+
+= Version 3.0.7 =
+* Improved: All job requests will done over wp-cron.php now
+* Improved: Ajax calls if blog in maintenance mode
+* Improved: Getting of DB_CHARSET
+* Improved: FTP file deletion
+* Improved: Dropbox authentication (If restrict to job settings page not work you can open the settings page manually again to authenticate)
+* Fixed: No maintenance mode, if a maintenance mode already active
+* Fixed: Archive file deletion
+* Updated: AWS SDK to Version 2.2.1 (PHP 5.3.3+)
+
 = Version 3.0.6 =
 * Fixed: Massages on empty DB prefix
 * Fixed: Bug in cron calculation
