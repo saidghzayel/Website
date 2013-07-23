@@ -12,7 +12,7 @@ add_action( 'init', 'register_cpt_location' );
 
 add_action( 'wp_loaded', 'dbc_serve_connection_types', 100 );
 
-add_action( 'save_post', 'dbcm_update_map', 1 ); 
+add_action( 'save_post', 'dbcm_update_map', 1 );
 
 add_action( 'wp_head', 'dbc_serve_custom_background', 11 );
 
@@ -44,7 +44,7 @@ function dbc_serve_one_column() {
 
 	if ( is_archive( 'location' ) || is_archive( 'missionary' ) )
 		add_filter( 'get_post_layout', 'dbc_post_layout_one_column' );
-	
+
 }
 
 function dbv_serve_remove_actions() {
@@ -64,14 +64,14 @@ function dbc_serve_deregister_styles() {
 function dbc_serve_disable_sidebars( $sidebars_widgets ) {
 
 	if ( hybrid_get_setting( 'info' ) == 'true' ) $sidebars_widgets['home'] = true;
-	
+
 	if ( is_page_template( 'page-template-international.php' ) )
 		$sidebars_widgets['primary'] = false;
-	
+
 	return $sidebars_widgets;
 }
 
-	
+
 function dbc_serve_load_scripts() {
 
 	wp_enqueue_script( 'ammap', trailingslashit( CHILD_THEME_URI ) .'ammap/ammap.js', false, false, true );
@@ -82,9 +82,9 @@ function dbc_serve_load_scripts() {
 		wp_enqueue_script( 'masonry', trailingslashit( CHILD_THEME_URI ) .'js/jquery.masonry.min.js', array( 'jquery' ), false, true );
 	}
 
-	wp_enqueue_script( 'chosen', trailingslashit( CHILD_THEME_URI ) .'js/jquery.chosen.min.js', array( 'jquery' ), false, true );	
+	wp_enqueue_script( 'chosen', trailingslashit( CHILD_THEME_URI ) .'js/jquery.chosen.min.js', array( 'jquery' ), false, true );
 	wp_enqueue_script( 'app', trailingslashit( CHILD_THEME_URI ) .'js/app.js', array( 'jquery' ), false, true );
-	
+
 }
 
 /**
@@ -96,11 +96,11 @@ function dbc_serve_site_title() {
 	$title = get_bloginfo('name');
 	$url = get_bloginfo('url');
 	$img_src = hybrid_get_setting( 'logo_src' );
-	
+
 	if ( !empty( $img_src ) )
 		echo '<div id="site-title"><a href="'. $url .'" title="'. $title .'"><img src="'. hybrid_get_setting( 'logo_src' ) .'" alt="'. $title .'" /></div></a>';
 	else
-		echo '<div id="site-title"><a href="'. $url .'" title="'. $title .'" class="test">'. $title . '</div></a>';		
+		echo '<div id="site-title"><a href="'. $url .'" title="'. $title .'" class="test">'. $title . '</div></a>';
 }
 
 /**
@@ -168,7 +168,7 @@ function dbc_serve_manage_missionary_columns( $column, $post_id ) {
 			     echo "<ul>";
 			     foreach ( $terms as $term ) {
 			       echo "<li>" . $term->name . "</li>";
-			        
+
 			     }
 			     echo "</ul>";
 			} else {
@@ -179,8 +179,8 @@ function dbc_serve_manage_missionary_columns( $column, $post_id ) {
 		/* Just break out of the switch statement for everything else. */
 		default :
 			break;
-			
-		
+
+
 	}
 
 }
@@ -189,7 +189,7 @@ function dbc_serve_connection_types() {
 	if ( !function_exists( 'p2p_register_connection_type' ) )
 		return;
 
-	p2p_register_connection_type( array( 
+	p2p_register_connection_type( array(
 		'name' => 'missionary_to_location',
 		'from' => 'missionary',
 		'to' => 'location',
@@ -206,15 +206,15 @@ function dbc_serve_footer() {
 ?>
 	<div class="footer-container">
 		<div class="footer-left">
-	
+
 			<?php do_shortcode('[primary_menu]'); ?>
 			<p class="copyright">Copyright &#169; <?php echo date('Y'); ?> <a href="http://dentonbible.org">Denton Bible Church</a>, all rights reserved.</p>
 			<p class="credit"><a href="http://www.serve-intl.com/coco/">Staff/Missionary Login</a> | <a href="http://mail.dbcm.org/">Serve Mail</a> | <a href="http://dentonbible.org/staff-registration/">Staff Registration</a> | <?php wp_loginout(); ?></p>
-	
+
 			<?php //hybrid_footer(); // Hybrid footer hook ?>
-		
+
 		</div>
-	
+
 		<div class="footer-right">
 
 			<div class="vcard">
@@ -227,17 +227,17 @@ function dbc_serve_footer() {
 				</div>
 				<div class="tel">(940) 297-6700</div>
 			</div>
-		
+
 		</div>
 	</div>
-<?php 
+<?php
 }
 
 function dbcm_update_map($post_id) {
 
-	// verify if this is an auto save routine. 
+	// verify if this is an auto save routine.
 	// If it is our form has not been submitted, so we dont want to do anything
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 		return;
 
 	// Check permissions
@@ -252,20 +252,20 @@ function dbcm_update_map($post_id) {
 	// Get the existing XML file
 	$file = get_stylesheet_directory() .'/serve-map-data.xml';
 	$dom = simplexml_load_file( $file );
-	
+
 	// Loop through 'map'
 	foreach ($dom->children() as $map) {
-	
+
 		// Loop through 'area'
 	    foreach ($map->children() as $area) {
-	    	
+
 			$mc_name = get_post_meta( $post_id, 'mc_name', true );
-	    	
+
 			// If area already exists, update its attributes
 			if ( $area['mc_name'] == $mc_name ) {
-				
+
 				$color = get_post_meta( $post_id, 'color', true );
-				
+
 				if ( $color == 'None')					$color = '';
 				if ( $color == 'SERVE Missionary')		$color = '#FF9900';
 				if ( $color == 'BTCP')					$color = '#3366CC';
@@ -280,10 +280,10 @@ function dbcm_update_map($post_id) {
 				$area['text_box_y'] =		'30%';
 				$area['text_box_width'] =	'250';
 				$area['text_box_height'] =	'30%';
-				
+
 				// Build and update description
-				$my_post = get_post($post_id); 
-				$content = $my_post->post_content;				
+				$my_post = get_post($post_id);
+				$content = $my_post->post_content;
 
 				// Find connected posts
 				$connected = new WP_Query( array(
@@ -291,7 +291,7 @@ function dbcm_update_map($post_id) {
 				  'connected_items' => $post_id,
 				  'nopaging' => true,
 				) );
-				
+
 				// Display connected posts
 				if ( $connected->have_posts() ) :
 				$description = '<h3>Missionaries</h3>';
@@ -303,13 +303,13 @@ function dbcm_update_map($post_id) {
 
 				// Prevent weirdness
 				wp_reset_postdata();
-				
+
 				endif;
-				
+
 				$description .= $content;
-				
+
 				$area->description = $description;
-				
+
 				break;
 
 	    	}
@@ -321,41 +321,41 @@ function dbcm_update_map($post_id) {
 }
 
 function dbcm_get_map_data() {
-	
+
 	$locations = get_posts( array( 'post_type' => 'location', 'posts_per_page' => -1) );
-	
+
 	foreach( $locations as $location ) {
-		
-		$mc_name = get_post_meta( $location->ID, 'mc_name', true );		
+
+		$mc_name = get_post_meta( $location->ID, 'mc_name', true );
 		$color = get_post_meta( $location->ID, 'color', true );
 		if ( $color == 'None')					$color = '';
 		if ( $color == 'SERVE Missionary')		$color = '#FF9900';
 		if ( $color == 'BTCP')					$color = '#3366CC';
 		if ( $color == 'Affiliate Missionary')	$color = '#DC3912';
 		if ( $color == 'Other')					$color = '#109618';
-		
+
 		// Find connected missionaries
 		$connected = new WP_Query( array(
 		  'connected_type' => 'missionary_to_location',
 		  'connected_items' => $location->ID,
 		  'nopaging' => true,
 		) );
-		
+
 		// Display connected posts
 		if ( $connected->have_posts() ) :
 			$description = '<p>Missionaries</p>';
 			$description .= '<ul>';
 			while ( $connected->have_posts() ) : $connected->the_post();
 				$description .= '<li>'. get_the_title() .'</li>';
-			endwhile;		
-			$description .= '</ul>';		
+			endwhile;
+			$description .= '</ul>';
 
 			// Prevent weirdness
 			wp_reset_postdata();
 		else:
 			$description = ' '; // Space is intentional
 		endif;
-		
+
 		echo '{id:"'. $mc_name .'", color:"'. $color .'", description:"'. $description .'", url: "'. get_permalink( $location->ID ) .'"},';
 	}
 
@@ -368,10 +368,10 @@ function dbcm_email_missionary_modal() {
 		<a class="close-reveal-modal">&#215;</a>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
-								
+
 				$(".chzn-select").chosen();
 				$(".email-missionary-dropdown select").chosen();
-			
+
 			});
 		</script>
 	</div><!-- #modal-email-missionary -->
@@ -379,12 +379,15 @@ function dbcm_email_missionary_modal() {
 }
 
 function dbcm_email_missionary( $form ){
-    
+
+	if( !isset($form['fields']))
+		return;
+
     foreach($form['fields'] as &$field){
-        
+
         if($field['type'] != 'select' || strpos($field['cssClass'], 'email-missionary-dropdown') === false)
             continue;
-        
+
         $args = array(
 			'post_type'			=> 'missionary',
 			'posts_per_page'	=> -1,
@@ -396,19 +399,19 @@ function dbcm_email_missionary( $form ){
 		       )
 		   )
 		);
-		
+
         $posts = get_posts( $args );
         $choices = array(array('text' => 'Select a Missionary', 'value' => ' '));
-        
+
         foreach($posts as $post){
         	$email = antispambot( get_post_meta( $post->ID, 'missionary-email', true ) );
             $choices[] = array( 'text' => $post->post_title, 'value' => $email );
         }
-        
+
         $field['choices'] = $choices;
-        
+
     }
-    
+
     return $form;
 }
 
@@ -419,7 +422,7 @@ function dbcm_email_missionary( $form ){
  */
 function register_cpt_prayer() {
 
-    $labels = array( 
+    $labels = array(
         'name' => _x( 'Prayers', 'prayer' ),
         'singular_name' => _x( 'Prayer', 'prayer' ),
         'add_new' => _x( 'Add New', 'prayer' ),
@@ -434,17 +437,17 @@ function register_cpt_prayer() {
         'menu_name' => _x( 'Prayers', 'prayer' ),
     );
 
-    $args = array( 
+    $args = array(
         'labels' => $labels,
         'hierarchical' => false,
-        
+
         'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'page-attributes' ),
         'taxonomies' => array( 'category', 'post_tag' ),
         'public' => true,
         'show_ui' => true,
         'show_in_menu' => true,
-        
-        
+
+
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
@@ -460,7 +463,7 @@ function register_cpt_prayer() {
 
 function register_cpt_missionary() {
 
-    $labels = array( 
+    $labels = array(
         'name' => _x( 'Missionaries', 'missionary' ),
         'singular_name' => _x( 'Missionary', 'missionary' ),
         'add_new' => _x( 'Add New', 'missionary' ),
@@ -475,21 +478,21 @@ function register_cpt_missionary() {
         'menu_name' => _x( 'Missionaries', 'missionary' ),
     );
 
-    $args = array( 
+    $args = array(
         'labels' => $labels,
-        'hierarchical' => false,        
-        'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', 'revisions' ),        
+        'hierarchical' => false,
+        'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', 'revisions' ),
         'public' => true,
         'show_ui' => true,
-        'show_in_menu' => true,        
+        'show_in_menu' => true,
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
         'has_archive' => true,
         'query_var' => true,
         'can_export' => true,
-		'rewrite' => array( 
-            'slug' => 'missionaries', 
+		'rewrite' => array(
+            'slug' => 'missionaries',
             'with_front' => true,
             'feeds' => true,
             'pages' => true
@@ -502,7 +505,7 @@ function register_cpt_missionary() {
 
 function register_cpt_location() {
 
-    $labels = array( 
+    $labels = array(
         'name' => _x( 'Locations', 'location' ),
         'singular_name' => _x( 'Location', 'location' ),
         'add_new' => _x( 'Add New', 'location' ),
@@ -517,25 +520,25 @@ function register_cpt_location() {
         'menu_name' => _x( 'Locations', 'location' ),
     );
 
-    $args = array( 
+    $args = array(
         'labels' => $labels,
         'hierarchical' => false,
-        
+
         'supports' => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', 'revisions', 'page-attributes' ),
-        
+
         'public' => true,
         'show_ui' => true,
         'show_in_menu' => true,
-        
-        
+
+
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
         'has_archive' => true,
         'query_var' => true,
         'can_export' => true,
-        'rewrite' => array( 
-            'slug' => 'locations', 
+        'rewrite' => array(
+            'slug' => 'locations',
             'with_front' => true,
             'feeds' => true,
             'pages' => true
