@@ -1,5 +1,15 @@
 <?php
 
+if( ENV_DOMAIN == PRODUCTION_DOMAIN )
+	return false;
+
+if ( !defined( 'SUNRISE_LOADED' ) )
+	define( 'SUNRISE_LOADED', 1 );
+
+if ( defined( 'COOKIE_DOMAIN' ) ) {
+	die( 'The constant "COOKIE_DOMAIN" is defined (probably in wp-config.php). Please remove or comment out that define() line.' );
+}
+
 if( !defined( 'PRODUCTION_DOMAIN' ) )
 	die( 'You must define PRODUCTION_DOMAIN' );
 
