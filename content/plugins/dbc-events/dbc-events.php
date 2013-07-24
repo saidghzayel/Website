@@ -1,17 +1,17 @@
-<?php 
+<?php
 /*
  *  Plugin Name: DBC Events
  *  Description: Event/calendar functionality
  *  Version: 1.1
  *  Author: Patrick Daly
  *  Author URI: http://developdaly.com/
- * 
+ *
  *  Plugin derived from code and tutorial at http://www.noeltock.com/web-design/wordpress/custom-post-types-events-pt1/
- *  
+ *
  */
 
 add_action( 'init', 'dbc_event_post_types' );
-add_action( 'init', 'dbc_remove_actions' );
+add_action( 'admin_init', 'dbc_remove_actions' );
 //add_action( 'admin_print_styles' . $page, 'dbc_events_admin_styles' );
 //add_action( 'admin_print_scripts' . $page, 'dbc_events_admin_scripts' );
 //add_action( 'admin_init', 'event_create' );
@@ -31,7 +31,7 @@ add_shortcode( 'events-sidebar', 'event_sidebar' );
  * @since 1.0
  */
 function dbc_remove_actions() {
-	
+
 	// Removes the post expirator plugin meta box
 	remove_action( 'edit_form_advanced','expirationdate_meta_custom' );
 }
@@ -77,7 +77,7 @@ function dbc_event_post_types() {
 		'not_found_in_trash' => __('No events found in Trash'),
 		'parent_item_colon' => ''
 	);
-	
+
 	$args = array(
 		'label' => __('Events'),
 		'labels' => $labels,
@@ -94,7 +94,7 @@ function dbc_event_post_types() {
 		'menu_position' => 5,
 		'has_archive' => true
 	);
-	
+
 	register_post_type( 'event', $args );
 
 }
@@ -208,10 +208,10 @@ function event_meta () {
 	// - grab data -
 
 	global $post;
-	
+
 	$cf_event_startdate = get_post_meta($post->ID, 'event_startdate', true);
 	$cf_event_enddate = get_post_meta($post->ID, 'event_enddate', true);
-	
+
 	$custom = get_post_custom($post->ID);
 	$meta_sd = $custom["event_startdate"][0];
 	$meta_ed = $custom["event_enddate"][0];
@@ -318,7 +318,7 @@ function events_updated_messages( $messages ) {
 
 /**
  * Creates the content for a shortcode to list events
- * 
+ *
  * Example: [events-full limit='20']
  *
  * @since 1.0
@@ -329,17 +329,17 @@ function event_full ( $atts ) {
 	extract(shortcode_atts(array(
 	    'limit' => '99', // # of events to show
 	 ), $atts));
-	
+
 	// ===== OUTPUT FUNCTION =====
-	
+
 	ob_start();
-	
+
 	// ===== LOOP: FULL EVENTS SECTION =====
-	
+
 	// - hide events that are older than 6am today (because some parties go past your bedtime) -
-	
+
 	$today6am = strtotime('today 6:00') + ( get_option( 'gmt_offset' ) * 3600 );
-	
+
 	// - query -
 	global $wpdb;
 	$querystr = "
@@ -353,44 +353,44 @@ function event_full ( $atts ) {
 		GROUP BY wposts.ID
 		ORDER BY wposts.post_title ASC LIMIT $limit
 	 ";
-	
+
 	$events = $wpdb->get_results($querystr, OBJECT);
 
 	// - declare fresh day -
 	$daycheck = null;
-	
+
 	// - loop -
 	if ($events):
 	global $post;
 	foreach ($events as $post):
 	setup_postdata($post);
-	
+
 	// - custom variables -
 	$custom = get_post_custom(get_the_ID());
 	$sd = $custom["event_startdate"][0];
 	$ed = $custom["event_enddate"][0];
-	
+
 	// single day event
 	if ( !empty( $sd ) ) $longdate = date("F j, Y g:iA", $sd);
 	if ( !empty( $ed ) ) $longdate .= date(" - g:iA", $ed);
-	
+
 	// multiple day event
 	if ( !empty( $sd ) || !empty( $ed ) ) {
 		if ( date("F j, Y", $sd) != date("F j, Y", $ed) )
 			$longdate = date("F j, Y g:iA", $sd) .' - ' . date("F j @ g:iA", $ed);
 	}
-	
+
 	?>
 	<div id="post-<?php the_ID(); ?>" class="<?php hybrid_entry_class(); ?>">
 
 		<?php do_atomic( 'before_entry' ); // dbc_before_entry ?>
 
 		<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); ?>
-		
+
 		<?php //echo '<div class="byline">' . $longdate .'</div>'; ?>
 
 		<?php get_the_image( array( 'meta_key' => 'Thumbnail', 'size' => 'small-thumb' ) ); ?>
-		
+
 		<div class="entry-summary">
 			<?php the_excerpt(); ?>
 			<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', hybrid_get_textdomain() ), 'after' => '</p>' ) ); ?>
@@ -402,16 +402,16 @@ function event_full ( $atts ) {
 
 	</div><!-- .hentry -->
 	<?php
-	
+
 	// - fill daycheck with the current day -
 	$daycheck = $longdate;
-	
+
 	endforeach;
 	else :
 	endif;
-	
+
 	// ===== RETURN: FULL EVENTS SECTION =====
-	
+
 	$output = ob_get_contents();
 	ob_end_clean();
 	return $output;
@@ -419,7 +419,7 @@ function event_full ( $atts ) {
 
 /**
  * Creates the content for a shortcode to list events
- * 
+ *
  * Example: [events-sidebar limit='20']
  *
  * @since 1.0
@@ -430,17 +430,17 @@ function event_sidebar ( $atts ) {
 	extract(shortcode_atts(array(
 	    'limit' => '5', // # of events to show
 	 ), $atts));
-	
+
 	// ===== OUTPUT FUNCTION =====
-	
+
 	ob_start();
-	
+
 	// ===== LOOP: FULL EVENTS SECTION =====
-	
+
 	// - hide events that are older than 6am today (because some parties go past your bedtime) -
-	
+
 	$today6am = strtotime('today 6:00') + ( get_option( 'gmt_offset' ) * 3600 );
-	
+
 	// - query -
 	global $wpdb;
 	$querystr = "
@@ -453,30 +453,30 @@ function event_sidebar ( $atts ) {
 	    AND wposts.post_status = 'publish'
 	    ORDER BY wposts.post_title ASC LIMIT $limit
 	 ";
-	
+
 	$events = $wpdb->get_results($querystr, OBJECT);
-	
+
 	// - declare fresh day -
 	$daycheck = null;
-	
+
 	// - loop -
 	if ($events):
 	global $post;
-		
+
 		echo '<div class="loop loop-events">';
 		echo '<h3>Upcoming Events <span class="all"><a href="'. get_bloginfo( 'siteurl' ) .'/events/">view all</a></span></h3>';
 		echo '<ul>';
 			foreach ($events as $post):
 			setup_postdata($post);
-			
+
 			// - custom variables -
 			$custom = get_post_custom(get_the_ID());
 			$sd = $custom["event_startdate"][0];
 			$ed = $custom["event_enddate"][0];
-			
+
 			// single day event
 			$longdate = date("M j, Y", $sd);
-			
+
 			// multiple day event
 			if ( date("M j, Y", $sd) != date("M j, Y", $ed) ) {
 				if ( date("M", $sd) != date("M", $ed) )
@@ -484,21 +484,21 @@ function event_sidebar ( $atts ) {
 				else
 					$longdate = date("M j", $sd) .' - ' . date("j, Y", $ed);
 			}
-			
+
 			?>
-				<li><a href="<?php the_permalink(); ?>"><?php the_title_attribute(); ?></a><br /><span class="date"><?php echo $longdate ?></span></li>		
+				<li><a href="<?php the_permalink(); ?>"><?php the_title_attribute(); ?></a><br /><span class="date"><?php echo $longdate ?></span></li>
 			<?php
-			
+
 			// - fill daycheck with the current day -
 			$daycheck = $longdate;
-			
+
 			endforeach;
 		echo '</ul>';
 		echo '</div>';
 	endif;
-	
+
 	// ===== RETURN: FULL EVENTS SECTION =====
-	
+
 	$output = ob_get_contents();
 	ob_end_clean();
 	return $output;
