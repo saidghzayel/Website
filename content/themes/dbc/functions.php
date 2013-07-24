@@ -1,5 +1,5 @@
 <?php
-	
+
 /* Load the core theme framework. */
 require_once( trailingslashit( TEMPLATEPATH ) . 'library/hybrid.php' );
 $theme = new Hybrid();
@@ -11,12 +11,6 @@ function dbc_theme_setup() {
 
 	/* Get action/filter hook prefix. */
 	$prefix = hybrid_get_prefix();
-	
-	/* Load the theme settings. */
-	require_once( trailingslashit( TEMPLATEPATH ) . 'admin/theme-settings.php' );
-     
-     /* Load the custom admin settings. */
-	require_once( trailingslashit( TEMPLATEPATH ) . 'admin/admin-theme.php' );
 
 	/* Add theme support for core framework features. */
 	add_theme_support( 'hybrid-core-menus', array( 'primary' ) );
@@ -34,35 +28,33 @@ function dbc_theme_setup() {
 	add_theme_support( 'cleaner-gallery' );
 	add_theme_support( 'get-the-image' );
 	add_theme_support( 'loop-pagination' );
-	//add_theme_support( 'theme-layouts', array( 'layout-default', '2c-l', '2c-r' ) );
 	add_theme_support( 'theme-layouts', array( '1c', '2c-l', '2c-r' ) );
-	
+
 	/* Add theme support for WordPress features. */
 	add_theme_support( 'automatic-feed-links' );
-				
-	/* Add actions */ 
+
+	/* Add actions */
 	add_action( 'init', 'dbc_remove_header_info' );
 	add_action( 'init', 'dbc_register_shortcodes' );
 	add_action( 'init', 'dbc_register_taxonomies' );
-	add_action( 'init', 'dbc_register_post_types' );	
+	add_action( 'init', 'dbc_register_post_types' );
 	add_action( 'template_redirect', 'archive_redirect' );
-	add_action( 'template_redirect', 'dbc_load_scripts' );
 	add_action( 'template_redirect', 'dbc_one_column' );
-	add_action( 'widgets_init', 'dbc_sidebars' );	
+	add_action( 'wp_enqueue_scripts', 'dbc_load_scripts' );
+	add_action( 'widgets_init', 'dbc_sidebars' );
 	add_action( 'widgets_init', 'dbc_register_widgets' );
 	add_action( "{$prefix}_before_html", 'dbc_ie6_detection', 11 );
 	add_action( "{$prefix}_header", 'dbc_get_sidebar_header', 11 );
 	add_action( "{$prefix}_footer", 'dbc_footer', 11 );
-	
+
 	/* Add filters */
 	add_filter( 'body_class', 'dbc_body_class' );
-	add_filter( 'stylesheet_uri', 'dbc_debug_stylesheet', 10, 2 );
 	add_filter( 'sidebars_widgets', 'dbc_disable_sidebars' );
 
 	/* Add shortcodes */
 	add_shortcode( 'primary_menu', 'dbc_shortcode_primary_menu' );
-	
-	if ( function_exists( 'add_image_size' ) ) { 
+
+	if ( function_exists( 'add_image_size' ) ) {
 		add_image_size( 'small-thumb', 80, 80, true ); //300 pixels wide (and unlimited height)
 	}
 
@@ -97,7 +89,7 @@ function dbc_remove_header_info() {
  * @since 0.1
  */
 function dbc_load_scripts() {
-	
+
 	wp_enqueue_script( 'respond', trailingslashit( THEME_URI ) . 'js/respond.min.js' );
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'modernizr', trailingslashit( THEME_URI ) . 'js/modernizr.foundation.js', array( 'jquery' ), '3.0', false );
@@ -105,7 +97,7 @@ function dbc_load_scripts() {
 	wp_enqueue_script( 'fancybox', trailingslashit( THEME_URI ) . 'js/jquery.fancybox.pack.js', array( 'jquery' ), '3.0', true );
 	wp_enqueue_script( 'flexslider', trailingslashit( THEME_URI ) . 'js/jquery.flexslider-min.js', array( 'jquery' ), '3.0', true );
 	wp_enqueue_script( 'jquery-functions', trailingslashit( THEME_URI ) . 'js/scripts.dev.js', array( 'jquery' ), '3.0', true );
-	
+
 	wp_enqueue_style( 'foundation', trailingslashit( THEME_URI ) . 'css/foundation.css', false, '3.0', 'screen' );
 	wp_enqueue_style( 'layout', trailingslashit( THEME_URI ) . 'css/layout.css', false, '3.0', 'screen' );
 	wp_enqueue_style( 'style', get_stylesheet_uri(), false, '3.0', 'screen' );
@@ -116,7 +108,7 @@ function dbc_load_scripts() {
 	$GLOBALS['wp_styles']->add_data( 'foundation-ie', 'conditional', 'lte IE 9' );
 	wp_enqueue_style( 'foundation-ie' );
 }
-	
+
 /**
  * Checks the URL for parameters used in the previous DBC website. If they exist
  * then we redirect to the archive site and preserve the parameters.
@@ -139,34 +131,6 @@ function dbc_ie6_detection(){
 	echo '<!--[if IE 6]>';
 	echo '<script type="text/javascript" src="'. trailingslashit( TEMPLATEPATH ) .'js/ie6/warning.js' . '"></script><script>window.onload=function(){e("'. trailingslashit( TEMPLATEPATH ) .'/js/ie6/' .'")}</script>';
 	echo '<![endif]-->';
-}
-
-/**
- * Subsite Title
- *
- * @since 0.1
- */
-function dbc_subsite_title() {
-	global $blog_id, $dbc_settings;
-	if ( $blog_id != 1 ){
-		$title = get_bloginfo('name');
-		$url = get_bloginfo('url');
-		if ( $dbc_settings['logo_src'] != '' ){
-			echo '<div id="subsite-title"><a href="'. $url .'" title="'. $title .'"><img src="'. $dbc_settings['logo_src'] .'" alt="'. $title .'" /></div></a>';
-		} else {
-			echo '<div id="subsite-title"><a href="'. $url .'" title="'. $title .'">'. $title . '</div></a>';		
-		}
-	}
-}
-
-/**
-* Override the BuddyPress redirection to previous page
-* Instead, it takes the user to the backend
-*
-* @since 0.1
-*/
-function change_login_redirect($redirect_to, $request_redirect_to, $user) {
-    return get_bloginfo('url').'/wp-admin/';    
 }
 
 /**
@@ -208,9 +172,9 @@ function dbc_disable_sidebars( $sidebars_widgets ) {
 		$sidebars_widgets['primary'] = false;
 		$sidebars_widgets['secondary'] = false;
 	}
-	
+
 	if (  ( is_page_template( 'page-template-private.php' ) && !is_user_logged_in() ) || is_search() ) $sidebars_widgets['primary'] = false;
-		
+
 	return $sidebars_widgets;
 }
 
@@ -224,9 +188,9 @@ function dbc_one_column() {
 	if ( is_attachment() )
 		add_filter( 'get_post_layout', 'dbc_post_layout_one_column' );
 
-	elseif ( is_search() ) 
+	elseif ( is_search() )
 		add_filter( 'get_post_layout', 'dbc_post_layout_one_column' );
-		
+
 }
 
 /**
@@ -247,7 +211,6 @@ function dbc_sidebars() {
 	register_sidebar( array( 'name' => __( 'Home Sidebar', 'dbc' ), 'id' => 'home', 'description' => __( 'The left hand sidebar on the home page (under the Welcome box).', 'dbc' ), 'before_widget' => '<div id="%1$s" class="widget %2$s widget-%2$s"><div class="widget-inside">', 'after_widget' => '</div></div>', 'before_title' => '<h3 class="widget-title">', 'after_title' => '</h3>' ) );
 	register_sidebar( array( 'name' => __( 'Home Features', 'dbc' ), 'id' => 'home-features', 'description' => __( 'The three featured spots on th ebottom of the homepage.', 'dbc' ), 'before_widget' => '<div id="%1$s" class="widget %2$s widget-%2$s"><div class="widget-inside">', 'after_widget' => '</div></div>', 'before_title' => '<h3 class="widget-title">', 'after_title' => '</h3>' ) );
 	register_sidebar( array( 'name' => __( 'Header', 'dbc' ), 'id' => 'header', 'description' => __( 'Appears at the top of every page, to the right of the logo. This should probably contain the Search widget.', 'dbc' ), 'before_widget' => '<div id="%1$s" class="widget %2$s widget-%2$s"><div class="widget-inside">', 'after_widget' => '</div></div>', 'before_title' => '<h3 class="widget-title">', 'after_title' => '</h3>' ) );
-	register_sidebar( array( 'name' => __( 'What\'s Happening', 'dbc' ), 'id' => 'whats-happening', 'description' => __( 'Underneath "This Week\'s Message box.', 'dbc' ), 'before_widget' => '<div id="%1$s" class="widget %2$s widget-%2$s"><div class="widget-inside">', 'after_widget' => '</div></div>', 'before_title' => '<h3 class="widget-title">', 'after_title' => '</h3>' ) );
 }
 
 /**
@@ -261,37 +224,12 @@ function dbc_get_sidebar_header() {
 }
 
 /**
- * Loads the What's Happening Sidebar
- *
- * @since 0.1
- * @uses get_sidebar() Checks for the template in the child and parent theme.
- */
-function dbc_get_sidebar_whats_happening() {
-	get_sidebar( 'whats-happening' );
-}
-
-/**
  * Creates a shortcode to output the primary menu
  *
  * @since 0.1
  */
 function dbc_shortcode_primary_menu($atts) {
 	return wp_nav_menu('primary');
-}
-
-/**
- * Turns BuddyPress into a private community
- *
- * @since 0.1
- */
-function dbc_walled_garden(){
-	global $bp;
-	
-	if( bp_is_register_page() || bp_is_activation_page() )
-	return;
-	
-	if( ! is_user_logged_in() )
-	bp_core_redirect( $bp->root_domain .'/'. BP_REGISTER_SLUG );
 }
 
 /**
@@ -359,22 +297,22 @@ function dbc_slideshow_shortcode( $attr ) {
 		$slideshow .= '<div class="slideshow-item item item-' . ++$i . '">';
 
 		if ( $attachment->post_mime_type == 'video/x-flv' ) {
-			
+
 			/* Get video. */
 			$preview_image = get_the_post_thumbnail( $post->id );
-				
+
 			$slideshow .= 	'<object id="player" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" name="player" width="655" height="358">';
 			$slideshow .= 	'<param name="movie" value="'. trailingslashit( THEME_URI ) .'player/player.swf" />';
 			$slideshow .= 	'<param name="allowfullscreen" value="true" />';
 			$slideshow .= 	'<param name="allowscriptaccess" value="always" />';
 			$slideshow .=   '<param name="flashvars="file='. $attachment->guid .'&image='. $preview_image .'&skin='. trailingslashit( THEME_URI ) .'player/modieus.zip">';
-	
+
 			$slideshow .= 	'<param name="flashvars" value="'. $attachment->guid .'" />';
 			$slideshow .= 	'<embed ';
 				$slideshow .= 	'type="application/x-shockwave-flash"';
 				$slideshow .= 	'id="player2"';
 				$slideshow .= 	'name="player2"';
-				$slideshow .= 	'src="'. trailingslashit( THEME_URI ) .'player/player.swf"'; 
+				$slideshow .= 	'src="'. trailingslashit( THEME_URI ) .'player/player.swf"';
 				$slideshow .= 	'width="655" ';
 				$slideshow .= 	'height="358"';
 				$slideshow .= 	'allowscriptaccess="always" ';
@@ -382,12 +320,12 @@ function dbc_slideshow_shortcode( $attr ) {
 				$slideshow .= 	'flashvars="file='. $attachment->guid .'&image='. $preview_image .'&skin='. trailingslashit( THEME_URI ) .'player/modieus.zip" ';
 			$slideshow .= 	'/>';
 			$slideshow .= 	'</object>';
-		
+
 		} else {
-		
+
 			/* Get image. */
 			$slideshow .= wp_get_attachment_link( $attachment->ID, 'large', true, false );
-		
+
 		}
 
 		/* Check for caption. */
@@ -432,7 +370,7 @@ function dbc_pagination( $args = array() ) {
 
 	if ( 1 >= $wp_query->max_num_pages )
 		return;
-	
+
 	$current = ( get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1 );
 
 	$max_page = intval( $wp_query->max_num_pages );
@@ -481,29 +419,28 @@ function dbc_footer() {
 ?>
 	<div class="footer-container">
 		<div class="footer-left">
-	
+
 			<?php do_shortcode('[primary_menu]'); ?>
 			<p class="copyright">Copyright &#169; <?php echo date('Y'); ?> <a href="<?php echo site_url(); ?>">Denton Bible Church</a>, all rights reserved.</p>
 			<p class="credit"><a href="<?php echo site_url(); ?>/staff-registration/">Staff Registration</a> | <?php wp_loginout(); ?></p>
-	
+
 			<?php //hybrid_footer(); // Hybrid footer hook ?>
-		
+
 		</div>
-	
+
 		<div class="footer-right vcard">
-	
+
 			<h5 class="org">Denton Bible Church</h5>
 			<div class="adr">
 				<div class="street-address">2300 E. University Dr.</div>
 				<span class="locality">Denton</span>, <span class="region">TX</span> <span class="postal-code">76209</span>
 			</div>
 			<div class="tel">(940) 297-6700</div>
-		
+
 		</div>
 	</div>
-<?php 
+<?php
 }
-
 
 /**
  * Registers custom post types for the theme. We're registering the Publication and Note post types.
@@ -554,7 +491,7 @@ function dbc_register_post_types() {
 		'rewrite' => array( 'slug' => 'publications', 'with_front' => false ),
 		'capability_type' => 'post'
 	);
-	
+
 	/* Labels for the note post type. */
 	$note_labels = array(
 		'name' => __( 'Tom\'s Notes', $domain ),
@@ -591,7 +528,7 @@ function dbc_register_post_types() {
 		'rewrite' => array( 'slug' => 'notes', 'with_front' => false ),
 		'capability_type' => 'post'
 	);
-	
+
 	/* Labels for the story type. */
 	$story_labels = array(
 		'name' => __( 'Stories', $domain ),
@@ -628,17 +565,17 @@ function dbc_register_post_types() {
 		'can_export' => true,
 		'rewrite' => array( 'slug' => 'stories', 'with_front' => false ),
 		'capability_type' => 'post'
-	);		
+	);
 
 	/* Register the story post type. */
-	if ( $blog_id == 1 ) register_post_type( apply_filters( 'dbc_story_post_type', 'story' ), apply_filters( 'dbc_story_post_type_args', $story_args ) );
+	register_post_type( apply_filters( 'dbc_story_post_type', 'story' ), apply_filters( 'dbc_story_post_type_args', $story_args ) );
 
 	/* Register the note post type. */
-	if ( $blog_id == 1 ) register_post_type( apply_filters( 'dbc_note_post_type', 'note' ), apply_filters( 'dbc_note_post_type_args', $note_args ) );
-			
+	register_post_type( apply_filters( 'dbc_note_post_type', 'note' ), apply_filters( 'dbc_note_post_type_args', $note_args ) );
+
 	/* Register the publication post type. */
-	if ( $blog_id == 1 ) register_post_type( apply_filters( 'dbc_publication_post_type', 'publication' ), apply_filters( 'dbc_publication_post_type_args', $publication_args ) );
-	
+	register_post_type( apply_filters( 'dbc_publication_post_type', 'publication' ), apply_filters( 'dbc_publication_post_type_args', $publication_args ) );
+
 	add_action( 'admin_head', 'cpt_icons' );
 	function cpt_icons() {
 	    ?>
@@ -660,7 +597,7 @@ function dbc_register_post_types() {
 
 	    </style>
 	<?php }
-	
+
 }
 /**
  * Register taxonomies
@@ -676,11 +613,11 @@ function dbc_register_taxonomies() {
     	'all_items' => __( 'All Publication Types' ),
     	'parent_item' => __( 'Parent Publication Type' ),
     	'parent_item_colon' => __( 'Parent Publication Type:' ),
-    	'edit_item' => __( 'Edit Publication Type' ), 
+    	'edit_item' => __( 'Edit Publication Type' ),
     	'update_item' => __( 'Update Publication Type' ),
     	'add_new_item' => __( 'Add New Publication Type' ),
     	'new_item_name' => __( 'New Genre Publication Type' ),
-	); 	
+	);
 
 	register_taxonomy( 'publication-type', array( 'publication' ), array(
 	    'hierarchical' => true,
@@ -757,7 +694,7 @@ function dbc_publication_title() {
 	global $post;
 
 	$key = get_post_meta($post->ID, 'public-title', true);
-	
+
 	if ( !empty( $key ) ) {
 		echo $key;
 	} else {
@@ -776,16 +713,16 @@ function dbc_publication_link() {
 	global $post;
 
 	$key = get_post_meta($post->ID, 'publication-link', true);
-	
+
 	$args = array(
 		'post_type' => 'attachment',
 		'numberposts' => 51,
 		'post_status' => null,
 		'post_parent' => $post->ID
-		); 
-	
+		);
+
 	$attachments = get_posts($args);
-	
+
 	if ($attachments & empty( $key ) ) {
 		foreach ($attachments as $attachment) {
 			if ( $attachment->post_mime_type == 'application/pdf')
@@ -796,7 +733,7 @@ function dbc_publication_link() {
 	} else {
 		$link = get_permalink();
 	}
-	
+
 	return $link;
 
 }
