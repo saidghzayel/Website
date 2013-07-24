@@ -1,5 +1,8 @@
 <?php
 
+if( ENV_DOMAIN == PRODUCTION_DOMAIN )
+	return false;
+
 if ( !defined( 'SUNRISE_LOADED' ) )
 	define( 'SUNRISE_LOADED', 1 );
 
