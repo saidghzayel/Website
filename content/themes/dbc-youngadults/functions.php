@@ -1,21 +1,21 @@
 <?php
 /**
- * The functions file is used to initialize everything in the theme.  It controls how the theme is loaded and 
- * sets up the supported features, default actions, and default filters.  If making customizations, users 
- * should create a child theme and make changes to its functions.php file (not this one).  Friends don't let 
+ * The functions file is used to initialize everything in the theme.  It controls how the theme is loaded and
+ * sets up the supported features, default actions, and default filters.  If making customizations, users
+ * should create a child theme and make changes to its functions.php file (not this one).  Friends don't let
  * friends modify parent theme files. ;)
  *
  * Child themes should do their setup on the 'after_setup_theme' hook with a priority of 11 if they want to
  * override parent theme features.  Use a priority of 9 if wanting to run before the parent theme.
  *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume
  * that you can use any other version of the GPL.
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * You should have received a copy of the GNU General Public License along with this program; if not, write 
+ * You should have received a copy of the GNU General Public License along with this program; if not, write
  * to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  *
  * @package DBCU
@@ -67,8 +67,7 @@ function dbcu_theme_setup() {
 
 	/* Add theme support for WordPress features. */
 	add_theme_support( 'automatic-feed-links' );
-	add_custom_background();
-	
+
 	/* Add custom editor stylesheet. */
 	add_editor_style('style-editor.css');
 
@@ -81,9 +80,9 @@ function dbcu_theme_setup() {
 	/* Filter the sidebar widgets. */
 	add_filter( 'sidebars_widgets', 'dbcu_disable_sidebars' );
 	add_action( 'template_redirect', 'dbcu_one_column' );
-	
+
 	add_action( 'wp_enqueue_scripts', 'dbcu_enqueue_scripts' );
-	
+
 	add_action( 'init', 'dbcu_remove_header_info' );
 
 	/* Set the content width. */
@@ -94,8 +93,8 @@ function dbcu_enqueue_scripts() {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'modernizr', trailingslashit( THEME_URI ). 'js/modernizr.foundation.js');
 	wp_enqueue_script( 'respond', trailingslashit( THEME_URI ). 'js/respond.min.js' );
-	wp_enqueue_script( 'foundation', trailingslashit( THEME_URI ). 'js/foundation.js'); 
-	wp_enqueue_script( 'app', trailingslashit( THEME_URI ). 'js/app.js'); 
+	wp_enqueue_script( 'foundation', trailingslashit( THEME_URI ). 'js/foundation.js');
+	wp_enqueue_script( 'app', trailingslashit( THEME_URI ). 'js/app.js');
 }
 
 /**
@@ -133,10 +132,10 @@ function dbcu_one_column() {
 
 	elseif ( is_attachment() && 'layout-default' == theme_layouts_get_layout() )
 		add_filter( 'get_theme_layout', 'dbcu_theme_layout_one_column' );
-	
+
 	if ( is_page_template( 'page-template-home.php' ) )
 		add_filter( 'get_theme_layout', 'dbcu_theme_layout_one_column' );
-		
+
 }
 
 /**
@@ -195,7 +194,7 @@ function dbcu_embed_defaults( $args ) {
 
 //[foobar]
 function dbcu_blog(){
-	
+
 	switch_to_blog(2);
 
 	$output = '<div class="row">';
@@ -203,7 +202,7 @@ function dbcu_blog(){
         'posts_per_page' => 3
     );
     $blog = new  WP_Query( $args );
-	
+
     while ( $blog->have_posts() ) : $blog->the_post();
 		if ( get_the_post_thumbnail() ):
 	        $output .= '<div class="post hentry twelve columns">'.
@@ -215,17 +214,17 @@ function dbcu_blog(){
 						get_the_post_thumbnail().
 						'<h2 class="entry-title"><a href="'. get_permalink() .'">'.  get_the_title(). '</a></h2>'.
 						'<p>'. get_the_excerpt(). '</p><p><a class="button small" href="'.  get_permalink(). '">Read more</a></div><!--  ends here -->';
-				   
+
 		endif;
-		
+
     endwhile;
 	restore_current_blog();
     wp_reset_query();
     $output .= '</div>';
     return $output;
 
-    
-			
+
+
 }
 add_shortcode( 'blog', 'dbcu_blog' );
 
@@ -249,7 +248,7 @@ add_action( 'init', 'register_cpt_home_page_tab' );
 
 function register_cpt_home_page_tab() {
 
-    $labels = array( 
+    $labels = array(
         'name' => _x( 'Home Page Tabs', 'home_page_tab' ),
         'singular_name' => _x( 'Home Page Tab', 'home_page_tab' ),
         'add_new' => _x( 'Add New', 'home_page_tab' ),
@@ -264,17 +263,17 @@ function register_cpt_home_page_tab() {
         'menu_name' => _x( 'Home Page Tabs', 'home_page_tab' ),
     );
 
-    $args = array( 
+    $args = array(
         'labels' => $labels,
         'hierarchical' => false,
-        
+
         'supports' => array( 'title', 'editor', 'revisions', 'page-attributes' ),
-        
+
         'public' => true,
         'show_ui' => true,
         'show_in_menu' => true,
         'menu_position' => 5,
-        
+
         'show_in_nav_menus' => true,
         'publicly_queryable' => true,
         'exclude_from_search' => false,
