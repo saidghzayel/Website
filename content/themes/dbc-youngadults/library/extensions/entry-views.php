@@ -19,16 +19,16 @@
  * @link http://core.trac.wordpress.org/ticket/14568
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
- * that you can use any other version of the GPL.
+ * General Public License as published by the Free Software Foundation; either version 2 of the License, 
+ * or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package EntryViews
- * @version 0.2.0
+ * @version 0.2.3
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2010 - 2011, Justin Tadlock
+ * @copyright Copyright (c) 2010 - 2012, Justin Tadlock
  * @link http://justintadlock.com
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -51,6 +51,8 @@ add_action( 'wp_ajax_nopriv_entry_views', 'entry_views_update_ajax' );
  * post types).  For all other post types, the theme should explicitly register support for this feature.
  *
  * @since 0.2.0
+ * @access private
+ * @return void
  */
 function entry_views_post_type_support() {
 
@@ -69,12 +71,14 @@ function entry_views_post_type_support() {
  * extension.  If so, set the $post_id variable and load the needed JavaScript.
  *
  * @since 0.1.0
+ * @access private
+ * @return void
  */
 function entry_views_load() {
-	global $entry_views;
+	global $_entry_views_post_id;
 
 	/* Check if we're on a singular post view. */
-	if ( is_singular() ) {
+	if ( is_singular() && !is_preview() ) {
 
 		/* Get the post object. */
 		$post = get_queried_object();
@@ -83,7 +87,7 @@ function entry_views_load() {
 		if ( post_type_supports( $post->post_type, 'entry-views' ) ) {
 
 			/* Set the post ID for later use because we wouldn't want a custom query to change this. */
-			$entry_views->post_id = get_queried_object_id();
+			$_entry_views_post_id = get_queried_object_id();
 
 			/* Enqueue the jQuery library. */
 			wp_enqueue_script( 'jquery' );
@@ -100,6 +104,9 @@ function entry_views_load() {
  * 'entry_views_meta_key' hook.
  *
  * @since 0.1.0
+ * @access public
+ * @param int $post_id The ID of the post to update the meta for.
+ * @return void
  */
 function entry_views_update( $post_id = '' ) {
 
@@ -125,7 +132,9 @@ function entry_views_update( $post_id = '' ) {
  * [entry-views] format.
  *
  * @since 0.1.0
+ * @access public
  * @param array $attr Attributes for use in the shortcode.
+ * @return string
  */
 function entry_views_get( $attr = '' ) {
 
@@ -147,6 +156,8 @@ function entry_views_get( $attr = '' ) {
  * AJAX nonce and passes the given $post_id to the entry views update function.
  *
  * @since 0.1.0
+ * @access private
+ * @return void
  */
 function entry_views_update_ajax() {
 
@@ -167,15 +178,17 @@ function entry_views_update_ajax() {
  * callback function for updating the meta.
  *
  * @since 0.1.0
+ * @access private
+ * @return void
  */
 function entry_views_load_scripts() {
-	global $entry_views;
+	global $_entry_views_post_id;
 
 	/* Create a nonce for the AJAX request. */
 	$nonce = wp_create_nonce( 'entry_views_ajax' );
 
 	/* Display the JavaScript needed. */
-	echo '<script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready( function() { jQuery.post( "' . admin_url( 'admin-ajax.php' ) . '", { action : "entry_views", _ajax_nonce : "' . $nonce . '", post_id : ' . $entry_views->post_id . ' } ); } ); /* ]]> */</script>' . "\n";
+	echo '<script type="text/javascript">/* <![CDATA[ */ jQuery(document).ready( function() { jQuery.post( "' . admin_url( 'admin-ajax.php' ) . '", { action : "entry_views", _ajax_nonce : "' . $nonce . '", post_id : ' . $_entry_views_post_id . ' } ); } ); /* ]]> */</script>' . "\n";
 }
 
 ?>

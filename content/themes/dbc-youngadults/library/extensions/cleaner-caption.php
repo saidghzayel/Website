@@ -9,16 +9,16 @@
  * the shortcode, allowing themes to better handle how their captions are designed.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
- * General Public License version 2, as published by the Free Software Foundation.  You may NOT assume 
- * that you can use any other version of the GPL.
+ * General Public License as published by the Free Software Foundation; either version 2 of the License, 
+ * or (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package CleanerCaption
- * @version 0.1.0
+ * @version 0.1.1
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2011, Justin Tadlock
+ * @copyright Copyright (c) 2012, Justin Tadlock
  * @link http://justintadlock.com
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -31,6 +31,7 @@ add_filter( 'img_caption_shortcode', 'cleaner_caption', 10, 3 );
  * inline styling WP adds, which creates 10px of padding around captioned elements.
  *
  * @since 0.1.0
+ * @access private
  * @param string $output The output of the default caption (empty string at this point).
  * @param array $attr Array of arguments for the [caption] shortcode.
  * @param string $content The content placed after the opening [caption] tag and before the closing [/caption] tag.

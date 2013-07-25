@@ -5,8 +5,12 @@
  * The functions also integrate with WordPress' implementations of body_class, post_class, and 
  * comment_class, so your theme won't have any trouble with plugin integration.
  *
- * @package HybridCore
+ * @package    HybridCore
  * @subpackage Functions
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/hybrid-core
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
@@ -20,6 +24,7 @@
  * second during a specific minute within a specific hour on a specific day and so on.
  *
  * @since 0.7.0
+ * @access public
  * @global $wp_query The current page's query object.
  * @global $hybrid The global Hybrid object.
  * @return array $hybrid->context Several contexts based on the current page.
@@ -29,7 +34,7 @@ function hybrid_get_context() {
 
 	/* If $hybrid->context has been set, don't run through the conditionals again. Just return the variable. */
 	if ( isset( $hybrid->context ) )
-		return $hybrid->context;
+		return apply_filters( 'hybrid_context', $hybrid->context );
 
 	/* Set some variables for use within the function. */
 	$hybrid->context = array();
@@ -56,45 +61,54 @@ function hybrid_get_context() {
 	elseif ( is_archive() ) {
 		$hybrid->context[] = 'archive';
 
-		/* Taxonomy archives. */
-		if ( is_tax() || is_category() || is_tag() ) {
-			$hybrid->context[] = 'taxonomy';
-			$hybrid->context[] = "taxonomy-{$object->taxonomy}";
-			$hybrid->context[] = "taxonomy-{$object->taxonomy}-" . sanitize_html_class( $object->slug, $object->term_id );
-		}
-
 		/* Post type archives. */
-		elseif ( is_post_type_archive() ) {
+		if ( is_post_type_archive() ) {
 			$post_type = get_post_type_object( get_query_var( 'post_type' ) );
 			$hybrid->context[] = "archive-{$post_type->name}";
 		}
 
-		/* User/author archives. */
-		elseif ( is_author() ) {
-			$hybrid->context[] = 'user';
-			$hybrid->context[] = 'user-' . sanitize_html_class( get_the_author_meta( 'user_nicename', $object_id ), $object_id );
+		/* Taxonomy archives. */
+		if ( is_tax() || is_category() || is_tag() ) {
+			$hybrid->context[] = 'taxonomy';
+			$hybrid->context[] = "taxonomy-{$object->taxonomy}";
+
+			$slug = ( ( 'post_format' == $object->taxonomy ) ? str_replace( 'post-format-', '', $object->slug ) : $object->slug );
+			$hybrid->context[] = "taxonomy-{$object->taxonomy}-" . sanitize_html_class( $slug, $object->term_id );
 		}
 
-		/* Time/Date archives. */
-		else {
-			if ( is_date() ) {
-				$hybrid->context[] = 'date';
-				if ( is_year() )
-					$hybrid->context[] = 'year';
-				if ( is_month() )
-					$hybrid->context[] = 'month';
-				if ( get_query_var( 'w' ) )
-					$hybrid->context[] = 'week';
-				if ( is_day() )
-					$hybrid->context[] = 'day';
-			}
-			if ( is_time() ) {
-				$hybrid->context[] = 'time';
-				if ( get_query_var( 'hour' ) )
-					$hybrid->context[] = 'hour';
-				if ( get_query_var( 'minute' ) )
-					$hybrid->context[] = 'minute';
-			}
+		/* User/author archives. */
+		if ( is_author() ) {
+			$user_id = get_query_var( 'author' );
+			$hybrid->context[] = 'user';
+			$hybrid->context[] = 'user-' . sanitize_html_class( get_the_author_meta( 'user_nicename', $user_id ), $user_id );
+		}
+
+		/* Date archives. */
+		if ( is_date() ) {
+			$hybrid->context[] = 'date';
+
+			if ( is_year() )
+				$hybrid->context[] = 'year';
+
+			if ( is_month() )
+				$hybrid->context[] = 'month';
+
+			if ( get_query_var( 'w' ) )
+				$hybrid->context[] = 'week';
+
+			if ( is_day() )
+				$hybrid->context[] = 'day';
+		}
+
+		/* Time archives. */
+		if ( is_time() ) {
+			$hybrid->context[] = 'time';
+
+			if ( get_query_var( 'hour' ) )
+				$hybrid->context[] = 'hour';
+
+			if ( get_query_var( 'minute' ) )
+				$hybrid->context[] = 'minute';
 		}
 	}
 
@@ -108,7 +122,7 @@ function hybrid_get_context() {
 		$hybrid->context[] = 'error-404';
 	}
 
-	return array_map( 'esc_attr', $hybrid->context );
+	return array_map( 'esc_attr', apply_filters( 'hybrid_context', $hybrid->context ) );
 }
 
 /**
@@ -117,9 +131,10 @@ function hybrid_get_context() {
  * even, and alt are added.
  *
  * @since 0.5.0
+ * @access public
  * @global $post The current post's DB object.
  * @param string|array $class Additional classes for more control.
- * @return string $class
+ * @return void
  */
 function hybrid_entry_class( $class = '', $post_id = null ) {
 	static $post_alt;
@@ -150,8 +165,12 @@ function hybrid_entry_class( $class = '', $post_id = null ) {
 			$classes[] = 'protected';
 
 		/* Has excerpt. */
-		if ( has_excerpt() )
+		if ( post_type_supports( $post->post_type, 'excerpt' ) && has_excerpt() )
 			$classes[] = 'has-excerpt';
+
+		/* Has <!--more--> link. */
+		if ( !is_singular() && false !== strpos( $post->post_content, '<!--more-->' ) )
+			$classes[] = 'has-more-link';
 
 		/* Post format. */
 		if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post->post_type, 'post-formats' ) ) {
@@ -199,17 +218,23 @@ function hybrid_entry_class( $class = '', $post_id = null ) {
  * (Odd should come first, even second).
  *
  * @since 0.2.0
+ * @access public
  * @global $wpdb WordPress DB access object.
  * @global $comment The current comment's DB object.
+ * @return void
  */
 function hybrid_comment_class( $class = '' ) {
-	global $post, $comment, $hybrid;
+	global $comment, $hybrid;
 
 	/* Gets default WP comment classes. */
 	$classes = get_comment_class( $class );
 
 	/* Get the comment type. */
-	$classes[] = get_comment_type();
+	$comment_type = get_comment_type();
+
+	/* If the comment type is 'pingback' or 'trackback', add the 'ping' comment class. */
+	if ( 'pingback' == $comment_type || 'trackback' == $comment_type )
+		$classes[] = 'ping';
 
 	/* User classes to match user role and user. */
 	if ( $comment->user_id > 0 ) {
@@ -217,14 +242,14 @@ function hybrid_comment_class( $class = '' ) {
 		/* Create new user object. */
 		$user = new WP_User( $comment->user_id );
 
-		/* Set a class with the user's role. */
+		/* Set a class with the user's role(s). */
 		if ( is_array( $user->roles ) ) {
 			foreach ( $user->roles as $role )
-				$classes[] = "role-{$role}";
+				$classes[] = sanitize_html_class( "role-{$role}" );
 		}
 
 		/* Set a class with the user's name. */
-		$classes[] = 'user-' . sanitize_html_class( $user->user_nicename, $user->ID );
+		$classes[] = sanitize_html_class( "user-{$user->user_nicename}", "user-{$user->ID}" );
 	}
 
 	/* If not a registered user */
@@ -233,7 +258,7 @@ function hybrid_comment_class( $class = '' ) {
 	}
 
 	/* Comment by the entry/post author. */
-	if ( $post = get_post( $post_id ) ) {
+	if ( $post = get_post( get_the_ID() ) ) {
 		if ( $comment->user_id === $post->post_author )
 			$classes[] = 'entry-author';
 	}
@@ -245,6 +270,9 @@ function hybrid_comment_class( $class = '' ) {
 	if ( get_option( 'show_avatars' ) && in_array( $comment->comment_type, $avatar_comment_types ) )
 		$classes[] = 'has-avatar';
 
+	/* Make sure comment classes doesn't have any duplicates. */
+	$classes = array_unique( $classes );
+
 	/* Join all the classes into one string and echo them. */
 	$class = join( ' ', $classes );
 
@@ -255,9 +283,10 @@ function hybrid_comment_class( $class = '' ) {
  * Provides classes for the <body> element depending on page context.
  *
  * @since 0.1.0
+ * @access public
  * @uses $wp_query
  * @param string|array $class Additional classes for more control.
- * @return string
+ * @return void
  */
 function hybrid_body_class( $class = '' ) {
 	global $wp_query;
@@ -285,6 +314,14 @@ function hybrid_body_class( $class = '' ) {
 	if ( is_admin_bar_showing() )
 		$classes[] = 'admin-bar';
 
+	/* Use the '.custom-background' class to integrate with the WP background feature. */
+	if ( get_background_image() || get_background_color() )
+		$classes[] = 'custom-background';
+
+	/* Add the '.custom-header' class if the user is using a custom header. */
+	if ( get_header_image() )
+		$classes[] = 'custom-header';
+
 	/* Merge base contextual classes with $classes. */
 	$classes = array_merge( $classes, hybrid_get_context() );
 
@@ -295,7 +332,7 @@ function hybrid_body_class( $class = '' ) {
 		$post = get_queried_object();
 
 		/* Checks for custom template. */
-		$template = str_replace( array ( "{$post->post_type}-template-", "{$post->post_type}-", '.php' ), '', get_post_meta( get_queried_object_id(), "_wp_{$post->post_type}_template", true ) );
+		$template = str_replace( array ( "{$post->post_type}-template-", "{$post->post_type}-" ), '', basename( get_post_meta( get_queried_object_id(), "_wp_{$post->post_type}_template", true ), '.php' ) );
 		if ( !empty( $template ) )
 			$classes[] = "{$post->post_type}-template-{$template}";
 
@@ -338,13 +375,14 @@ function hybrid_body_class( $class = '' ) {
  * possible situation WordPress throws at it for the best optimization.
  *
  * @since 0.1.0
+ * @access public
  * @global $wp_query
+ * @return void
  */
 function hybrid_document_title() {
 	global $wp_query;
 
 	/* Set up some default variables. */
-	$domain = hybrid_get_textdomain();
 	$doctitle = '';
 	$separator = ':';
 
@@ -374,8 +412,7 @@ function hybrid_document_title() {
 
 		/* If viewing a post type archive. */
 		elseif ( is_post_type_archive() ) {
-			$post_type = get_post_type_object( get_query_var( 'post_type' ) );
-			$doctitle = $post_type->labels->name;
+			$doctitle = post_type_archive_title( '', false );
 		}
 
 		/* If viewing an author/user archive. */
@@ -389,47 +426,50 @@ function hybrid_document_title() {
 		/* If viewing a date-/time-based archive. */
 		elseif ( is_date () ) {
 			if ( get_query_var( 'minute' ) && get_query_var( 'hour' ) )
-				$doctitle = sprintf( __( 'Archive for %1$s', $domain ), get_the_time( __( 'g:i a', $domain ) ) );
+				$doctitle = sprintf( __( 'Archive for %1$s', 'hybrid-core' ), get_the_time( __( 'g:i a', 'hybrid-core' ) ) );
 
 			elseif ( get_query_var( 'minute' ) )
-				$doctitle = sprintf( __( 'Archive for minute %1$s', $domain ), get_the_time( __( 'i', $domain ) ) );
+				$doctitle = sprintf( __( 'Archive for minute %1$s', 'hybrid-core' ), get_the_time( __( 'i', 'hybrid-core' ) ) );
 
 			elseif ( get_query_var( 'hour' ) )
-				$doctitle = sprintf( __( 'Archive for %1$s', $domain ), get_the_time( __( 'g a', $domain ) ) );
+				$doctitle = sprintf( __( 'Archive for %1$s', 'hybrid-core' ), get_the_time( __( 'g a', 'hybrid-core' ) ) );
 
 			elseif ( is_day() )
-				$doctitle = sprintf( __( 'Archive for %1$s', $domain ), get_the_time( __( 'F jS, Y', $domain ) ) );
+				$doctitle = sprintf( __( 'Archive for %1$s', 'hybrid-core' ), get_the_time( __( 'F jS, Y', 'hybrid-core' ) ) );
 
 			elseif ( get_query_var( 'w' ) )
-				$doctitle = sprintf( __( 'Archive for week %1$s of %2$s', $domain ), get_the_time( __( 'W', $domain ) ), get_the_time( __( 'Y', $domain ) ) );
+				$doctitle = sprintf( __( 'Archive for week %1$s of %2$s', 'hybrid-core' ), get_the_time( __( 'W', 'hybrid-core' ) ), get_the_time( __( 'Y', 'hybrid-core' ) ) );
 
 			elseif ( is_month() )
-				$doctitle = sprintf( __( 'Archive for %1$s', $domain ), single_month_title( ' ', false) );
+				$doctitle = sprintf( __( 'Archive for %1$s', 'hybrid-core' ), single_month_title( ' ', false) );
 
 			elseif ( is_year() )
-				$doctitle = sprintf( __( 'Archive for %1$s', $domain ), get_the_time( __( 'Y', $domain ) ) );
+				$doctitle = sprintf( __( 'Archive for %1$s', 'hybrid-core' ), get_the_time( __( 'Y', 'hybrid-core' ) ) );
 		}
 
 		/* For any other archives. */
 		else {
-			$doctitle = __( 'Archives', $domain );
+			$doctitle = __( 'Archives', 'hybrid-core' );
 		}
 	}
 
 	/* If viewing a search results page. */
 	elseif ( is_search() )
-		$doctitle = sprintf( __( 'Search results for &quot;%1$s&quot;', $domain ), esc_attr( get_search_query() ) );
+		$doctitle = sprintf( __( 'Search results for &quot;%1$s&quot;', 'hybrid-core' ), esc_attr( get_search_query() ) );
 
 	/* If viewing a 404 not found page. */
 	elseif ( is_404() )
-		$doctitle = __( '404 Not Found', $domain );
+		$doctitle = __( '404 Not Found', 'hybrid-core' );
 
 	/* If the current page is a paged page. */
 	if ( ( ( $page = $wp_query->get( 'paged' ) ) || ( $page = $wp_query->get( 'page' ) ) ) && $page > 1 )
-		$doctitle = sprintf( __( '%1$s Page %2$s', $domain ), $doctitle . $separator, number_format_i18n( $page ) );
+		$doctitle = sprintf( __( '%1$s Page %2$s', 'hybrid-core' ), $doctitle . $separator, number_format_i18n( $page ) );
 
 	/* Apply the wp_title filters so we're compatible with plugins. */
 	$doctitle = apply_filters( 'wp_title', $doctitle, $separator, '' );
+
+	/* Trim separator + space from beginning and end in case a plugin adds it. */
+	$doctitle = trim( $doctitle, "{$separator} " );
 
 	/* Print the title to the screen. */
 	echo apply_atomic( 'document_title', esc_attr( $doctitle ) );

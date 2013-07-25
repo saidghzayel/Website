@@ -4,87 +4,62 @@
  * Menus screen, by the theme, or by plugins using the wp_nav_menu() function.  It replaces the default
  * WordPress navigation menu class.
  *
- * @package Hybrid
+ * @package    Hybrid
  * @subpackage Classes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/hybrid-core
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Nav Menu Widget Class
  *
  * @since 0.8.0
- * @link http://themehybrid.com/themes/hybrid/widgets
  */
 class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 	/**
-	 * Prefix for the widget.
-	 * @since 0.8.0
-	 */
-	var $prefix;
-
-	/**
-	 * Textdomain for the widget.
-	 * @since 0.8.0
-	 */
-	var $textdomain;
-
-	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
+	 *
 	 * @since 1.2.0
 	 */
 	function __construct() {
 
-		/* Set the widget prefix. */
-		$this->prefix = hybrid_get_prefix();
-
-		/* Set the widget textdomain. */
-		$this->textdomain = hybrid_get_textdomain();
-
 		/* Set up the widget options. */
 		$widget_options = array(
-			'classname' => 'nav-menu',
-			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your menus.', $this->textdomain )
+			'classname'   => 'nav-menu',
+			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your menus.', 'hybrid-core' )
 		);
 
 		/* Set up the widget control options. */
 		$control_options = array(
-			'width' => 525,
+			'width'  => 525,
 			'height' => 350
 		);
 
 		/* Create the widget. */
 		$this->WP_Widget(
-			'hybrid-nav-menu',				// $this->id_base
-			__( 'Navigation Menu', $this->textdomain ),	// $this->name
-			$widget_options,				// $this->widget_options
-			$control_options				// $this->control_options
+			'hybrid-nav-menu',                      // $this->id_base
+			__( 'Navigation Menu', 'hybrid-core' ), // $this->name
+			$widget_options,                        // $this->widget_options
+			$control_options                        // $this->control_options
 		);
 	}
 
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
+	 *
 	 * @since 0.8.0
 	 */
-	function widget( $args, $instance ) {
-		extract( $args );
+	function widget( $sidebar, $instance ) {
+		extract( $sidebar );
 
-		/* Set up the arguments for the wp_nav_menu() function. */
-		$args = array(
-			'menu' => 		$instance['menu'],
-			'container' => 		$instance['container'],
-			'container_id' => 		$instance['container_id'],
-			'container_class' => 	$instance['container_class'],
-			'menu_id' => 		$instance['menu_id'],
-			'menu_class' => 		$instance['menu_class'],
-			'link_before' => 		$instance['link_before'],
-			'link_after' => 		$instance['link_after'],
-			'before' => 		$instance['before'],
-			'after' => 		$instance['after'],
-			'depth' => 		intval( $instance['depth'] ),
-			'fallback_cb' => 		$instance['fallback_cb'],
-			'walker' => 		$instance['walker'],
-			'echo' => 		false
-		);
+		/* Set the $args for wp_nav_menu() to the $instance array. */
+		$args = $instance;
+
+		/* Overwrite the $echo argument and set it to false. */
+		$args['echo'] = false;
 
 		/* Output the theme's widget wrapper. */
 		echo $before_widget;
@@ -102,6 +77,7 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 	/**
 	 * Updates the widget control options for the particular instance of the widget.
+	 *
 	 * @since 0.8.0
 	 */
 	function update( $new_instance, $old_instance ) {
@@ -109,40 +85,39 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 		$instance = $new_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['depth'] = strip_tags( $new_instance['depth'] );
-		$instance['container_id'] = strip_tags( $new_instance['container_id'] );
+		$instance['title']           = strip_tags( $new_instance['title'] );
+		$instance['depth']           = strip_tags( $new_instance['depth'] );
+		$instance['container_id']    = strip_tags( $new_instance['container_id'] );
 		$instance['container_class'] = strip_tags( $new_instance['container_class'] );
-		$instance['menu_id'] = strip_tags( $new_instance['menu_id'] );
-		$instance['menu_class'] = strip_tags( $new_instance['menu_class'] );
-		$instance['fallback_cb'] = strip_tags( $new_instance['fallback_cb'] );
-		$instance['walker'] = strip_tags( $new_instance['walker'] );
+		$instance['menu_id']         = strip_tags( $new_instance['menu_id'] );
+		$instance['menu_class']      = strip_tags( $new_instance['menu_class'] );
+		$instance['fallback_cb']     = strip_tags( $new_instance['fallback_cb'] );
 
 		return $instance;
 	}
 
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
+	 *
 	 * @since 0.8.0
 	 */
 	function form( $instance ) {
 
 		/* Set up the default form values. */
 		$defaults = array(
-			'title' => esc_attr__( 'Navigation', $this->textdomain ),
-			'menu' => '',
-			'container' => 'div',
-			'container_id' => '',
+			'title'           => esc_attr__( 'Navigation', 'hybrid-core' ),
+			'menu'            => '',
+			'container'       => 'div',
+			'container_id'    => '',
 			'container_class' => '',
-			'menu_id' => '',
-			'menu_class' => 'nav-menu',
-			'depth' => 0,
-			'before' => '',
-			'after' => '',
-			'link_before' => '',
-			'link_after' => '',
-			'fallback_cb' => 'wp_page_menu',
-			'walker' => ''
+			'menu_id'         => '',
+			'menu_class'      => 'nav-menu',
+			'depth'           => 0,
+			'before'          => '',
+			'after'           => '',
+			'link_before'     => '',
+			'link_after'      => '',
+			'fallback_cb'     => 'wp_page_menu'
 		);
 
 		/* Merge the user-selected arguments with the defaults. */
@@ -153,7 +128,7 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 
 		<div class="hybrid-widget-controls columns-2">
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', $this->textdomain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hybrid-core' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
@@ -184,13 +159,13 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'menu_id' ); ?>"><code>menu_id</code></label>
 			<input type="text" class="smallfat code" id="<?php echo $this->get_field_id( 'menu_id' ); ?>" name="<?php echo $this->get_field_name( 'menu_id' ); ?>" value="<?php echo esc_attr( $instance['menu_id'] ); ?>" />
 		</p>
+		</div>
+
+		<div class="hybrid-widget-controls columns-2 column-last">
 		<p>
 			<label for="<?php echo $this->get_field_id( 'menu_class' ); ?>"><code>menu_class</code></label>
 			<input type="text" class="smallfat code" id="<?php echo $this->get_field_id( 'menu_class' ); ?>" name="<?php echo $this->get_field_name( 'menu_class' ); ?>" value="<?php echo esc_attr( $instance['menu_class'] ); ?>" />
 		</p>
-		</div>
-
-		<div class="hybrid-widget-controls columns-2 column-last">
 		<p>
 			<label for="<?php echo $this->get_field_id( 'depth' ); ?>"><code>depth</code></label>
 			<input type="text" class="smallfat code" id="<?php echo $this->get_field_id( 'depth' ); ?>" name="<?php echo $this->get_field_name( 'depth' ); ?>" value="<?php echo esc_attr( $instance['depth'] ); ?>" />
@@ -214,10 +189,6 @@ class Hybrid_Widget_Nav_Menu extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'fallback_cb' ); ?>"><code>fallback_cb</code></label>
 			<input type="text" class="widefat code" id="<?php echo $this->get_field_id( 'fallback_cb' ); ?>" name="<?php echo $this->get_field_name( 'fallback_cb' ); ?>" value="<?php echo esc_attr( $instance['fallback_cb'] ); ?>" />
-		</p>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'walker' ); ?>"><code>walker</code></label>
-			<input type="text" class="widefat code" id="<?php echo $this->get_field_id( 'walker' ); ?>" name="<?php echo $this->get_field_name( 'walker' ); ?>" value="<?php echo esc_attr( $instance['walker'] ); ?>" />
 		</p>
 		</div>
 		<div style="clear:both;">&nbsp;</div>

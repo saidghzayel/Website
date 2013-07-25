@@ -3,19 +3,24 @@
  * Theme administration functions used with other components of the framework admin.  This file is for 
  * setting up any basic features and holding additional admin helper functions.
  *
- * @package HybridCore
+ * @package    HybridCore
  * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/hybrid-core
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
-/* Add the admin init function to the 'admin_init' hook. */
-add_action( 'admin_init', 'hybrid_admin_init' );
+/* Add the admin setup function to the 'admin_menu' hook. */
+add_action( 'admin_menu', 'hybrid_admin_setup' );
 
 /**
- * Initializes any admin-related features needed for the framework.
+ * Sets up the adminstration functionality for the framework and themes.
  *
- * @since 0.7.0
+ * @since 1.3.0
+ * @return void
  */
-function hybrid_admin_init() {
+function hybrid_admin_setup() {
 
 	/* Load the post meta boxes on the new post and edit post screens. */
 	add_action( 'load-post.php', 'hybrid_admin_load_post_meta_boxes' );
@@ -26,6 +31,14 @@ function hybrid_admin_init() {
 
 	/* Loads admin stylesheets for the framework. */
 	add_action( 'admin_enqueue_scripts', 'hybrid_admin_enqueue_styles' );
+
+	/* Add the WordPress 'Customize' page as an admin menu link. */
+	add_theme_page( 
+		esc_html__( 'Customize', 'hybrid-core' ), // Settings page name
+		esc_html__( 'Customize', 'hybrid-core' ), // Menu name
+		'edit_theme_options',                     // Required capability
+		'customize.php'	                          // File to load
+	);
 }
 
 /**
@@ -33,6 +46,7 @@ function hybrid_admin_init() {
  * the theme declares support for the feature.
  *
  * @since 1.2.0
+ * @return void
  */
 function hybrid_admin_load_post_meta_boxes() {
 
@@ -48,15 +62,21 @@ function hybrid_admin_load_post_meta_boxes() {
  * registers it with WordPress.
  *
  * @since 1.2.0
+ * @return void
  */
 function hybrid_admin_register_styles() {
-	wp_register_style( 'hybrid-core-admin', trailingslashit( HYBRID_CSS ) . 'admin.css', false, '20110512', 'screen' );
+
+	/* Use the .min stylesheet if SCRIPT_DEBUG is turned off. */
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+	wp_register_style( 'hybrid-core-admin', trailingslashit( HYBRID_CSS ) . "admin{$suffix}.css", false, '20110512', 'screen' );
 }
 
 /**
  * Loads the admin.css stylesheet for admin-related features.
  *
  * @since 1.2.0
+ * @return void
  */
 function hybrid_admin_enqueue_styles( $hook_suffix ) {
 
@@ -71,54 +91,51 @@ function hybrid_admin_enqueue_styles( $hook_suffix ) {
  * page templates function because it doesn't allow for other types of templates.
  *
  * @since 0.7.0
- * @param array $args Arguments to check the templates against.
+ * @param string $post_type The name of the post type to get templates for.
  * @return array $post_templates The array of templates.
  */
-function hybrid_get_post_templates( $args = array() ) {
+function hybrid_get_post_templates( $post_type = 'post' ) {
 
-	/* Parse the arguments with the defaults. */
-	$args = wp_parse_args( $args, array( 'label' => array( 'Post Template' ) ) );
-
-	/* Get theme and templates variables. */
-	$themes = get_themes();
-	$theme = get_current_theme();
-	$templates = $themes[$theme]['Template Files'];
+	/* Set up an empty post templates array. */
 	$post_templates = array();
 
-	/* If there's an array of templates, loop through each template. */
-	if ( is_array( $templates ) ) {
+	/* Get the post type object. */
+	$post_type_object = get_post_type_object( $post_type );
 
-		/* Set up a $base path that we'll use to remove from the file name. */
-		$base = array( trailingslashit( get_template_directory() ), trailingslashit( get_stylesheet_directory() ) );
+	/* Get the theme (parent theme if using a child theme) object. */
+	$theme = wp_get_theme( get_template(), get_theme_root( get_template_directory() ) );
 
-		/* Loop through the post templates. */
-		foreach ( $templates as $template ) {
+	/* Get the theme PHP files one level deep. */
+	$files = (array) $theme->get_files( 'php', 1 );
 
-			/* Remove the base (parent/child theme path) from the template file name. */
-			$basename = str_replace( $base, '', $template );
+	/* If a child theme is active, get its files and merge with the parent theme files. */
+	if ( is_child_theme() ) {
+		$child = wp_get_theme( get_stylesheet(), get_theme_root( get_stylesheet_directory() ) );
+		$child_files = (array) $child->get_files( 'php', 1 );
+		$files = array_merge( $files, $child_files );
+	}
 
-			/* Get the template data. */
-			$template_data = implode( '', file( $template ) );
+	/* Loop through each of the PHP files and check if they are post templates. */
+	foreach ( $files as $file => $path ) {
 
-			/* Make sure the name is set to an empty string. */
-			$name = '';
+		/* Get file data based on the post type singular name (e.g., "Post Template", "Book Template", etc.). */
+		$headers = get_file_data(
+			$path,
+			array( 
+				"{$post_type_object->name} Template" => "{$post_type_object->name} Template",
+			)
+		);
 
-			/* Loop through each of the potential labels and see if a match is found. */
-			foreach ( $args['label'] as $label ) {
-				if ( preg_match( "|{$label}:(.*)$|mi", $template_data, $name ) ) {
-					$name = _cleanup_header_comment( $name[1] );
-					break;
-				}
-			}
+		/* Continue loop if the header is empty. */
+		if ( empty( $headers["{$post_type_object->name} Template"] ) )
+			continue;
 
-			/* If a post template was found, add its name and file name to the $post_templates array. */
-			if ( !empty( $name ) )
-				$post_templates[trim( $name )] = $basename;
-		}
+		/* Add the PHP filename and template name to the array. */
+		$post_templates[ $file ] = $headers["{$post_type_object->name} Template"];
 	}
 
 	/* Return array of post templates. */
-	return $post_templates;
+	return array_flip( $post_templates );
 }
 
 ?>
