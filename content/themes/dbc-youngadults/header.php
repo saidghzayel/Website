@@ -2,9 +2,9 @@
 /**
  * Header Template
  *
- * The header template is generally used on every page of your site. Nearly all other templates call it 
- * somewhere near the top of the file. It is used mostly as an opening wrapper, which is closed with the 
- * footer.php file. It also executes key functions needed by the theme, child themes, and plugins. 
+ * The header template is generally used on every page of your site. Nearly all other templates call it
+ * somewhere near the top of the file. It is used mostly as an opening wrapper, which is closed with the
+ * footer.php file. It also executes key functions needed by the theme, child themes, and plugins.
  *
  * @package Prototype
  * @subpackage Template
@@ -49,7 +49,7 @@
 				<div id="branding" class="three columns">
 					<?php hybrid_site_title(); ?>
 				</div><!-- #branding -->
-				
+
 				<?php get_template_part( 'menu', 'primary' ); // Loads the menu-primary.php template. ?>
 
 				<?php get_sidebar( 'header' ); // Loads the sidebar-header.php template. ?>
@@ -65,15 +65,15 @@
 		<?php do_atomic( 'after_header' ); // prototype_after_header ?>
 
 		<?php get_template_part( 'menu', 'secondary' ); // Loads the menu-secondary.php template. ?>
-		
+
 		<?php if ( current_theme_supports( 'breadcrumb-trail' ) ): ?>
-			
+
 			<div class="wrap">
-		
-			<?php breadcrumb_trail( array( 'before' => __( 'You are here:', hybrid_get_textdomain() ) ) ); ?>
-			
+
+			<?php breadcrumb_trail( array( 'before' => __( 'You are here:', hybrid_get_parent_textdomain() ) ) ); ?>
+
 			</div>
-		
+
 		<?php endif; ?>
 
 		<?php do_atomic( 'before_main' ); // prototype_before_main ?>
@@ -82,4 +82,4 @@
 
 			<div class="wrap">
 
-			<?php do_atomic( 'open_main' ); // prototype_open_main ?>			
+			<?php do_atomic( 'open_main' ); // prototype_open_main ?>

@@ -3,7 +3,7 @@
  * Comment Template
  *
  * The comment template displays an individual comment. This can be overwritten by templates specific
- * to the comment type (comment.php, comment-{$comment_type}.php, comment-pingback.php, 
+ * to the comment type (comment.php, comment-{$comment_type}.php, comment-pingback.php,
  * comment-trackback.php) in a child theme.
  *
  * @package Prototype
@@ -27,7 +27,7 @@
 
 			<div class="comment-content comment-text">
 				<?php if ( '0' == $comment->comment_approved ) : ?>
-					<?php echo apply_atomic_shortcode( 'comment_moderation', '<p class="alert moderation">' . __( 'Your comment is awaiting moderation.', hybrid_get_textdomain() ) . '</p>' ); ?>
+					<?php echo apply_atomic_shortcode( 'comment_moderation', '<p class="alert moderation">' . __( 'Your comment is awaiting moderation.', hybrid_get_parent_textdomain() ) . '</p>' ); ?>
 				<?php endif; ?>
 
 				<?php comment_text( $comment->comment_ID ); ?>
