@@ -4,72 +4,62 @@
  * control over the output to the user by allowing the input of all the arguments typically seen
  * in the wp_get_archives() function.
  *
- * @package Hybrid
+ * @package    Hybrid
  * @subpackage Classes
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/hybrid-core
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
  * Archives widget class.
  *
  * @since 0.6.0
- * @link http://codex.wordpress.org/Template_Tags/wp_get_archives
- * @link http://themehybrid.com/themes/hybrid/widgets
  */
 class Hybrid_Widget_Archives extends WP_Widget {
 
 	/**
-	 * Textdomain for the widget.
-	 * @since 0.7.0
-	 */
-	var $textdomain;
-
-	/**
 	 * Set up the widget's unique name, ID, class, description, and other options.
+	 *
 	 * @since 1.2.0
 	 */
 	function __construct() {
 
-		/* Set the widget textdomain. */
-		$this->textdomain = hybrid_get_textdomain();
-
 		/* Set up the widget options. */
 		$widget_options = array(
-			'classname' => 'archives',
-			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your archives.', $this->textdomain )
+			'classname'   => 'archives',
+			'description' => esc_html__( 'An advanced widget that gives you total control over the output of your archives.', 'hybrid-core' )
 		);
 
 		/* Set up the widget control options. */
 		$control_options = array(
-			'width' => 525,
+			'width'  => 525,
 			'height' => 350
 		);
 
 		/* Create the widget. */
 		$this->WP_Widget(
-			'hybrid-archives',			// $this->id_base
-			__( 'Archives', $this->textdomain ),	// $this->name
-			$widget_options,			// $this->widget_options
-			$control_options			// $this->control_options
+			'hybrid-archives',               // $this->id_base
+			__( 'Archives', 'hybrid-core' ), // $this->name
+			$widget_options,                 // $this->widget_options
+			$control_options                 // $this->control_options
 		);
 	}
 
 	/**
 	 * Outputs the widget based on the arguments input through the widget controls.
+	 *
 	 * @since 0.6.0
 	 */
-	function widget( $args, $instance ) {
-		extract( $args );
+	function widget( $sidebar, $instance ) {
+		extract( $sidebar );
 
-		/* Set up the arguments for wp_get_archives(). */
-		$args = array(
-			'type' =>			$instance['type'],
-			'format' =>		$instance['format'],
-			'before' =>		$instance['before'],
-			'after' =>		$instance['after'],
-			'show_post_count' =>	!empty( $instance['show_post_count'] ) ? true : false,
-			'limit' =>			!empty( $instance['limit'] ) ? intval( $instance['limit'] ) : '',
-			'echo' =>			false
-		);
+		/* Set the $args for wp_get_archives() to the $instance array. */
+		$args = $instance;
+
+		/* Overwrite the $echo argument and set it to false. */
+		$args['echo'] = false;
 
 		/* Output the theme's $before_widget wrapper. */
 		echo $before_widget;
@@ -86,19 +76,19 @@ class Hybrid_Widget_Archives extends WP_Widget {
 
 			/* Create a title for the drop-down based on the archive type. */
 			if ( 'yearly' == $args['type'] )
-				$option_title = esc_html__( 'Select Year', $this->textdomain );
+				$option_title = esc_html__( 'Select Year', 'hybrid-core' );
 
 			elseif ( 'monthly' == $args['type'] )
-				$option_title = esc_html__( 'Select Month', $this->textdomain );
+				$option_title = esc_html__( 'Select Month', 'hybrid-core' );
 
 			elseif ( 'weekly' == $args['type'] )
-				$option_title = esc_html__( 'Select Week', $this->textdomain );
+				$option_title = esc_html__( 'Select Week', 'hybrid-core' );
 
 			elseif ( 'daily' == $args['type'] )
-				$option_title = esc_html__( 'Select Day', $this->textdomain );
+				$option_title = esc_html__( 'Select Day', 'hybrid-core' );
 
 			elseif ( 'postbypost' == $args['type'] || 'alpha' == $args['type'] )
-				$option_title = esc_html__( 'Select Post', $this->textdomain );
+				$option_title = esc_html__( 'Select Post', 'hybrid-core' );
 
 			/* Output the <select> element and each <option>. */
 			echo '<p><select name="archive-dropdown" onchange=\'document.location.href=this.options[this.selectedIndex].value;\'>';
@@ -123,17 +113,18 @@ class Hybrid_Widget_Archives extends WP_Widget {
 
 	/**
 	 * Updates the widget control options for the particular instance of the widget.
+	 *
 	 * @since 0.6.0
 	 */
 	function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
 
 		$instance = $new_instance;
 
-		$instance['title'] = strip_tags( $new_instance['title'] );
+		$instance['title']  = strip_tags( $new_instance['title'] );
 		$instance['before'] = strip_tags( $new_instance['before'] );
-		$instance['after'] = strip_tags( $new_instance['after'] );
-		$instance['limit'] = strip_tags( $new_instance['limit'] );
+		$instance['after']  = strip_tags( $new_instance['after'] );
+		$instance['limit']  = strip_tags( $new_instance['limit'] );
+
 		$instance['show_post_count'] = ( isset( $new_instance['show_post_count'] ) ? 1 : 0 );
 
 		return $instance;
@@ -141,18 +132,20 @@ class Hybrid_Widget_Archives extends WP_Widget {
 
 	/**
 	 * Displays the widget control options in the Widgets admin screen.
+	 *
 	 * @since 0.6.0
 	 */
 	function form( $instance ) {
 
 		/* Set up the default form values. */
 		$defaults = array(
-			'title' => esc_attr__( 'Archives', $this->textdomain ),
-			'limit' => 10,
-			'type' => 'monthly',
-			'format' => 'html',
-			'before' => '',
-			'after' => '',
+			'title'           => esc_attr__( 'Archives', 'hybrid-core' ),
+			'limit'           => 10,
+			'type'            => 'monthly',
+			'order'           => 'DESC',
+			'format'          => 'html',
+			'before'          => '',
+			'after'           => '',
 			'show_post_count' => false
 		);
 
@@ -160,15 +153,32 @@ class Hybrid_Widget_Archives extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		/* Create an array of archive types. */
-		$type = array( 'alpha' => esc_attr__( 'Alphabetical', $this->textdomain ), 'daily' => esc_attr__( 'Daily', $this->textdomain ), 'monthly' => esc_attr__( 'Monthly', $this->textdomain ),'postbypost' => esc_attr__( 'Post By Post', $this->textdomain ), 'weekly' => esc_attr__( 'Weekly', $this->textdomain ), 'yearly' => esc_attr__( 'Yearly', $this->textdomain ) );
+		$type = array( 
+			'alpha'      => esc_attr__( 'Alphabetical', 'hybrid-core' ), 
+			'daily'      => esc_attr__( 'Daily', 'hybrid-core' ), 
+			'monthly'    => esc_attr__( 'Monthly', 'hybrid-core' ),
+			'postbypost' => esc_attr__( 'Post By Post', 'hybrid-core' ), 
+			'weekly'     => esc_attr__( 'Weekly', 'hybrid-core' ), 
+			'yearly'     => esc_attr__( 'Yearly', 'hybrid-core' ) 
+		);
+
+		/* Create an array of order options. */
+		$order = array(
+			'ASC'  => esc_attr__( 'Ascending', 'hybrid-core' ),
+			'DESC' => esc_attr__( 'Descending', 'hybrid-core' )
+		);
 
 		/* Create an array of archive formats. */
-		$format = array( 'custom' => esc_attr__( 'Custom', $this->textdomain ), 'html' => esc_attr__( 'HTML', $this->textdomain ), 'option' => esc_attr__( 'Option', $this->textdomain ) );
+		$format = array( 
+			'custom' => esc_attr__( 'Custom', 'hybrid-core' ), 
+			'html'   => esc_attr__( 'HTML', 'hybrid-core' ), 
+			'option' => esc_attr__( 'Option', 'hybrid-core' ) 
+		);
 		?>
 
 		<div class="hybrid-widget-controls columns-2">
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', $this->textdomain ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'hybrid-core' ); ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $instance['title'] ); ?>" />
 		</p>
 		<p>
@@ -184,6 +194,17 @@ class Hybrid_Widget_Archives extends WP_Widget {
 			</select>
 		</p>
 		<p>
+			<label for="<?php echo $this->get_field_id( 'order' ); ?>"><code>order</code></label> 
+			<select class="widefat" id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>">
+				<?php foreach ( $order as $option_value => $option_label ) { ?>
+					<option value="<?php echo esc_attr( $option_value ); ?>" <?php selected( $instance['order'], $option_value ); ?>><?php echo esc_html( $option_label ); ?></option>
+				<?php } ?>
+			</select>
+		</p>
+		</div>
+
+		<div class="hybrid-widget-controls columns-2 column-last">
+		<p>
 			<label for="<?php echo $this->get_field_id( 'format' ); ?>"><code>format</code></label> 
 			<select class="widefat" id="<?php echo $this->get_field_id( 'format' ); ?>" name="<?php echo $this->get_field_name( 'format' ); ?>">
 				<?php foreach ( $format as $option_value => $option_label ) { ?>
@@ -191,9 +212,6 @@ class Hybrid_Widget_Archives extends WP_Widget {
 				<?php } ?>
 			</select>
 		</p>
-		</div>
-
-		<div class="hybrid-widget-controls columns-2 column-last">
 		<p>
 			<label for="<?php echo $this->get_field_id( 'before' ); ?>"><code>before</code></label>
 			<input type="text" class="widefat code" id="<?php echo $this->get_field_id( 'before' ); ?>" name="<?php echo $this->get_field_name( 'before' ); ?>" value="<?php echo esc_attr( $instance['before'] ); ?>" />
@@ -204,7 +222,7 @@ class Hybrid_Widget_Archives extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_post_count' ); ?>">
-			<input class="checkbox" type="checkbox" <?php checked( $instance['show_post_count'], true ); ?> id="<?php echo $this->get_field_id( 'show_post_count' ); ?>" name="<?php echo $this->get_field_name( 'show_post_count' ); ?>" /> <?php _e( 'Show post count?', $this->textdomain ); ?> <code>show_post_count</code></label>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['show_post_count'], true ); ?> id="<?php echo $this->get_field_id( 'show_post_count' ); ?>" name="<?php echo $this->get_field_name( 'show_post_count' ); ?>" /> <?php _e( 'Show post count?', 'hybrid-core' ); ?> <code>show_post_count</code></label>
 		</p>
 		</div>
 		<div style="clear:both;">&nbsp;</div>

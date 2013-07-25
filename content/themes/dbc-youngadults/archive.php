@@ -2,7 +2,7 @@
 /**
  * Archive Template
  *
- * The archive template is the default template used for archives pages without a more specific template. 
+ * The archive template is the default template used for archives pages without a more specific template.
  *
  * @package Prototype
  * @subpackage Template
@@ -34,14 +34,14 @@ get_header(); // Loads the header.php template. ?>
 
 						<?php echo apply_atomic_shortcode( 'entry_title', '[entry-title]' ); ?>
 
-						<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . __( 'By [entry-author] on [entry-published] [entry-edit-link before=" | "]', hybrid_get_textdomain() ) . '</div>' ); ?>
+						<?php echo apply_atomic_shortcode( 'byline', '<div class="byline">' . __( 'By [entry-author] on [entry-published] [entry-edit-link before=" | "]', hybrid_get_parent_textdomain() ) . '</div>' ); ?>
 
 						<div class="entry-summary">
 							<?php the_excerpt(); ?>
-							<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', hybrid_get_textdomain() ), 'after' => '</p>' ) ); ?>
+							<?php wp_link_pages( array( 'before' => '<p class="page-links">' . __( 'Pages:', hybrid_get_parent_textdomain() ), 'after' => '</p>' ) ); ?>
 						</div><!-- .entry-summary -->
 
-						<?php echo apply_atomic_shortcode( 'entry_meta', '<div class="entry-meta">' . __( '[entry-terms taxonomy="category" before="Posted in "] [entry-terms before="| Tagged "] [entry-comments-link before=" | "]', hybrid_get_textdomain() ) . '</div>' ); ?>
+						<?php echo apply_atomic_shortcode( 'entry_meta', '<div class="entry-meta">' . __( '[entry-terms taxonomy="category" before="Posted in "] [entry-terms before="| Tagged "] [entry-comments-link before=" | "]', hybrid_get_parent_textdomain() ) . '</div>' ); ?>
 
 						<?php do_atomic( 'close_entry' ); // prototype_close_entry ?>
 

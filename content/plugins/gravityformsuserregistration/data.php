@@ -30,18 +30,28 @@ class GFUserData{
         return $wpdb->prefix . "rg_userregistration";
     }
 
-    public static function get_feeds(){
+    public static function get_feeds($form_id = false, $is_active = false){
         global $wpdb;
+        
         $table_name = self::get_user_registration_table_name();
         $form_table_name = RGFormsModel::get_form_table_name();
+        $where = 'WHERE 1 = 1';
+        
+        if($form_id)
+            $where .= " AND s.form_id = $form_id";
+        
+        if($is_active)
+            $where .= " AND s.is_active = $is_active";
+            
         $sql = "SELECT s.id, s.is_active, s.form_id, s.meta, f.title as form_title
                 FROM $table_name s
-                INNER JOIN $form_table_name f ON s.form_id = f.id";
+                INNER JOIN $form_table_name f ON s.form_id = f.id
+                $where";
 
         $results = $wpdb->get_results($sql, ARRAY_A);
 
         $count = sizeof($results);
-        for($i=0; $i<$count; $i++){
+        for($i = 0; $i < $count; $i++){
             $results[$i]["meta"] = maybe_unserialize($results[$i]["meta"]);
         }
 
@@ -63,12 +73,23 @@ class GFUserData{
         if(empty($results))
             return array();
 
-        //Deserializing meta
+        // deserializing meta
         $count = sizeof($results);
         for($i=0; $i<$count; $i++){
             $results[$i]["meta"] = maybe_unserialize($results[$i]["meta"]);
         }
+        
         return $results;
+    }
+    
+    /**
+    * Provides a more accurately named function for getting feeds by form.
+    * 
+    * @param mixed $form_id
+    * @param mixed $only_active
+    */
+    public static function get_feeds_by_form($form_id, $only_active = false) {
+        return self::get_feed_by_form($form_id, $only_active);
     }
 
     public static function get_feed($id){
@@ -83,7 +104,19 @@ class GFUserData{
         $result["meta"] = maybe_unserialize($result["meta"]);
         return $result;
     }
-
+    
+    public static function get_update_feed($form_id, $is_active = true) {
+        
+        $feeds = self::get_feeds($form_id, $is_active);
+        
+        foreach($feeds as $feed) {
+            if(rgars($feed, 'meta/feed_type') == 'update')
+                return $feed;
+        }
+        
+        return false;
+    }
+    
     public static function update_feed($id, $form_id, $is_active, $setting){
         global $wpdb;
         $table_name = self::get_user_registration_table_name();
@@ -105,29 +138,55 @@ class GFUserData{
         global $wpdb;
         $wpdb->query("DROP TABLE IF EXISTS " . self::get_user_registration_table_name());
     }
-       
-    public static function get_available_forms($active_form = ''){
+    
+    /**
+    * Forms can have an unlimited number of feeds now.
+    * 
+    * @param mixed $active_form
+    */
+    
+    public static function get_available_forms($feed_type, $current_feed = false){
         
         $forms = RGFormsModel::get_forms();
         $feeds = self::get_feeds();
         $available_forms = array();
         
+        // forms can have multiple "create" feeds
+        // forms can have only a single "update" feed
+        // any given form can only have one type of feed, a form with a "create" feed can not have an "update" feed and vice versa
+        $not_type = $feed_type == 'update' ? 'create' : 'update';
+        
         foreach($forms as $form) {
-            if($form->id == $active_form || !self::does_form_have_feed($form->id, $feeds))
-                $available_forms[] = $form;
+            
+            // if form already has an update feed, limit to one per form
+            if($feed_type == 'update' && self::has_feed_type('update', $form, $feeds, $current_feed))
+                continue;
+            
+            // filter out all feeds of opposing feed type
+            if(self::has_feed_type($not_type, $form, $feeds, $current_feed))
+                continue;
+            
+            $available_forms[] = $form;
+            
         }
         
         return $available_forms;
     }
     
-    public static function does_form_have_feed($form_id, $feeds) {
-        
+    public static function has_feed_type($feed_type, $form, $feeds, $current_feed = false) {
         foreach($feeds as $feed) {
-            if($feed['form_id'] == $form_id) {
+            
+            // skip current feed as it may be changing feed type
+            if($current_feed && $feed['id'] == $current_feed)
+                continue;
+            
+            // if there is no feed type specified, default to "create"
+            if(!rgars($feed, 'meta/feed_type'))
+                $feed['meta']['feed_type'] = 'create';
+                            
+            if($form->id == $feed['form_id'] && rgars($feed, 'meta/feed_type') == $feed_type)
                 return true;
-            }
         }
-        
         return false;
     }
     
@@ -149,18 +208,15 @@ class GFUserData{
         $table = $bp->profile->table_name_data;
         
         foreach($bp_rows as $bp_row) {
-            $sql = $wpdb->prepare("INSERT INTO {$table} (user_id, field_id, value, last_updated) VALUES (%d, %d, %s, %s)", $bp_row['user_id'], $bp_row['field_id'], $bp_row['value'], $bp_row['last_update'] );
-            $result = $wpdb->query( $sql );
+            $success = xprofile_set_field_data($bp_row['field_id'], $bp_row['user_id'], $bp_row['value']);
         }
         
     }
     
     public static function remove_password($form_id, $entry_id, $field_id){
         global $wpdb;
-        
         $table = $wpdb->prefix . 'rg_lead_detail';
-        $removed = $wpdb->query("DELETE FROM $table WHERE lead_id = $entry_id AND form_id = $form_id AND CAST(field_number as DECIMAL(4,2)) = $field_id");
-        
+        $wpdb->query("DELETE FROM $table WHERE lead_id = $entry_id AND form_id = $form_id AND CAST(field_number as DECIMAL(4,2)) = $field_id");
     }
     
     public static function update_site_meta($site_id, $key, $value){

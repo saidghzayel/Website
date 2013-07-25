@@ -6,8 +6,12 @@
  * point in a future release.  If your theme is using one of these, you should use the listed alternative or 
  * remove it from your theme if necessary.
  *
- * @package HybridCore
+ * @package    HybridCore
  * @subpackage Functions
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/hybrid-core
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
@@ -211,12 +215,6 @@ function hybrid_after_entry() {
  */
 function hybrid_after_singular() {
 	_deprecated_function( __FUNCTION__, '1.0.0', "do_atomic( 'after_singular' )" );
-
-	if ( is_singular( 'post' ) && !is_attachment() )
-		do_action( 'hybrid_after_single' );
-	elseif ( is_page() )
-		do_action( 'hybrid_after_page' );
-
 	do_atomic( 'after_singular' );
 }
 
@@ -357,7 +355,7 @@ add_action( 'check_admin_referer', 'hybrid_back_compat_update_settings' );
  * @deprecated 1.0.0
  */
 function hybrid_back_compat_update_settings( $action ) {
-	_deprecated_function( __FUNCTION__, '1.0.0' );
+	//_deprecated_function( __FUNCTION__, '1.0.0' );
 
 	$prefix = hybrid_get_prefix();
 
@@ -399,6 +397,42 @@ function hybrid_settings_page_enqueue_style() {
 function hybrid_settings_page_enqueue_script() {
 	_deprecated_function( __FUNCTION__, '1.2.0', 'hybrid_settings_page_enqueue_scripts' );
 	return;
+}
+
+/**
+ * @since 0.7.0
+ * @deprecated 1.3.0
+ */
+function hybrid_admin_init() {
+	_deprecated_function( __FUNCTION__, '1.3.0', 'hybrid_admin_setup' );
+	return;
+}
+
+/**
+ * @since 1.2.0
+ * @deprecated 1.3.0
+ */
+function hybrid_settings_page_contextual_help() {
+	_deprecated_function( __FUNCTION__, '1.3.0', 'hybrid_settings_page_help' );
+	return;
+}
+
+/**
+ * @since 0.9.0
+ * @deprecated 1.3.0
+ */
+function hybrid_load_textdomain( $mofile, $domain ) {
+	_deprecated_function( __FUNCTION__, '1.3.0', 'hybrid_load_textdomain_mofile' );
+	return hybrid_load_textdomain_mofile( $mofile, $domain );
+}
+
+/**
+ * @since 0.9.0
+ * @deprecated 1.5.0
+ */
+function hybrid_debug_stylesheet( $stylesheet_uri, $stylesheet_dir_uri ) {
+	_deprecated_function( __FUNCTION__, '1.5.0', 'hybrid_min_stylesheet_uri' );
+	return hybrid_min_stylesheet_uri( $stylesheet_uri, $stylesheet_dir_uri );
 }
 
 /* === Removed Functions === */
@@ -539,12 +573,18 @@ function hybrid_post_stylesheets() {
 	hybrid_function_removed( __FUNCTION__ );
 }
 
+/* Functions removed in the 1.5 branch. */
+
+function hybrid_get_theme_data() {
+	hybrid_function_removed( __FUNCTION__ );
+}
+
 /**
  * Message to display for removed functions.
  * @since 0.5.0
  */
 function hybrid_function_removed( $func = '' ) {
-	die( sprintf( __( '<code>%1$s</code> &mdash; This function has been removed or replaced by another function.', hybrid_get_textdomain() ), $func ) );
+	die( sprintf( __( '<code>%1$s</code> &mdash; This function has been removed or replaced by another function.', 'hybrid-core' ), $func ) );
 }
 
 ?>

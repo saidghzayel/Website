@@ -9,28 +9,24 @@
  * @subpackage Template
  */
 
-if ( hybrid_get_setting( 'slider' ) == 'true' ) { ?>
+$feature_query = new WP_Query( array( 'category_name' => 'features', 'posts_per_page' => 10, 'meta_key' => 'expiration-date', 'orderby' => 'meta_value_num', 'order' => 'ASC' ) );
 
-<div id="slider-container"<?php if ( hybrid_get_setting( 'slider_16x9' ) == 'true' ) { echo ' class="widescreen"'; } ?>>
+if ( $feature_query->have_posts() ) : ?>
 
-	<div id="slider">
+	<div class="slider">
 
-	<?php
-		if ( hybrid_get_setting( 'feature_category' ) )
-			$feature_query = new WP_Query( array( 'posts_per_page' => hybrid_get_setting( 'feature_num_posts' ), 'order' => 'ASC', 'cat' => hybrid_get_setting( 'feature_category' ) ) );
+	<?php while ( $feature_query->have_posts() ) : $feature_query->the_post(); ?>
 
-		while ( $feature_query->have_posts() ) : $feature_query->the_post(); ?>
+		<?php
+		$image = get_the_image( array( 'echo' => false ) );
+		if ( !empty( $image ) ) :
+	 	?>
+			<div><a href="<?php the_permalink(); ?>"><?php get_the_image( array( 'link_to_post' => false, 'default_size' => 'full', 'image_scan' => true ) ); ?></a></div>
 
-			<div class="<?php hybrid_entry_class( 'feature' ); ?>">
+		<?php endif; ?>
 
-				<?php get_the_image( array( 'custom_key' => array( 'Medium', 'Feature Image' ), 'default_size' => 'full', 'image_scan' => true ) ); ?>
-
-			</div>
-
-		<?php endwhile;  ?>
+	<?php endwhile;  ?>
 
 	</div>
-	
-</div>
 
-<?php } ?>
+<?php endif; ?>

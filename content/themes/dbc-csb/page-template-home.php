@@ -3,53 +3,51 @@
  * Template Name: Home
  *
  * This template is for the Home page
- * tes
  *
  * @package CSB
  * @subpackage Template
  */
-global $blog_ID;
 
 get_header(); ?>
 
 	<?php do_atomic( 'before_content' ); // dbc_before_content ?>
 
-	<div id="content">
+	<div id="content" role="main">
 
-		<?php do_atomic( 'open_content' ); // prototype_open_content ?>
+		<?php do_atomic( 'open_content' ); // dbc_open_content ?>
 
-		<?php get_template_part( 'slider-home' ); // loads slider-home.php ?>
-	
-		<?php if ( hybrid_get_setting( 'latest-message' ) == 'true' ) get_template_part( 'latest-message' ); // loads latest-message.php ?>
+		<div class="hfeed">
 
-		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+			<?php get_template_part( 'slider-home' ); // loads slider-home.php ?>
 
-			<div id="post-<?php the_ID(); ?>" class="<?php hybrid_entry_class(); ?>">
+			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-				<div class="entry-content">
-					<?php the_content(); ?>
-					<?php wp_link_pages( array( 'before' => '<p class="page-links pages">' . __( 'Pages:', 'hybrid' ), 'after' => '</p>' ) ); ?>
-				</div><!-- .entry-content -->
+				<div id="post-<?php the_ID(); ?>" class="<?php hybrid_entry_class(); ?>">
 
-			</div><!-- .hentry -->
+					<div class="entry-content">
+						<?php the_content(); ?>
+						<?php wp_link_pages( array( 'before' => '<p class="page-links pages">' . __( 'Pages:', 'hybrid' ), 'after' => '</p>' ) ); ?>
+					</div><!-- .entry-content -->
 
-			<?php do_atomic( 'after_singular' ); // prototype_after_singular ?>
+				</div><!-- .hentry -->
 
-			<?php endwhile; ?>
+				<?php do_atomic( 'after_singular' ); // prototype_after_singular ?>
 
-		<?php else: ?>
+				<?php endwhile; ?>
 
-			<p class="no-data">
-				<?php _e( 'Apologies, but no results were found.', 'hybrid' ); ?>
-			</p><!-- .no-data -->
+			<?php else: ?>
 
-		<?php endif; ?>
-			
+				<p class="no-data">
+					<?php _e( 'Apologies, but no results were found.', 'hybrid' ); ?>
+				</p><!-- .no-data -->
+
+			<?php endif; ?>
+
+		</div><!-- .hfeed -->
+
 		<?php do_atomic( 'close_content' ); // prototype_close_content ?>
 
 	</div><!-- #content -->
-		
-	<?php get_sidebar( 'home' ); ?>
 
 	<?php do_atomic( 'after_content' ); // prototype_after_content ?>
 

@@ -9,8 +9,12 @@
  * and register the meta box for 'appearance_page_theme-settings'.  To validate/sanitize data from 
  * custom settings, devs should use the 'sanitize_option_{$prefix}_theme_settings' filter hook.
  *
- * @package HybridCore
+ * @package    HybridCore
  * @subpackage Admin
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/hybrid-core
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Hook the settings page function to 'admin_menu'. */
@@ -22,14 +26,14 @@ add_action( 'admin_menu', 'hybrid_settings_page_init' );
  *
  * @since 0.7.0
  * @global string $hybrid The global theme object.
+ * @return void
  */
 function hybrid_settings_page_init() {
 	global $hybrid;
 
 	/* Get theme information. */
-	$theme = hybrid_get_theme_data();
+	$theme = wp_get_theme( get_template(), get_theme_root( get_template_directory() ) );
 	$prefix = hybrid_get_prefix();
-	$domain = hybrid_get_textdomain();
 
 	/* Register theme settings. */
 	register_setting(
@@ -40,8 +44,8 @@ function hybrid_settings_page_init() {
 
 	/* Create the theme settings page. */
 	$hybrid->settings_page = add_theme_page(
-		sprintf( esc_html__( '%1$s Theme Settings', $domain ), $theme['Name'] ),	// Settings page name.
-		esc_html__( 'Theme Settings', $domain ),				// Menu item name.
+		sprintf( esc_html__( '%s Theme Settings', 'hybrid-core' ), $theme->get( 'Name' ) ),	// Settings page name.
+		esc_html__( 'Theme Settings', 'hybrid-core' ),				// Menu item name.
 		hybrid_settings_page_capability(),					// Required capability.
 		'theme-settings',							// Screen name.
 		'hybrid_settings_page'						// Callback function.
@@ -53,8 +57,8 @@ function hybrid_settings_page_init() {
 		/* Filter the settings page capability so that it recognizes the 'edit_theme_options' cap. */
 		add_filter( "option_page_capability_{$prefix}_theme_settings", 'hybrid_settings_page_capability' );
 
-		/* Add contextual help to the theme settings page. */
-		add_contextual_help( $hybrid->settings_page, hybrid_settings_page_contextual_help() );
+		/* Add help tabs to the theme settings page. */
+		add_action( "load-{$hybrid->settings_page}", 'hybrid_settings_page_help' );
 
 		/* Load the theme settings meta boxes. */
 		add_action( "load-{$hybrid->settings_page}", 'hybrid_load_settings_page_meta_boxes' );
@@ -65,7 +69,7 @@ function hybrid_settings_page_init() {
 		/* Load the JavaScript and stylesheets needed for the theme settings screen. */
 		add_action( 'admin_enqueue_scripts', 'hybrid_settings_page_enqueue_scripts' );
 		add_action( 'admin_enqueue_scripts', 'hybrid_settings_page_enqueue_styles' );
-		add_action( "admin_head-{$hybrid->settings_page}", 'hybrid_settings_page_load_scripts' );
+		add_action( "admin_footer-{$hybrid->settings_page}", 'hybrid_settings_page_load_scripts' );
 	}
 }
 
@@ -73,6 +77,7 @@ function hybrid_settings_page_init() {
  * Returns the required capability for viewing and saving theme settings.
  *
  * @since 1.2.0
+ * @return string
  */
 function hybrid_settings_page_capability() {
 	return apply_filters( hybrid_get_prefix() . '_settings_capability', 'edit_theme_options' );
@@ -82,6 +87,7 @@ function hybrid_settings_page_capability() {
  * Returns the theme settings page name/hook as a string.
  *
  * @since 1.2.0
+ * @return string
  */
 function hybrid_get_settings_page_name() {
 	global $hybrid;
@@ -96,10 +102,11 @@ function hybrid_get_settings_page_name() {
  * page in the admin.  This way, they're not needlessly loading extra files.
  *
  * @since 1.2.0
+ * @return void
  */
 function hybrid_settings_page_add_meta_boxes() {
 
-	do_action( 'add_meta_boxes', hybrid_get_settings_page_name(), hybrid_get_theme_data() );
+	do_action( 'add_meta_boxes', hybrid_get_settings_page_name() );
 }
 
 /**
@@ -107,6 +114,7 @@ function hybrid_settings_page_add_meta_boxes() {
  * merely loaded with this function.  Meta boxes are only loaded if the feature is supported by the theme.
  *
  * @since 1.2.0
+ * @return void
  */
 function hybrid_load_settings_page_meta_boxes() {
 
@@ -146,24 +154,28 @@ function hybrid_save_theme_settings( $settings ) {
  * meta boxes to be added to the page.
  *
  * @since 0.7.0
- * @global string $hybrid The global theme object.
+ * @return void
  */
 function hybrid_settings_page() {
 
 	/* Get the theme information. */
 	$prefix = hybrid_get_prefix();
-	$domain = hybrid_get_textdomain();
-	$theme_data = hybrid_get_theme_data(); ?>
+	$theme = wp_get_theme( get_template(), get_theme_root( get_template_directory() ) );
+
+	do_action( "{$prefix}_before_settings_page" ); ?>
 
 	<div class="wrap">
 
 		<?php screen_icon(); ?>
+		<h2>
+			<?php printf( __( '%s Theme Settings', 'hybrid-core' ), $theme->get( 'Name' ) ); ?>
+			<a href="<?php echo admin_url( 'customize.php' ); ?>" class="add-new-h2"><?php esc_html_e( 'Customize', 'hybrid-core' ); ?></a>
+		</h2>
+		<?php settings_errors(); ?>
 
-		<h2><?php printf( __( '%1$s Theme Settings', $domain ), $theme_data['Name'] ); ?></h2>
+		<?php do_action( "{$prefix}_open_settings_page" ); ?>
 
-		<?php if ( isset( $_GET['settings-updated'] ) && 'true' == esc_attr( $_GET['settings-updated'] ) ) echo '<div class="updated"><p><strong>' . __( 'Settings saved.', $domain ) . '</strong></p></div>'; ?>
-
-		<div id="poststuff">
+		<div class="hybrid-core-settings-wrap">
 
 			<form method="post" action="options.php">
 
@@ -172,18 +184,28 @@ function hybrid_settings_page() {
 				<?php wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false ); ?>
 
 				<div class="metabox-holder">
-					<div class="post-box-container column-1 normal"><?php do_meta_boxes( hybrid_get_settings_page_name(), 'normal', null ); ?></div>
-					<div class="post-box-container column-2 side"><?php do_meta_boxes( hybrid_get_settings_page_name(), 'side', null ); ?></div>
-					<div class="post-box-container column-3 advanced"><?php do_meta_boxes( hybrid_get_settings_page_name(), 'advanced', null ); ?></div>
+					<div class="post-box-container column-1 normal">
+						<?php do_meta_boxes( hybrid_get_settings_page_name(), 'normal', null ); ?>
+					</div>
+					<div class="post-box-container column-2 side">
+						<?php do_meta_boxes( hybrid_get_settings_page_name(), 'side', null ); ?>
+					</div>
+					<div class="post-box-container column-3 advanced">
+						<?php do_meta_boxes( hybrid_get_settings_page_name(), 'advanced', null ); ?>
+					</div>
 				</div>
 
-				<?php submit_button( esc_attr__( 'Update Settings', $domain ) ); ?>
+				<?php submit_button( esc_attr__( 'Update Settings', 'hybrid-core' ) ); ?>
 
 			</form>
 
-		</div><!-- #poststuff -->
+		</div><!-- .hybrid-core-settings-wrap -->
+
+		<?php do_action( "{$prefix}_close_settings_page" ); ?>
 
 	</div><!-- .wrap --><?php
+
+	do_action( "{$prefix}_after_settings_page" );
 }
 
 /**
@@ -191,6 +213,7 @@ function hybrid_settings_page() {
  * with the WordPress settings API.
  *
  * @since 1.0.0
+ * @return string
  */
 function hybrid_settings_field_id( $setting ) {
 	return hybrid_get_prefix() . '_theme_settings-' . sanitize_html_class( $setting );
@@ -201,52 +224,59 @@ function hybrid_settings_field_id( $setting ) {
  * use with the WordPress settings API.
  *
  * @since 1.0.0
+ * @return string
  */
 function hybrid_settings_field_name( $setting ) {
 	return hybrid_get_prefix() . "_theme_settings[{$setting}]";
 }
 
 /**
- * Returns text for the contextual help tab on the theme settings page in the admin.  Theme authors can add 
- * a filter to the 'contextual_help' hook if they want to change the output of the help text.
+ * Adds a help tab to the theme settings screen if the theme has provided a 'Documentation URI' and/or 
+ * 'Support URI'.  Theme developers can add custom help tabs using get_current_screen()->add_help_tab().
  *
- * @since 1.2.0
- * @return string $help The contextual help text used on the theme settings page.
+ * @since 1.3.0
+ * @return void
  */
-function hybrid_settings_page_contextual_help() {
-
-	/* Set the $help variable to an empty string. */
-	$help = '';
+function hybrid_settings_page_help() {
 
 	/* Get the parent theme data. */
-	$theme = hybrid_get_theme_data();
+	$theme = wp_get_theme( get_template(), get_theme_root( get_template_directory() ) );
+	$doc_uri = $theme->get( 'Documentation URI' );
+	$support_uri = $theme->get( 'Support URI' );
 
 	/* If the theme has provided a documentation or support URI, add them to the help text. */
-	if ( !empty( $theme['Documentation URI'] ) || !empty( $theme['Support URI'] ) ) {
+	if ( !empty( $doc_uri ) || !empty( $support_uri ) ) {
 
 		/* Open an unordered list for the help text. */
 		$help = '<ul>';
 
 		/* Add the Documentation URI. */
-		if ( !empty( $theme['Documentation URI'] ) )
-			$help .= '<li><a href="' . esc_url( $theme['Documentation URI'] ) . '">' . __( 'Documentation', hybrid_get_textdomain() ) . '</a></li>';
+		if ( !empty( $doc_uri ) )
+			$help .= '<li><a href="' . esc_url( $doc_uri ) . '">' . __( 'Documentation', 'hybrid-core' ) . '</a></li>';
 
 		/* Add the Support URI. */
-		if ( !empty( $theme['Support URI'] ) )
-			$help .= '<li><a href="' . esc_url( $theme['Support URI'] ) . '">' . __( 'Support', hybrid_get_textdomain() ) . '</a></li>';
+		if ( !empty( $support_uri ) )
+			$help .= '<li><a href="' . esc_url( $support_uri ) . '">' . __( 'Support', 'hybrid-core' ) . '</a></li>';
 
 		/* Close the unordered list for the help text. */
 		$help .= '</ul>';
-	}
 
-	/* Return the contextual help text for this screen. */
-	return $help;
+		/* Add a help tab with links for documentation and support. */
+		get_current_screen()->add_help_tab(
+			array(
+				'id' => 'default',
+				'title' => esc_attr( $theme->get( 'Name' ) ),
+				'content' => $help
+			)
+		);
+	}
 }
 
 /**
  * Loads the required stylesheets for displaying the theme settings page in the WordPress admin.
  *
  * @since 1.2.0
+ * @return void
  */
 function hybrid_settings_page_enqueue_styles( $hook_suffix ) {
 
@@ -261,20 +291,19 @@ function hybrid_settings_page_enqueue_styles( $hook_suffix ) {
  *
  * @since 1.2.0
  * @param string $hook_suffix The current page being viewed.
+ * @return void
  */
 function hybrid_settings_page_enqueue_scripts( $hook_suffix ) {
 
-	if ( $hook_suffix == hybrid_get_settings_page_name() ) {
-		wp_enqueue_script( 'common' );
-		wp_enqueue_script( 'wp-lists' );
+	if ( $hook_suffix == hybrid_get_settings_page_name() )
 		wp_enqueue_script( 'postbox' );
-	}
 }
 
 /**
  * Loads the JavaScript required for toggling the meta boxes on the theme settings page.
  *
  * @since 0.7.0
+ * @return void
  */
 function hybrid_settings_page_load_scripts() { ?>
 	<script type="text/javascript">

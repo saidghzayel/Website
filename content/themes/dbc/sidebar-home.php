@@ -11,29 +11,25 @@
 if ( is_active_sidebar( 'home' ) ) : ?>
 
 	<aside id="sidebar-home" class="sidebar">
-	
-		<?php if ( hybrid_get_setting( 'info' ) == 'true' ){ ?>
+
 		<div id="welcome">
-		
+
 			<div class="welcome-inner">
-			
-				<?php if ( hybrid_get_setting( 'info_title' ) != '' ) {               ?><h3 class="widget-title"><?php echo hybrid_get_setting( 'info_title' ) ?></h3><?php } ?>
-				<?php if ( hybrid_get_setting( 'info_service_times_title' ) != '' ) { ?><div class="welcome-service-times"><?php echo  hybrid_get_setting( 'info_service_times_title' ) ?></div><?php } ?>
-				<?php if ( hybrid_get_setting( 'info_service_times_data' ) != '' ) {  ?><div class="welcome-service-times-data"><?php echo hybrid_get_setting( 'info_service_times_data' ) ?></div><?php } ?>
-				<?php if ( hybrid_get_setting( 'info_location' ) != '' ) {            ?><div class="welcome-directions"><a href="<?php echo hybrid_get_setting( 'info_location' ) ?>" rel="external">Directions</a> (from Google Maps)</div><?php } ?>
-				<?php if ( hybrid_get_setting( 'info_link' ) != '' ) {                ?><div class="welcome-visiting-information"><a href="<?php echo hybrid_get_setting( 'info_link' )?>"><span>Visiting Information</span></a></div><?php } ?>
-				
+
+				<h3 class="widget-title">Welcome to Denton Bible</h3>
+				<div class="welcome-service-times">Service Times</div>
+				<div class="welcome-service-times-data">Sundays 9am, 11am, &amp; 6pm </div>
+				<div class="welcome-directions"><a href="http://maps.google.com/maps?q=denton+bible+church&amp;hl=en&amp;cd=2&amp;ei=OV4JTM2vFJKWyATatpnzCw&amp;sig2=Bpb5ptGDjwjGgT9zWAEjtQ&amp;sll=33.211116,-97.119141&amp;sspn=60.426921,135.263672&amp;ie=UTF8&amp;t=h&amp;view=map&amp;cid=5680980661328689132&amp;ved=0CB0QpQY&amp;hq=denton+bible+church&amp;hnear=&amp;z=16&amp;iwloc=A" rel="external">Directions</a> (from Google Maps)</div>
+				<div class="welcome-visiting-information"><a href="<?php echo home_url(); ?>/about-us/visitor-information/"><span>Visiting Information</span></a></div>
+
 			</div>
-		
+
 		</div>
-		
-		<?php } ?>
 
 		<?php dynamic_sidebar( 'home' ); ?>
 
 	</aside><!-- #sidebar-home -->
-	
+
 	<div class="clear"></div>
 
 <?php endif; ?>
-

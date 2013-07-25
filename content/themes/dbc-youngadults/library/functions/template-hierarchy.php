@@ -5,8 +5,12 @@
  * making it smarter and more flexible.  The goal is to give theme developers and end users an 
  * easy-to-override system that doesn't involve massive amounts of conditional tags within files.
  *
- * @package HybridCore
+ * @package    HybridCore
  * @subpackage Functions
+ * @author     Justin Tadlock <justin@justintadlock.com>
+ * @copyright  Copyright (c) 2008 - 2012, Justin Tadlock
+ * @link       http://themehybrid.com/hybrid-core
+ * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /* Filter the date template. */
@@ -18,17 +22,22 @@ add_filter( 'author_template', 'hybrid_user_template' );
 /* Filter the tag and category (taxonomy) templates. */
 add_filter( 'tag_template', 'hybrid_taxonomy_template' );
 add_filter( 'category_template', 'hybrid_taxonomy_template' );
+add_filter( 'taxonomy_template', 'hybrid_taxonomy_template' );
 
 /* Filter the single, page, and attachment (singular) templates. */
 add_filter( 'single_template', 'hybrid_singular_template' );
 add_filter( 'page_template', 'hybrid_singular_template' );
 add_filter( 'attachment_template', 'hybrid_singular_template' );
 
+/* Filter the comments template. */
+add_filter( 'comments_template', 'hybrid_comments_template' );
+
 /**
  * Overrides WP's default template for date-based archives. Better abstraction of templates than 
  * is_date() allows by checking for the year, month, week, day, hour, and minute.
  *
  * @since 0.6.0
+ * @access public
  * @uses locate_template() Checks for template in child and parent theme.
  * @param string $template
  * @return string $template Full path to file.
@@ -83,6 +92,7 @@ function hybrid_date_template( $template ) {
  * user-$nicename.php, $user-role-$role.php, user.php, author.php, archive.php.
  *
  * @since 0.7.0
+ * @access public
  * @uses locate_template() Checks for template in child and parent theme.
  * @param string $template
  * @return string Full path to file.
@@ -125,6 +135,7 @@ function hybrid_user_template( $template ) {
  * taxonomy.php, archive.php.
  *
  * @since 0.7.0
+ * @access public
  * @uses locate_template() Checks for template in child and parent theme.
  * @param string $template
  * @return string Full path to file.
@@ -134,8 +145,11 @@ function hybrid_taxonomy_template( $template ) {
 	/* Get the queried term object. */
 	$term = get_queried_object();
 
+	/* Remove 'post-format' from the slug. */
+	$slug = ( ( 'post_format' == $term->taxonomy ) ? str_replace( 'post-format-', '', $term->slug ) : $term->slug );
+
 	/* Return the available templates. */
-	return locate_template( array( "taxonomy-{$term->taxonomy}-{$term->slug}.php", "taxonomy-{$term->taxonomy}.php", 'taxonomy.php', 'archive.php' ) );
+	return locate_template( array( "taxonomy-{$term->taxonomy}-{$slug}.php", "taxonomy-{$term->taxonomy}.php", 'taxonomy.php', 'archive.php' ) );
 }
 
 /**
@@ -147,6 +161,7 @@ function hybrid_taxonomy_template( $template ) {
  * attachment-$mime[1].php, or attachment-$mime[0].php.
  *
  * @since 0.7.0
+ * @access public
  * @param string $template The default WordPress post template.
  * @return string $template The theme post template after all templates have been checked for.
  */
@@ -185,11 +200,42 @@ function hybrid_singular_template( $template ) {
 	/* Add a template based off the post type name. */
 	$templates[] = "{$post->post_type}.php";
 
-	/* Allow for WP's more recent 'single-{$post_type}.php' for compatibility. */
+	/* Allow for WP standard 'single' templates for compatibility. */
 	$templates[] = "single-{$post->post_type}.php";
+	$templates[] = 'single.php';
 
 	/* Add a general template of singular.php. */
 	$templates[] = "singular.php";
+
+	/* Return the found template. */
+	return locate_template( $templates );
+}
+
+/**
+ * Overrides the default comments template.  This filter allows for a "comments-{$post_type}.php" 
+ * template based on the post type of the current single post view.  If this template is not found, it falls 
+ * back to the default "comments.php" template.
+ *
+ * @since 1.5.0
+ * @access public
+ * @param string $template The comments template file name.
+ * @return string $template The theme comments template after all templates have been checked for.
+ */
+function hybrid_comments_template( $template ) {
+
+	$templates = array();
+
+	/* Allow for custom templates entered into comments_template( $file ). */
+	$template = str_replace( trailingslashit( get_stylesheet_directory() ), '', $template );
+
+	if ( 'comments.php' !== $template )
+		$templates[] = $template;
+
+	/* Add a comments template based on the post type. */
+	$templates[] = 'comments-' . get_post_type() . '.php';
+
+	/* Add the default comments template. */
+	$templates[] = 'comments.php';
 
 	/* Return the found template. */
 	return locate_template( $templates );
