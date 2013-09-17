@@ -8,12 +8,11 @@
  * @package DBC Child
  * @subpackage Template
  */
-if ( hybrid_get_setting( 'slider' ) == 'true' ) { ?>
-<div id="slider-container"<?php if ( hybrid_get_setting( 'slider_16x9' ) == 'true' ) { echo ' class="widescreen"'; } ?>>
+?>
+<div id="slider-container">
 	<div class="slider">
 	<?php
-		if ( hybrid_get_setting( 'feature_category' ) )
-			$feature_query = new WP_Query( array( 'posts_per_page' => hybrid_get_setting( 'feature_num_posts' ), 'order' => 'ASC' ) );
+		$feature_query = new WP_Query( array( 'category_name' => 'featured', 'posts_per_page' => hybrid_get_setting( 'feature_num_posts' ), 'order' => 'ASC' ) );
 		while ( $feature_query->have_posts() ) : $feature_query->the_post(); ?>
 			<div class="<?php hybrid_entry_class( 'feature' ); ?>">
 				
@@ -22,4 +21,3 @@ if ( hybrid_get_setting( 'slider' ) == 'true' ) { ?>
 		<?php endwhile;  ?>
 	</div>
 </div>
-<?php } ?>
