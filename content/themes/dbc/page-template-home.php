@@ -22,7 +22,7 @@ get_header(); ?>
 	
 			<div id="mydbc">
 				<a class="big-button city-button" href="https://secure.accessacs.com/access/login_guest.aspx?sn=92231">
-					<div class="inner"><img src="http://dentonbible.org/wp-content/uploads/city-button-logo.png"><div><span class="league-gothic">Find a Group<br>Find Church Events<br>Get Connected</span></div></div></a>
+					<div class="inner"><img src="http://dentonbible.org/../wp-content/uploads/city-button-logo.png"><div><span class="league-gothic">Find a Group<br>Find Church Events<br>Get Connected</span></div></div></a>
 				<a class="big-button green" href="<?php echo site_url(); ?>/admin/mydbc-life-faq/"><div class="inner"><span class="league-gothic center">Connect to</span><img class="right" src="http://dentonbible.org/../wp-content/uploads/mydbc-icon.png"></div></a>
 			</div><!-- #mydbc -->
 		
