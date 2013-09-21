@@ -21,10 +21,9 @@ get_header(); ?>
 			<?php get_template_part( 'slider-home' ); // loads slider-home.php ?>
 	
 			<div id="mydbc">
-				<a class="big-button" href="https://secure.accessacs.com/access/login_guest.aspx?sn=92231"><div class="inner">Register for an<br /><span class="league-gothic">Event</span></div></a>
-				<a class="big-button" href="https://secure.accessacs.com/access/login_guest.aspx?sn=92231&amp;sc=sgguest"><div class="inner">Search for a<br /><span class="league-gothic">Small Group</span></div></a>
-				<a class="big-button" href="<?php echo site_url(); ?>/about-us/publications/"><div class="inner">Read the latest<br /><span class="league-gothic">DBC News</span></div></a>
-				<a class="big-button green" href="<?php echo site_url(); ?>/admin/mydbc-life-faq/"><div class="inner">Connect to<br /><span class="league-gothic">MyDBC Life</span></div></a>
+				<a class="big-button city-button" href="https://secure.accessacs.com/access/login_guest.aspx?sn=92231">
+					<div class="inner"><img src="http://dentonbible.org/../wp-content/uploads/city-button-logo.png"><div><span class="league-gothic">Find a Group<br>Find Church Events<br>Get Connected</span></div></div></a>
+				<a class="big-button green" href="<?php echo site_url(); ?>/admin/mydbc-life-faq/"><div class="inner"><span class="league-gothic center">Connect to</span><img class="right" src="http://dentonbible.org/../wp-content/uploads/mydbc-icon.png"></div></a>
 			</div><!-- #mydbc -->
 		
 			<?php get_template_part( 'latest-message' ); // loads latest-message.php ?>
