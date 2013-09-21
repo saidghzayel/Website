@@ -70,7 +70,7 @@
 	display: inline-block;
 	font-size: 10px;
 	font: 1.0rem/2em Arial, Helvetica, sans-serif;
-	margin: 0 1% 0 0;	
+	margin: 0 1% 0 0;
 	text-decoration: none;
 	text-shadow: 1px 1px 1px #fff;
 	text-transform: uppercase;
@@ -115,6 +115,54 @@
 .page-template-home #mydbc .league-gothic {
 	font: 2.250em/1em "LeagueGothicRegular";
 }
+
+.page-template-home #mydbc .city-button {
+	width: 63%;
+}
+
+.page-template-home #mydbc .big-button.city-button .inner div{
+	float:right;
+	margin-top:25px;
+	margin-right:25px;
+}
+
+.big-button.green .inner img {
+	margin-top: 0px;
+}
+
+.page-template-home #mydbc .league-gothic.center {
+	padding-top: 25px;
+	padding-left: 15px;
+	margin-bottom: 0px;
+}
+.page-template-home #mydbc .inner {
+	height: 120px;
+}
+
+.page-template-home .brown-button {
+    background: url("images/misc/button-gloss.png") repeat-x scroll 0 -31px #998775;
+    border: 1px solid #998775;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font: 2.250em/1.3em "LeagueGothicRegular";
+    margin: 0;
+    outline: medium none;
+    padding: 4px 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.28);
+    transition: background-color 0.15s ease-in-out 0s;
+    width: 100%;
+}
+
+.page-template-home .brown-button:hover {
+    background-color: #91a1ad;
+}
+
 
 /**
  * This Week's Message
