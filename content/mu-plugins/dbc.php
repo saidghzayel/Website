@@ -27,7 +27,7 @@ add_action( 'wp_footer', 'dbc_global_bar', 12 );
 add_action( 'wp_footer', 'dbc_analytics', 13 );
 
 /* switch_to_blog() bug fix. */
-add_action( 'switch_blog', 'dbc_switch_blog', null, 2 );
+//add_action( 'switch_blog', 'dbc_switch_blog', null, 2 );
 
 /**
  * Queues Javascript.
