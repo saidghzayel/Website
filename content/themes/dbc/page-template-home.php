@@ -21,9 +21,18 @@ get_header(); ?>
 			<?php get_template_part( 'slider-home' ); // loads slider-home.php ?>
 
 			<div id="mydbc">
-				<a class="big-button city-button" href="https://secure.accessacs.com/access/login_guest.aspx?sn=92231">
-					<div class="inner"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/city-button-logo.png"><div><span class="league-gothic">Find a Group<br>Find Church Events<br>Get Connected</span></div></div></a>
-				<a class="big-button green" href="<?php echo site_url(); ?>/admin/mydbc-life-faq/"><div class="inner"><span class="league-gothic center">Connect to</span><img class="right" src="http://dentonbible.org/../wp-content/uploads/mydbc-icon.png"></div></a>
+				<a class="big-button city-button" href="<?php echo site_url(); ?>/dbc-on-the-city/">
+					<div class="inner"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/city-button-logo.png">
+						<div>
+							<span class="league-gothic">Find a Group<br>Find Church Events<br>Get Connected</span>
+						</div>
+					</div>
+				</a>
+				<a class="big-button green" href="<?php echo site_url(); ?>/admin/mydbc-life-faq/">
+					<div class="inner">
+						<span class="league-gothic center">Connect to</span>
+					</div>
+				</a>
 			</div><!-- #mydbc -->
 
 			<?php get_template_part( 'latest-message' ); // loads latest-message.php ?>
