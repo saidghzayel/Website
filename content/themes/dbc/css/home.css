@@ -76,6 +76,7 @@
 	text-transform: uppercase;
 	width: 20%;
 }
+
 .page-template-home #mydbc .big-button:hover {
 	background: #91a1ad;
 	color: #fff;
@@ -105,6 +106,13 @@
 	margin: 0;
 	width: 35%;
 }
+.page-template-home #mydbc .big-button.buttons {
+	float: right;
+	margin: 0;
+	width: 35%;
+	background: #fff;
+	font-size: .8em;
+}
 .page-template-home #mydbc .big-button.green:hover {
 	background: #C3CEB1  url('../images/mydbc-icon.png') 90% center no-repeat;
 }
@@ -113,7 +121,7 @@
 	text-transform: none;
 }
 .page-template-home #mydbc .league-gothic {
-	font: 2.250em/1em "LeagueGothicRegular";
+	font: 2em/1em "LeagueGothicRegular";
 }
 
 .page-template-home #mydbc .city-button {
@@ -123,7 +131,7 @@
 .page-template-home #mydbc .big-button.city-button .inner div{
 	float:right;
 	margin-top:25px;
-	margin-right:25px;
+	margin-right:15px;
 }
 
 .big-button.green .inner img {
@@ -150,13 +158,14 @@
     font: 2.250em/1.3em "LeagueGothicRegular";
     margin: 0;
     outline: medium none;
-    padding: 4px 0;
+    padding: 20px 0;
     position: relative;
     text-align: center;
     text-decoration: none;
     text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.28);
     transition: background-color 0.15s ease-in-out 0s;
-    width: 100%;
+    width: 99.2%;
+    height: 25px;
 }
 
 .page-template-home .brown-button:hover {
@@ -322,9 +331,11 @@
 	font: italic 0.750em/1.625em "Georgia", "Times New Roman", Times, Serif;
 }
 
-.page-template-home #feature-dbccares .feature-inner {
-	background: #eee;
-	border: 5px solid #eee;
+.page-template-home #feature-mydbc .feature-inner {
+	background: #e2e8d7;
+	border: 5px solid #c3ceb1;
+	text-align: center;
+	padding: 40px 0;
 }
 .page-template-home #feature-notes .feature-inner {
 	background: #d1d9c3;
@@ -334,6 +345,7 @@
 	background: #eaeaea;
 	border: 5px solid #eaeaea;
 }
+.page-template-home #feature-dbccares .feature-inner,
 .page-template-home #feature-calendar .feature-inner {
 	background: #eef2f4;
 	border: 5px solid #e2e9ee;

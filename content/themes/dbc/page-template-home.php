@@ -22,17 +22,16 @@ get_header(); ?>
 
 			<div id="mydbc">
 				<a class="big-button city-button" href="<?php echo site_url(); ?>/dbc-on-the-city/">
-					<div class="inner"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/city-button-logo.png">
+					<div class="inner"><img style="width:129px;" src="<?php echo get_stylesheet_directory_uri(); ?>/images/city-button-logo.png">
 						<div>
-							<span class="league-gothic">Find a Group<br>Find Church Events<br>Get Connected</span>
+							<span class="league-gothic">Get Connected<br>Join a Group<br>Strengthen Community</span>
 						</div>
 					</div>
 				</a>
-				<a class="big-button green" href="<?php echo site_url(); ?>/admin/mydbc-life-faq/">
-					<div class="inner">
-						<span class="league-gothic center">Connect to</span>
-					</div>
-				</a>
+				<div class="big-button buttons">
+					<a href="http://dentonbible.org/notes/" class="brown-button" style="margin-bottom: 5px">Tommy's Musings</a>
+					<a href="http://dentonbible.org/about-us/publications/" class="brown-button">Publications</a>
+				</div>
 			</div><!-- #mydbc -->
 
 			<?php get_template_part( 'latest-message' ); // loads latest-message.php ?>

@@ -93,15 +93,14 @@
 	    padding: 0 0 2%;
 	    width: 100%;
 	}
-}
-/* Tablet and smaller
- * Anything smaller than 810px (iPad portrait)
- * This is the threshold that we break the site out of a two column format
- ================================================== */
-@media screen and (max-width: 810px) {
-	.page-template-home #mydbc a.big-button,
-	.page-template-home #mydbc a.big-button.green {
+	.page-template-home #mydbc a.big-button{
 		margin: 0 0 3px;
+		width: 100%;
+	}
+
+	.page-template-home #mydbc div.big-button.buttons {
+		margin: 0 0 3px;
+		padding-left: 3px;
 		width: 100%;
 	}
 	.page-template-home #sidebar-home {
@@ -110,6 +109,13 @@
 		padding: 5%;
 		width: 90%;
 	}
+}
+/* Tablet and smaller
+ * Anything smaller than 810px (iPad portrait)
+ * This is the threshold that we break the site out of a two column format
+ ================================================== */
+@media screen and (max-width: 810px) {
+
 	#sidebar-primary,
 	#sidebar-sticky {
 		background: #fff;
