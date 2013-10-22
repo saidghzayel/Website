@@ -24,6 +24,9 @@
  * e.g. iPod Touch, iPhone 3G
  ================================================== */
 @media screen and (max-width: 479px) {
+	.page-template-home #mydbc .big-button {
+		text-align: center;
+	}
 
 }
 /* Mobile and up
@@ -90,7 +93,8 @@
 	    margin-top: 10px;
 	}
 	.page-template-home #home-features .feature {
-	    padding: 0 0 2%;
+	    /*padding: 0 0 2%;*/
+	    text-align: center;
 	    width: 100%;
 	}
 	.page-template-home #mydbc a.big-button{

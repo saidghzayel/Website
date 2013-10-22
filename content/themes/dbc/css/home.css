@@ -75,6 +75,8 @@
 	text-shadow: 1px 1px 1px #fff;
 	text-transform: uppercase;
 	width: 20%;
+	height: 140px;
+	overflow: hidden;
 }
 
 .page-template-home #mydbc .big-button:hover {

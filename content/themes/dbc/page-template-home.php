@@ -22,7 +22,7 @@ get_header(); ?>
 
 			<div id="mydbc">
 				<a class="big-button city-button" href="<?php echo site_url(); ?>/dbc-on-the-city/">
-					<div class="inner"><img style="width:121px;" src="<?php echo get_stylesheet_directory_uri(); ?>/images/city-button-logo.png">
+					<div class="inner"><img style="width: 134px" src="<?php echo get_stylesheet_directory_uri(); ?>/images/city-button-logo.png">
 						<div>
 							<span class="league-gothic">Get Connected<br>Join a Group<br>Strengthen Community</span>
 						</div>
