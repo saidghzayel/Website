@@ -4,7 +4,7 @@
  *
  * @package   OptionTree
  * @author    Derek Herman <derek@valendesigns.com>
- * @copyright Copyright (c) 2012, Derek Herman
+ * @copyright Copyright (c) 2013, Derek Herman
  * @since     2.0
  */
 
@@ -66,6 +66,12 @@ if ( ! function_exists( 'ot_type_creating_options' ) ) {
         
         echo '<h4>'. __( 'Taxonomy', 'option-tree' ) . ':</h4>';
         echo '<p>' . __( 'Add a comma separated list of any registered taxonomy like <code>category,post_tag</code>. This will only affect the following option types: Taxonomy Checkbox, & Taxonomy Select.', 'option-tree' ) . '</p>';
+        
+        echo '<h4>'. __( 'Min, Max, & Step', 'option-tree' ) . ':</h4>';
+        echo '<p>' . __( 'Add a comma separated list of options in the following format <code>0,100,1</code> (slide from <code>0-100</code> in intervals of <code>1</code>). The three values represent the minimum, maximum, and step options and will only affect the Numeric Slider option type.', 'option-tree' ) . '</p>';
+        
+        echo '<h4>'. __( 'CSS Class', 'option-tree' ) . ':</h4>';
+        echo '<p>' . __( 'Add and optional class to any option type.', 'option-tree' ) . '</p>';
         
       echo '</div>';
       
@@ -168,7 +174,10 @@ add_filter( \'ot_measurement_unit_types\', \'filter_measurement_unit_types\', 10
   return $array;
 }
 add_filter( \'ot_measurement_unit_types\', \'filter_measurement_unit_types\', 10, 2 );</code></pre>';
-
+        
+        echo '<h4>'. __( 'Numeric Slider', 'option-tree' ) . ':</h4>'; 
+        echo '<p>' . __( 'The Numeric Slider option type displays a jQuery UI slider. It will return a single numerical value for use in a custom function or loop.', 'option-tree' ) . '</p>';
+        
         echo '<h4>'. __( 'Page Select', 'option-tree' ) . ':</h4>'; 
         echo '<p>' . __( 'The Page Select option type displays a list of page IDs. It will return a single page ID for use in a custom function or loop.', 'option-tree' ) . '</p>';
         
@@ -213,6 +222,10 @@ add_filter( \'ot_radio_images\', \'filter_radio_images\', 10, 2 );</code></pre>'
         
         echo '<h4>'. __( 'Select', 'option-tree' ) . ':</h4>'; 
         echo '<p>' . __( 'The Select option type is used to list anything you want that would be chosen from a select list.', 'option-tree' ) . '</p>';
+        
+        echo '<h4>'. __( 'Sidebar Select', 'option-tree' ) . ':</h4>';
+        echo '<p>' . __( 'This option type makes it possible for users to select a WordPress registered sidebar to use on a specific area. By using the two provided filters, <code>ot_recognized_sidebars</code>, and <code>ot_recognized_sidebars_{$field_id}</code> we can be selective about which sidebars are available on a specific content area.', 'option-tree' ) . '</p>';
+        echo '<p>' . __( 'For example, if we create a WordPress theme that provides the ability to change the Blog Sidebar and we don\'t want to have the footer sidebars available on this area, we can unset those sidebars either manually or by using a regular expression if we have a common name like <code>footer-sidebar-$i</code>.', 'option-tree' ) . '</p>';
         
         echo '<h4>'. __( 'Slider', 'option-tree' ) . ':</h4>';
         echo '<p>' . __( 'The Slider option type is technically deprecated. Use the List Item option type instead, as it\'s infinitely more customizable. Typical use is for creating sliding image content.', 'option-tree' ) . '</p>';
@@ -807,7 +820,7 @@ load_template( trailingslashit( get_template_directory() ) . \'includes/theme-op
           echo '<li>' . __( 'Add a variation of the following code to your <code>theme-options.php</code>. You\'ll obviously need to fill it in with all your custom array values for contextual help (optional), sections (required), and settings (required).', 'option-tree' ) . '</li>';
         echo '</ul>';
         
-        echo '<p>' . __( 'The code below is a boilerplate to get your started. For a full list of the available option types click the "Option Types" tab above. Also a quick note, you don\'t need to put OptionTree in theme mode to manually create options but you will want to hide the docs and settings as each time you load the admin area the settings be be written over with the code below if they\'ve changed in any way. However, this ensures your settings do not get tampered with by the end-user.', 'option-tree' ) . '</p>';
+        echo '<p>' . __( 'The code below is a boilerplate to get your started. For a full list of the available option types click the "Option Types" tab above. Also a quick note, you don\'t need to put OptionTree in theme mode to manually create options but you will want to hide the docs and settings as each time you load the admin area the settings be written over with the code below if they\'ve changed in any way. However, this ensures your settings do not get tampered with by the end-user.', 'option-tree' ) . '</p>';
         
         echo "<pre><code>/**
  * Initialize the options before anything else. 

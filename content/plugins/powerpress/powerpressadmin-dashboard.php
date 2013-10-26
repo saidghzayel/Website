@@ -108,7 +108,7 @@ function powerpress_dashboard_stats_content()
 {
 	$Settings = get_option('powerpress_general');
 	
-	if( isset($Settings['disable_dashboard_widget']) && $Settings['disable_dashboard_widget'] == 1 )
+	if( !empty($Settings['disable_dashboard_stats']) )
 		return; // Lets not do anythign to the dashboard for PowerPress Statistics
 	
 	// If using user capabilities...
@@ -245,6 +245,7 @@ function powerpress_dashboard_notice_message($notice_id, $message)
 
 function powerpress_feed_text_limit( $text, $limit, $finish = '&hellip;') {
 	if( strlen( $text ) > $limit ) {
+			//$text = (function_exists('mb_substr')?mb_substr($text, 0, $limit):substr($text, 0, $limit) );
 			$text = substr( $text, 0, $limit );
 		$text = substr( $text, 0, - ( strlen( strrchr( $text,' ') ) ) );
 		$text .= $finish;
@@ -261,7 +262,7 @@ function powerpress_dashboard_setup()
 	$StatsDashboard = true;
 	$NewsDashboard = true;
 	
-	if( !empty($Settings['disable_dashboard_widget']) )
+	if( !empty($Settings['disable_dashboard_stats']) )
 		$StatsDashboard = false; // Lets not do anything to the dashboard for PowerPress Statistics
 	
 	if( !empty($Settings['disable_dashboard_news']) )
