@@ -3,9 +3,9 @@ Contributors: valendesigns
 Donate link: http://bit.ly/NuXI3T
 Tags: admin, theme options, meta boxes, options, admin interface, ajax
 Requires at least: 3.5
-Tested up to: 3.5.1
-Stable tag: 2.0.16
-License: GPLv2
+Tested up to: 3.6
+Stable tag: 2.1.4
+License: GPLv3
 
 Theme Options UI Builder for WordPress. A simple way to create & save Theme Options and Meta Boxes for free or premium themes.
 
@@ -31,7 +31,7 @@ OptionTree is a project sponsored by <a href="http://themeforest.net/?ref=valend
 
 = Is this plugin PHP5 only? =
 
-Yes. OptionTree requires PHP5 to work correctly (so does WP 3.2+).
+Yes. OptionTree & WordPress both require PHP5.
 
 == Screenshots ==
 
@@ -40,6 +40,54 @@ Yes. OptionTree requires PHP5 to work correctly (so does WP 3.2+).
 3. Documentation
 
 == Changelog ==
+
+= 2.1.4 =
+* Hotfix - Fixed the Numeric Slider not work inside of a newly added List item.
+* Hotfix - Fixed the numeric slider fallback value being set to 0, it now becomes the minimum value if no standard is set.
+* Hotfix - Allow single quotes in std and choice value when exporting theme-options.php. Contributors via github @maimairel.
+* Hotfix - Additional Themecheck bypass for required functions. Contributors via github @maimairel.
+* Hotfix - Fixed post meta information being lost when loading revisions. Contributors via github @live-mesh.
+* Hotfix - Removed template queries in option types. Contributors via github @live-mesh.
+
+= 2.1.3 =
+* Hotfix - Loading OptionTree on the 'init' action proved to be wrong, it now loads on 'after_setup_theme'.
+* Hotfix - Layouts were not being imported properly due to using the wrong path variable.
+
+= 2.1.2 =
+* Hotfix - Fixed a JS mistake that caused upload in list items and sliders to not open the media uploader until saved first.
+* Hotfix - Load OptionTree on the 'init' action, which allows the UI filters to properly function when not in theme mode.
+
+= 2.1.1 =
+* Hotfix - The OT_SHOW_SETTINGS_EXPORT constant was incorrectly set to false as the default.
+
+= 2.1 =
+* Added support for WordPress 3.6.
+* UI got a small but needed update, and is now more inline with WordPress.
+* Added WPML support for the Text, Textarea, and Textarea Simple option types, and within list items; even after drag & drop.
+* Upload now uses the media uploader introduced in WordPress 3.5. Contributors via github @htvu, @maimairel, and @valendesigns.
+* Added a horizontal Numeric Slider option type. Contributors via github @maimairel and @valendesigns.
+* Added a Sidebar Select option type. Contributors via github @maimairel.
+* Removed additional deprecated assigning of return value in PHP.
+* Fix missing "Send to OptionTree" button in CPT. Contributors via github @jomaddim.
+* Fix option types that use $count instead of an array key to select the option value.
+* Created functions to register the Theme Options & Settings pages, and with better filtering.
+* Added relative path support for Radio Image choices.
+* Added dynamic replacement of 'OT_URL' & 'OT_THEME_URL' in the Radio Image source path.
+* Make '0' possible as a field value. Validate for empty strings instead of empty(). Contributors via github @maimairel.
+* The 'ot_theme_options_capability' filter is now working for different capabilities like editor.
+* The 'ot_display_by_type' filter is now being assigned to a value.
+* Added filter 'ot_show_options_ui' which allows you to hide the Theme Options UI Builder.
+* Added filter 'ot_show_settings_import' which allows you to hide the Settings Import options on the Import page.
+* Added filter 'ot_show_settings_export' which allows you to hide the Settings Export options on the Export page.
+* Added filter 'ot_show_docs' which allows you to hide the Documentation.
+* Added filter 'ot_use_theme_options' which allows you to hide the OptionTree Theme Option page (not recommended for beginners).
+* Added filter 'ot_list_item_description' which allows you to change the default list item description text.
+* Added filter 'ot_type_custom_post_type_checkbox_query' which allows you to filter the get_posts() args for Custom Post Type Checkbox.
+* Added filter 'ot_type_custom_post_type_select_query' which allows you to filter the get_posts() args for Custom Post Type Select.
+* Added filter 'ot_type_page_checkbox_query' which allows you to filter the get_posts() args for Page Checkbox.
+* Added filter 'ot_type_page_select_query' which allows you to filter the get_posts() args for Page Select.
+* Added filter 'ot_type_post_checkbox_query' which allows you to filter the get_posts() args for Post Checkbox.
+* Added filter 'ot_type_post_select_query' which allows you to filter the get_posts() args for Post Select.
 
 = 2.0.16 =
 * Fixed an urgent JS regression bug that caused the upload option type to break. Code contributed by @anonumus via github.
@@ -238,6 +286,9 @@ Yes. OptionTree requires PHP5 to work correctly (so does WP 3.2+).
 * Initial version
 
 == Upgrade Notice ==
+
+= 2.1.4 =
+If you're not the developer of this theme, please ask them to test compatibility with version 2.1 before upgrading. If you are the developer, I urge you to do the same in a controlled environment.
 
 = 2.0.16 =
 There was an issue with the upload option type's JavaScript not allowing anything other than images to be sent to the editor. This urgent issue is now fixed and why this version is light on changes.

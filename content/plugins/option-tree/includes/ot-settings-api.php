@@ -6,7 +6,7 @@
  *
  * @package   OptionTree
  * @author    Derek Herman <derek@valendesigns.com>
- * @copyright Copyright (c) 2012, Derek Herman
+ * @copyright Copyright (c) 2013, Derek Herman
  */
 if ( ! class_exists( 'OT_Settings' ) ) {
 
@@ -51,19 +51,19 @@ if ( ! class_exists( 'OT_Settings' ) ) {
     public function hooks() {
       
       /* add pages & menu items */
-      add_action( 'admin_menu', array( &$this, 'add_page' ) );
+      add_action( 'admin_menu', array( $this, 'add_page' ) );
       
       /* register sections */
-      add_action( 'admin_init', array( &$this, 'add_sections' ) );
+      add_action( 'admin_init', array( $this, 'add_sections' ) );
       
       /* register settings */
-      add_action( 'admin_init', array( &$this, 'add_settings' ) );
+      add_action( 'admin_init', array( $this, 'add_settings' ) );
       
       /* reset options */
-      add_action( 'admin_init', array( &$this, 'reset_options' ), 10 );
+      add_action( 'admin_init', array( $this, 'reset_options' ), 10 );
       
       /* initialize settings */
-      add_action( 'admin_init', array( &$this, 'initialize_settings' ), 11 );
+      add_action( 'admin_init', array( $this, 'initialize_settings' ), 11 );
       
     }
   
@@ -97,7 +97,7 @@ if ( ! class_exists( 'OT_Settings' ) ) {
               $page['menu_title'], 
               $page['capability'], 
               $page['menu_slug'], 
-              array( &$this, 'display_page' ), 
+              array( $this, 'display_page' ), 
               $page['icon_url'],
               $page['position'] 
             );
@@ -109,7 +109,7 @@ if ( ! class_exists( 'OT_Settings' ) ) {
               $page['menu_title'], 
               $page['capability'], 
               $page['menu_slug'], 
-              array( &$this, 'display_page' ) 
+              array( $this, 'display_page' ) 
             );
           }
           
@@ -120,13 +120,13 @@ if ( ! class_exists( 'OT_Settings' ) ) {
             $this->page_hook[$page['id']] = $page_hook;
             
             /* add scripts */
-            add_action( 'admin_print_scripts-' . $page_hook, array( &$this, 'scripts' ) );
+            add_action( 'admin_print_scripts-' . $page_hook, array( $this, 'scripts' ) );
             
             /* add styles */
-            add_action( 'admin_print_styles-' . $page_hook, array( &$this, 'styles' ) );
+            add_action( 'admin_print_styles-' . $page_hook, array( $this, 'styles' ) );
             
             /* add contextual help */
-            add_action( 'load-' . $page_hook, array( &$this, 'help' ) );
+            add_action( 'load-' . $page_hook, array( $this, 'help' ) );
           
           }
           
@@ -287,13 +287,13 @@ if ( ! class_exists( 'OT_Settings' ) ) {
                 echo '<div id="option-tree-sub-header">';
                   
                 if ( $show_buttons )
-                  echo '<button class="option-tree-ui-button grey right">' . $page['button_text'] . '</button>';
+                  echo '<button class="option-tree-ui-button blue right">' . $page['button_text'] . '</button>';
                   
                 echo '</div>';
                 
                 /* Navigation */
-  		          echo '<div class="ui-tabs">';
-  		            
+                echo '<div class="ui-tabs">';
+                  
                 /* check for sections */
                 if ( isset( $page['sections'] ) && count( $page['sections'] ) > 0 ) {
                 
@@ -314,12 +314,12 @@ if ( ! class_exists( 'OT_Settings' ) ) {
                     echo '<div id="post-body">';
                     
                       echo '<div id="post-body-content">';
-    		                
+                        
                         $this->do_settings_sections( $_GET['page'] );
                 
                       echo '</div>';
-    		            
-    		            echo '</div>';
+                    
+                    echo '</div>';
                   
                   echo '</div>';
                   
@@ -332,7 +332,7 @@ if ( ! class_exists( 'OT_Settings' ) ) {
               
                 echo '<div class="option-tree-ui-buttons">';
                 
-                  echo '<button class="option-tree-ui-button grey right">' . $page['button_text'] . '</button>';
+                  echo '<button class="option-tree-ui-button blue right">' . $page['button_text'] . '</button>';
                   
                 echo '</div>';
                 
@@ -350,7 +350,7 @@ if ( ! class_exists( 'OT_Settings' ) ) {
         
                   echo '<input type="hidden" name="action" value="reset" />';
                   
-                  echo '<button type="submit" class="option-tree-ui-button red light left reset-settings" title="' . __( 'Reset Options', 'option-tree' ) . '">' . __( 'Reset Options', 'option-tree' ) . '</button>';
+                  echo '<button type="submit" class="option-tree-ui-button red left reset-settings" title="' . __( 'Reset Options', 'option-tree' ) . '">' . __( 'Reset Options', 'option-tree' ) . '</button>';
                 
                 echo '</form>';
                 
@@ -390,7 +390,7 @@ if ( ! class_exists( 'OT_Settings' ) ) {
             add_settings_section( 
               $section['id'], 
               $section['title'], 
-              array( &$this, 'display_section' ), 
+              array( $this, 'display_section' ), 
               $page['menu_slug'] 
             );
             
@@ -428,7 +428,7 @@ if ( ! class_exists( 'OT_Settings' ) ) {
       /* loop through options */
       foreach( (array) $this->options as $option ) {
           
-        register_setting( $option['id'], $option['id'], array ( &$this, 'sanitize_callback' ) );
+        register_setting( $option['id'], $option['id'], array ( $this, 'sanitize_callback' ) );
           
         /* loop through pages */
         foreach( (array) $this->get_pages( $option ) as $page ) {
@@ -447,7 +447,7 @@ if ( ! class_exists( 'OT_Settings' ) ) {
             add_settings_field( 
               $setting['id'], 
               $setting['label'], 
-              array( &$this, 'display_setting' ), 
+              array( $this, 'display_setting' ), 
               $page['menu_slug'],
               $setting['section'],
               $setting
@@ -484,18 +484,19 @@ if ( ! class_exists( 'OT_Settings' ) ) {
       if ( isset( $std ) ) {  
         $field_value = ot_filter_std_value( $field_value, $std );
       }
-      
+
       /* build the arguments array */
       $_args = array(
         'type'              => $type,
         'field_id'          => $id,
-        'field_name'        => 'option_tree[' . $id . ']',
+        'field_name'        => $get_option . '[' . $id . ']',
         'field_value'       => $field_value,
         'field_desc'        => isset( $desc ) ? $desc : '',
         'field_std'         => isset( $std ) ? $std : '',
         'field_rows'        => isset( $rows ) && ! empty( $rows ) ? $rows : 15,
         'field_post_type'   => isset( $post_type ) && ! empty( $post_type ) ? $post_type : 'post',
         'field_taxonomy'    => isset( $taxonomy ) && ! empty( $taxonomy ) ? $taxonomy : 'category',
+        'field_min_max_step'=> isset( $min_max_step ) && ! empty( $min_max_step ) ? $min_max_step : '0,100,1',
         'field_class'       => isset( $class ) ? $class : '',
         'field_choices'     => isset( $choices ) && ! empty( $choices ) ? $choices : array(),
         'field_settings'    => isset( $settings ) && ! empty( $settings ) ? $settings : array(),
@@ -568,10 +569,14 @@ if ( ! class_exists( 'OT_Settings' ) ) {
             
           /* loop through page settings */
           foreach( (array) $this->get_the_settings( $page ) as $setting ) {
-  
+
             /* verify setting has a type & value */
             if ( isset( $setting['type'] ) && isset( $input[$setting['id']] ) ) {
               
+              /* get the defaults */
+              $current_settings = get_option( 'option_tree_settings' );
+              $current_options = get_option( $option['id'] );
+                
               /* validate setting */
               if ( is_array( $input[$setting['id']] ) && in_array( $setting['type'], array( 'list-item', 'slider' ) ) ) {
 
@@ -603,30 +608,71 @@ if ( ! class_exists( 'OT_Settings' ) ) {
                 /* merge the two settings array */
                 $settings = array_merge( $required_setting, $settings );
                 
+                /* create an empty WPML id array */
+                $wpml_ids = array();
+                
                 foreach( $input[$setting['id']] as $k => $setting_array ) {
 
                   foreach( $settings as $sub_setting ) {
                     
+                    /* setup the WPML ID */
+                    $wpml_id = $setting['id'] . '_' . $sub_setting['id'] . '_' . $k;
+                    
+                    /* add id to array */
+                    $wpml_ids[] = $wpml_id;
+                      
                     /* verify sub setting has a type & value */
                     if ( isset( $sub_setting['type'] ) && isset( $input[$setting['id']][$k][$sub_setting['id']] ) ) {
-                      
-                      $input[$setting['id']][$k][$sub_setting['id']] = ot_validate_setting( $input[$setting['id']][$k][$sub_setting['id']], $sub_setting['type'], $sub_setting['id'] );
-                      
+
+                      /* validate setting */
+                      $input[$setting['id']][$k][$sub_setting['id']] = ot_validate_setting( $input[$setting['id']][$k][$sub_setting['id']], $sub_setting['type'], $sub_setting['id'], $wpml_id );
                       
                     }
                     
                   }
                 
-                }   
-              
+                }
+
               } else {
                 
-                $input[$setting['id']] = ot_validate_setting( $input[$setting['id']], $setting['type'], $setting['id'] );
+                $input[$setting['id']] = ot_validate_setting( $input[$setting['id']], $setting['type'], $setting['id'], $setting['id'] );
                  
               }
-
+            
             }
-  		
+            
+            /* unregister WPML strings that were deleted from lists and sliders */
+            if ( isset( $current_settings['settings'] ) && isset( $setting['type'] ) && in_array( $setting['type'], array( 'list-item', 'slider' ) ) ) {
+              
+              if ( ! isset( $wpml_ids ) )
+                $wpml_ids = array();
+                
+              foreach( $current_settings['settings'] as $check_setting ) {
+              
+                if ( $setting['id'] == $check_setting['id'] && ! empty( $current_options[$setting['id']] ) ) {
+                
+                  foreach( $current_options[$setting['id']] as $key => $value ) {
+                
+                    foreach( $value as $ckey => $cvalue ) {
+                      
+                      $id = $setting['id'] . '_' . $ckey . '_' . $key;
+                      
+                      if ( ! in_array( $id, $wpml_ids ) ) {
+                      
+                        ot_wpml_unregister_string( $id );
+                        
+                      }
+                      
+                    }
+                  
+                  }
+                
+                }
+                
+              }
+              
+            }
+      
           }
         
         }
@@ -768,22 +814,22 @@ if ( ! class_exists( 'OT_Settings' ) ) {
      * @since     2.0
      */
     public function do_settings_fields( $page, $section ) {
-    	global $wp_settings_fields;
+      global $wp_settings_fields;
     
-    	if ( !isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || !isset($wp_settings_fields[$page][$section]) )
-    		return;
+      if ( !isset($wp_settings_fields) || !isset($wp_settings_fields[$page]) || !isset($wp_settings_fields[$page][$section]) )
+        return;
     
       foreach ( (array) $wp_settings_fields[$page][$section] as $field ) {
         
         echo '<div id="setting_' . $field['id'] . '" class="format-settings">';
-    		  
-    		  echo '<div class="format-setting-wrap">';
-    		  
-      		  if ( $field['args']['type'] != 'textblock' ) {
-      		  
-      		    echo '<div class="format-setting-label">';
-    		  
-        		    echo '<h3 class="label">' . $field['title'] . '</h3>';     
+          
+          echo '<div class="format-setting-wrap">';
+          
+            if ( $field['args']['type'] != 'textblock' && ! empty( $field['title'] ) ) {
+            
+              echo '<div class="format-setting-label">';
+          
+                echo '<h3 class="label">' . $field['title'] . '</h3>';     
             
               echo '</div>';
             
@@ -795,8 +841,8 @@ if ( ! class_exists( 'OT_Settings' ) ) {
     
         echo '</div>';
         
-    	}
-    	
+      }
+      
     }
     
     /**

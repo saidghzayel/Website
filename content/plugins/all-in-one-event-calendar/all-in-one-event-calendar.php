@@ -5,7 +5,7 @@
  * Description: A calendar system with month, week, day, agenda views, upcoming events widget, color-coded categories, recurrence, and import/export of .ics feeds.
  * Author: Timely
  * Author URI: http://time.ly/
- * Version: 1.9
+ * Version: 1.10.3
  */
 @set_time_limit( 0 );
 @ini_set( 'memory_limit',           '256M' );
@@ -24,7 +24,7 @@ define( 'AI1EC_PLUGIN_BASENAME',    plugin_basename( __FILE__ ) );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1EC_VERSION',            '1.9' );
+define( 'AI1EC_VERSION',            '1.10.3' );
 
 // ====================
 // = Database Version =
@@ -34,15 +34,14 @@ define( 'AI1EC_DB_VERSION',         109 );
 // ==========================
 // = Bundled themes version =
 // ==========================
-define( 'AI1EC_THEMES_VERSION',     7 );
+define( 'AI1EC_THEMES_VERSION',     8 );
 
 // ================
 // = Cron Version =
 // ================
-define( 'AI1EC_CRON_VERSION',       103 );
-define( 'AI1EC_N_CRON_VERSION',     102 );
+define( 'AI1EC_CRON_VERSION',       105 );
+define( 'AI1EC_N_CRON_VERSION',     104 );
 define( 'AI1EC_N_CRON_FREQ',        'daily' );
-define( 'AI1EC_UPDATES_URL',        'http://time.ly/plugin/standard/latest' );
 
 // ===============
 // = Plugin Path =
@@ -241,25 +240,8 @@ $tmp = str_replace( 'http://', 'webcal://', AI1EC_SCRIPT_URL );
 // ==============
 define( 'AI1EC_EXPORT_URL',         $tmp . "&controller=ai1ec_exporter_controller&action=export_events&cb=" . rand() );
 
-// ====================================
-// = Include iCal parsers and helpers =
-// ====================================
-if( version_compare( PHP_VERSION, '5.3.0' ) >= 0 ) {
-	// Parser that requires PHP v5.3.0 or up
-	require_once( AI1EC_LIB_PATH . '/iCalcreator-2.14/iCalcreator.class.php' );
-} else {
-	// Parser that works on PHP versions below 5.3.0
-	require_once( AI1EC_LIB_PATH . '/iCalcreator-2.10/iCalcreator.class.php' );
-	require_once( AI1EC_LIB_PATH . '/iCalcreator-2.10/iCalUtilityFunctions.class.php' );
-}
-require_once( AI1EC_LIB_PATH . '/SG_iCal.php' );
-require_once( AI1EC_LIB_PATH . '/helpers/SG_iCal_Line.php' );
-require_once( AI1EC_LIB_PATH . '/helpers/SG_iCal_Duration.php' );
-require_once( AI1EC_LIB_PATH . '/helpers/SG_iCal_Freq.php' );
-require_once( AI1EC_LIB_PATH . '/helpers/SG_iCal_Recurrence.php' );
-require_once( AI1EC_LIB_PATH . '/helpers/SG_iCal_Parser.php' );
-require_once( AI1EC_LIB_PATH . '/helpers/SG_iCal_Query.php' );
-require_once( AI1EC_LIB_PATH . '/helpers/SG_iCal_Factory.php' );
+require_once( AI1EC_LIB_PATH . '/iCalcreator-2.16/iCalcreator.class.php' );
+
 // include our global functions
 require_once( AI1EC_LIB_PATH . '/global-functions.php' );
 

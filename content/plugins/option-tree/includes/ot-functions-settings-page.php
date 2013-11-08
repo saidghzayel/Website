@@ -4,7 +4,7 @@
  *
  * @package   OptionTree
  * @author    Derek Herman <derek@valendesigns.com>
- * @copyright Copyright (c) 2012, Derek Herman
+ * @copyright Copyright (c) 2013, Derek Herman
  * @since     2.0
  */
 
@@ -89,9 +89,9 @@ if ( ! function_exists( 'ot_type_theme_options_ui' ) ) {
           echo '</ul>';
           
           /* buttons */
-          echo '<a href="javascript:void(0);" class="option-tree-section-add option-tree-ui-button blue hug-left">' . __( 'Add Section', 'option-tree' ) . '</a>';
-          echo '<a href="javascript:void(0);" class="option-tree-setting-add blue option-tree-ui-button">' . __( 'Add Setting', 'option-tree' ) . '</a>';
-          echo '<button class="option-tree-ui-button grey right hug-right">' . __( 'Save Changes', 'option-tree' ) . '</button>';
+          echo '<a href="javascript:void(0);" class="option-tree-section-add option-tree-ui-button hug-left">' . __( 'Add Section', 'option-tree' ) . '</a>';
+          echo '<a href="javascript:void(0);" class="option-tree-setting-add option-tree-ui-button">' . __( 'Add Setting', 'option-tree' ) . '</a>';
+          echo '<button class="option-tree-ui-button blue right hug-right">' . __( 'Save Changes', 'option-tree' ) . '</button>';
           
           /* sidebar textarea */
           echo '
@@ -129,8 +129,8 @@ if ( ! function_exists( 'ot_type_theme_options_ui' ) ) {
           
           echo '</ul>';
 
-          echo '<a href="javascript:void(0);" class="option-tree-help-add blue option-tree-ui-button hug-left">' . __( 'Add Contextual Help Content', 'option-tree' ) . '</a>';
-          echo '<button class="option-tree-ui-button grey right hug-right">' . __( 'Save Changes', 'option-tree' ) . '</button>';
+          echo '<a href="javascript:void(0);" class="option-tree-help-add option-tree-ui-button hug-left">' . __( 'Add Contextual Help Content', 'option-tree' ) . '</a>';
+          echo '<button class="option-tree-ui-button blue right hug-right">' . __( 'Save Changes', 'option-tree' ) . '</button>';
 
         echo '</div>';
         
@@ -170,7 +170,7 @@ if ( ! function_exists( 'ot_type_import_xml' ) ) {
           echo '<p>' . __( 'If you were given a Theme Options XML file with a premium or free theme, locate it on your hard drive and upload that file by clicking the blue upload button. A popup window will appear, upload the XML file and click "Send to OptionTree". The file URL should be in the upload input, if it is click "Import XML".', 'option-tree' ) . '</p>';
           
           /* button */
-          echo '<button class="option-tree-ui-button grey right hug-right">' . __( 'Import XML', 'option-tree' ) . '</button>';
+          echo '<button class="option-tree-ui-button blue right hug-right">' . __( 'Import XML', 'option-tree' ) . '</button>';
           
         echo '</div>';
         
@@ -226,7 +226,7 @@ if ( ! function_exists( 'ot_type_import_settings' ) ) {
           echo '<p>' . __( 'To import your Settings copy and paste what appears to be a random string of alpha numeric characters into this textarea and press the "Import Settings" button.', 'option-tree' ) . '</p>';
           
           /* button */
-          echo '<button class="option-tree-ui-button grey right hug-right">' . __( 'Import Settings', 'option-tree' ) . '</button>';
+          echo '<button class="option-tree-ui-button blue right hug-right">' . __( 'Import Settings', 'option-tree' ) . '</button>';
           
         echo '</div>';
         
@@ -268,12 +268,12 @@ if ( ! function_exists( 'ot_type_import_data' ) ) {
         /* description */
         echo '<div class="description">';
           
-          echo '<p>' . __( 'Only after you\'ve imported the Settings should you try and update your Theme Options.', 'option-tree' ) . '</p>';
+          if ( OT_SHOW_SETTINGS_IMPORT ) echo '<p>' . __( 'Only after you\'ve imported the Settings should you try and update your Theme Options.', 'option-tree' ) . '</p>';
           
           echo '<p>' . __( 'To import your Theme Options copy and paste what appears to be a random string of alpha numeric characters into this textarea and press the "Import Theme Options" button.', 'option-tree' ) . '</p>';
           
           /* button */
-          echo '<button class="option-tree-ui-button grey right hug-right">' . __( 'Import Theme Options', 'option-tree' ) . '</button>';
+          echo '<button class="option-tree-ui-button blue right hug-right">' . __( 'Import Theme Options', 'option-tree' ) . '</button>';
           
         echo '</div>';
         
@@ -315,12 +315,12 @@ if ( ! function_exists( 'ot_type_import_layouts' ) ) {
         /* description */
         echo '<div class="description">';
           
-          echo '<p>' . __( 'Only after you\'ve imported the Settings should you try and update your Layouts.', 'option-tree' ) . '</p>';
+          if ( OT_SHOW_SETTINGS_IMPORT ) echo '<p>' . __( 'Only after you\'ve imported the Settings should you try and update your Layouts.', 'option-tree' ) . '</p>';
           
           echo '<p>' . __( 'To import your Layouts copy and paste what appears to be a random string of alpha numeric characters into this textarea and press the "Import Layouts" button. Keep in mind that when you import your layouts, the active layout\'s saved data will write over the current data set for your Theme Options.', 'option-tree' ) . '</p>';
           
           /* button */
-          echo '<button class="option-tree-ui-button grey right hug-right">' . __( 'Import Layouts', 'option-tree' ) . '</button>';
+          echo '<button class="option-tree-ui-button blue right hug-right">' . __( 'Import Layouts', 'option-tree' ) . '</button>';
           
         echo '</div>';
         
@@ -370,7 +370,7 @@ if ( ! function_exists( 'ot_type_export_settings_file' ) ) {
         echo '<div class="format-setting-inner">';
             
           /* button */
-          echo '<button class="option-tree-ui-button grey hug-left">' . __( 'Export Settings File', 'option-tree' ) . '</button>';
+          echo '<button class="option-tree-ui-button blue hug-left">' . __( 'Export Settings File', 'option-tree' ) . '</button>';
           
         echo '</div>';
         
@@ -517,7 +517,7 @@ if ( ! function_exists( 'ot_type_modify_layouts' ) ) {
           echo '<p>' . __( 'To add a new layout enter a unique lower case alphanumeric string (dashes allowed) in the text field and click "Save Layouts".', 'option-tree' ) . '</p>';
           echo '<p>' . __( 'As well, you can activate, remove, and drag & drop the order; all situations require you to click "Save Layouts" for the changes to be applied.', 'option-tree' ) . '</p>';
           echo '<p>' . __( 'When you create a new layout it will become active and any changes made to the Theme Options will be applied to it. If you switch back to a different layout immediately after creating a new layout that new layout will have a snapshot of the current Theme Options data attached to it.', 'option-tree' ) . '</p>';
-          echo '<p>' . __( 'Visit <code>OptionTree->Documentation->Layouts Overview</code> to see a more in-depth description of what layouts are and how to use them.', 'option-tree' ) . '</p>';
+          if ( OT_SHOW_DOCS ) echo '<p>' . __( 'Visit <code>OptionTree->Documentation->Layouts Overview</code> to see a more in-depth description of what layouts are and how to use them.', 'option-tree' ) . '</p>';
           
         echo '</div>';
         
@@ -554,7 +554,7 @@ if ( ! function_exists( 'ot_type_modify_layouts' ) ) {
           
           echo '</ul>';
             
-          echo '<button class="option-tree-ui-button grey right hug-right">' . __( 'Save Layouts', 'option-tree' ) . '</button>';
+          echo '<button class="option-tree-ui-button blue right hug-right">' . __( 'Save Layouts', 'option-tree' ) . '</button>';
             
         echo '</div>';
         

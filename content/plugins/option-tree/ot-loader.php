@@ -3,10 +3,10 @@
  * Plugin Name: OptionTree
  * Plugin URI:  http://wp.envato.com
  * Description: Theme Options UI Builder for WordPress. A simple way to create & save Theme Options and Meta Boxes for free or premium themes.
- * Version:     2.0.16
+ * Version:     2.1.4
  * Author:      Derek Herman
  * Author URI:  http://valendesigns.com
- * License:     GPLv2
+ * License:     GPLv3
  */
 
 /**
@@ -14,7 +14,7 @@
  *
  * @package   OptionTree
  * @author    Derek Herman <derek@valendesigns.com>
- * @copyright Copyright (c) 2012, Derek Herman
+ * @copyright Copyright (c) 2013, Derek Herman
  */
 if ( ! class_exists( 'OT_Loader' ) ) {
 
@@ -31,6 +31,87 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @since     2.0
      */
     public function __construct() {
+      
+      /* load languages */
+      $this->load_languages();
+      
+      /* load OptionTree */
+      add_action( 'after_setup_theme', array( $this, 'load_option_tree' ), 1 );
+      
+    }
+    
+    /**
+     * Load the languages before everything else.
+     *
+     * @return    void
+     *
+     * @access    private
+     * @since     2.1.3
+     */
+    private function load_languages() {
+    
+      /**
+       * A quick check to see if we're in plugin mode.
+       *
+       * @since     2.1.3
+       */
+      define( 'OT_PLUGIN_MODE', strpos( dirname( __FILE__ ), 'plugins/' . basename( dirname( __FILE__ ) ) ) !== false ? true : false );
+      
+      /**
+       * Path to the languages directory. 
+       *
+       * This path will be relative in plugin mode and absolute in theme mode.
+       *
+       * @since     2.0.10
+       */
+      define( 'OT_LANG_DIR', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+      /* load the text domain  */
+      if ( OT_PLUGIN_MODE ) {
+      
+        add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+        
+      } else {
+      
+        add_action( 'after_setup_theme', array( $this, 'load_textdomain' ) );
+        
+      }
+      
+    }
+    
+    /**
+     * Load the text domain.
+     *
+     * @return    void
+     *
+     * @access    private
+     * @since     2.0
+     */
+    public function load_textdomain() {
+    
+      if ( OT_PLUGIN_MODE ) {
+      
+        load_plugin_textdomain( 'option-tree', false, OT_LANG_DIR );
+        
+      } else {
+      
+        load_theme_textdomain( 'option-tree', OT_LANG_DIR . 'theme-mode' );
+        
+      }
+      
+    }
+    
+    /** 
+     * Load OptionTree on the 'after_setup_theme' action. Then filters will 
+     * be availble to the theme, and not only when in Theme Mode.
+     *
+     * @return    void
+     *
+     * @access    public
+     * @since     2.1.2
+     */
+    public function load_option_tree() {
+    
       /* setup the constants */
       $this->constants();
       
@@ -42,8 +123,9 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       
       /* hook into WordPress */
       $this->hooks();
+      
     }
-    
+
     /**
      * Constants
      *
@@ -60,7 +142,7 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       /**
        * Current Version number.
        */
-      define( 'OT_VERSION', '2.0.16' );
+      define( 'OT_VERSION', '2.1.4' );
       
       /**
        * For developers: Allow Unfiltered HTML in all the textareas.
@@ -109,6 +191,36 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       define( 'OT_SHOW_PAGES', apply_filters( 'ot_show_pages', true ) );
       
       /**
+       * For developers: Show Theme Options UI Builder
+       *
+       * Run a filter and set to false if you want to hide the
+       * Theme Options UI page in the admin area of WordPress.
+       *
+       * @since     2.1
+       */
+      define( 'OT_SHOW_OPTIONS_UI', apply_filters( 'ot_show_options_ui', true ) );
+      
+      /**
+       * For developers: Hide Settings Import
+       *
+       * Run a filter and set to false if you want to hide the
+       * Settings Import options on the Import page.
+       *
+       * @since     2.1
+       */
+      define( 'OT_SHOW_SETTINGS_IMPORT', apply_filters( 'ot_show_settings_import', true ) );
+      
+      /**
+       * For developers: Hide Settings Export
+       *
+       * Run a filter and set to false if you want to hide the
+       * Settings Import options on the Import page.
+       *
+       * @since     2.1
+       */
+      define( 'OT_SHOW_SETTINGS_EXPORT', apply_filters( 'ot_show_settings_export', true ) );
+      
+      /**
        * For developers: Show New Layout.
        *
        * Run a filter and set to false if you don't want to show the
@@ -117,6 +229,25 @@ if ( ! class_exists( 'OT_Loader' ) ) {
        * @since     2.0.10
        */
       define( 'OT_SHOW_NEW_LAYOUT', apply_filters( 'ot_show_new_layout', true ) );
+      
+      /**
+       * For developers: Show Documentation
+       *
+       * Run a filter and set to false if you want to hide the Documentation.
+       *
+       * @since     2.1
+       */
+      define( 'OT_SHOW_DOCS', apply_filters( 'ot_show_docs', true ) );
+      
+      /**
+       * For developers: Custom Theme Option page
+       *
+       * Run a filter and set to false if you want to hide the OptionTree 
+       * Theme Option page and build your own.
+       *
+       * @since     2.1
+       */
+      define( 'OT_USE_THEME_OPTIONS', apply_filters( 'ot_use_theme_options', true ) );
       
       /**
        * For developers: Meta Boxes.
@@ -151,11 +282,16 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       }
       
       /**
-       * Relative path to the languages directory.
+       * Template directory URI for the current theme.
        *
-       * @since     2.0.10
+       * @since     2.1
        */
-      define( 'OT_LANG_DIR', dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+      if ( true == OT_CHILD_THEME_MODE ) {
+        define( 'OT_THEME_URL', get_stylesheet_directory_uri() );
+      } else {
+        define( 'OT_THEME_URL', get_template_directory_uri() );
+      }
+      
     }
     
     /**
@@ -179,8 +315,7 @@ if ( ! class_exists( 'OT_Loader' ) ) {
         'ot-functions-admin',
         'ot-functions-option-types',
         'ot-functions-compat',
-        'ot-settings-api',
-        'ot-ui-theme-options'
+        'ot-settings-api'
       );
       
       /* include the meta box api */
@@ -192,12 +327,19 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       if ( OT_SHOW_PAGES == true ) {
         $files[] = 'ot-functions-settings-page';
         $files[] = 'ot-functions-docs-page';
-        $files[] = 'ot-ui-admin';
       }
       
       /* require the files */
       foreach ( $files as $file ) {
         $this->load_file( OT_DIR . "includes/{$file}.php" );
+      }
+      
+      /* Registers the Theme Option page */
+      add_action( 'init', 'ot_register_theme_options_page' );
+      
+      /* Registers the Settings page */
+      if ( OT_SHOW_PAGES == true ) {
+        add_action( 'init', 'ot_register_settings_page' );
       }
       
     }
@@ -214,7 +356,7 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @since     2.0
      */
     private function includes() {
-		
+    
       $files = array( 
         'ot-functions',
         'ot-functions-deprecated'
@@ -236,14 +378,7 @@ if ( ! class_exists( 'OT_Loader' ) ) {
      * @since     2.0
      */
     private function hooks() {
-      
-      /* load the text domain  */
-      if ( false == OT_THEME_MODE && false == OT_CHILD_THEME_MODE ) {
-        add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) );
-      } else {
-        add_action( 'after_setup_theme', array( &$this, 'load_textdomain' ) );
-      }
-      
+
       /* load the Meta Box assets */
       if ( OT_META_BOXES == true ) {
       
@@ -256,7 +391,10 @@ if ( ! class_exists( 'OT_Loader' ) ) {
         add_action( 'admin_print_styles-post.php', 'ot_admin_styles', 11 );
       
       }
-
+      
+      /* Adds the Theme Option page to the admin bar */
+      add_action( 'admin_bar_menu', 'ot_register_theme_options_admin_bar_menu', 999 );
+      
       /* prepares the after save do_action */
       add_action( 'admin_init', 'ot_after_theme_options_save', 1 );
       
@@ -282,34 +420,37 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       add_action( 'admin_init', 'ot_create_media_post', 8 );
       
       /* global CSS */
-      add_action( 'admin_head', array( &$this, 'global_admin_css' ) );
+      add_action( 'admin_head', array( $this, 'global_admin_css' ) );
       
       /* dynamic front-end CSS */
-      add_action( 'wp_enqueue_scripts', 'ot_load_dynamic_css' );
+      add_action( 'wp_enqueue_scripts', 'ot_load_dynamic_css', 999 );
 
       /* insert theme CSS dynamically */
       add_action( 'ot_after_theme_options_save', 'ot_save_css' );
       
       /* AJAX call to create a new section */
-      add_action( 'wp_ajax_add_section', array( &$this, 'add_section' ) );
+      add_action( 'wp_ajax_add_section', array( $this, 'add_section' ) );
       
       /* AJAX call to create a new setting */
-      add_action( 'wp_ajax_add_setting', array( &$this, 'add_setting' ) );
+      add_action( 'wp_ajax_add_setting', array( $this, 'add_setting' ) );
       
       /* AJAX call to create a new contextual help */
-      add_action( 'wp_ajax_add_the_contextual_help', array( &$this, 'add_the_contextual_help' ) );
+      add_action( 'wp_ajax_add_the_contextual_help', array( $this, 'add_the_contextual_help' ) );
       
       /* AJAX call to create a new choice */
-      add_action( 'wp_ajax_add_choice', array( &$this, 'add_choice' ) );
+      add_action( 'wp_ajax_add_choice', array( $this, 'add_choice' ) );
       
       /* AJAX call to create a new list item setting */
-      add_action( 'wp_ajax_add_list_item_setting', array( &$this, 'add_list_item_setting' ) );
+      add_action( 'wp_ajax_add_list_item_setting', array( $this, 'add_list_item_setting' ) );
       
       /* AJAX call to create a new layout */
-      add_action( 'wp_ajax_add_layout', array( &$this, 'add_layout' ) );
+      add_action( 'wp_ajax_add_layout', array( $this, 'add_layout' ) );
       
       /* AJAX call to create a new list item */
-      add_action( 'wp_ajax_add_list_item', array( &$this, 'add_list_item' ) );
+      add_action( 'wp_ajax_add_list_item', array( $this, 'add_list_item' ) );
+      
+      /* Modify the media uploader button */
+      add_filter( 'gettext', array( $this, 'change_image_button' ), 10, 3 );
       
     }
     
@@ -325,22 +466,6 @@ if ( ! class_exists( 'OT_Loader' ) ) {
       
       include_once( $file );
       
-    }
-    
-    /**
-     * Load the text domain.
-     *
-     * @return    void
-     *
-     * @access    private
-     * @since     2.0
-     */
-    public function load_textdomain() {
-      if ( false == OT_THEME_MODE && false == OT_CHILD_THEME_MODE ) {
-        load_plugin_textdomain( 'option-tree', false, OT_LANG_DIR . 'plugin' );
-      } else {
-        load_theme_textdomain( 'option-tree', OT_LANG_DIR . 'theme-mode' );
-      }
     }
     
     /**
@@ -408,6 +533,29 @@ if ( ! class_exists( 'OT_Loader' ) ) {
     public function add_list_item() {
       ot_list_item_view( $_REQUEST['name'], $_REQUEST['count'], array(), $_REQUEST['post_id'], $_REQUEST['get_option'], unserialize( ot_decode( $_REQUEST['settings'] ) ), $_REQUEST['type'] );
       die();
+    }
+    
+    /**
+     * Filters the media uploader button.
+     *
+     * @return    string
+     *
+     * @access    public
+     * @since     2.1
+     */
+    public function change_image_button( $translation, $text, $domain ) {
+      global $pagenow;
+    
+      if ( $pagenow == 'themes.php' && 'default' == $domain && 'Insert into post' == $text ) {
+        
+        // Once is enough.
+        remove_filter( 'gettext', array( $this, 'ot_change_image_button' ) );
+        return 'Send to OptionTree';
+        
+      }
+      
+      return $translation;
+      
     }
     
   }

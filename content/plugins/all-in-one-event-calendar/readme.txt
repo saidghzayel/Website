@@ -1,10 +1,10 @@
 === All-in-One Event Calendar ===
-Contributors: theseed, hubrik, vtowel, yani.iliev
+Contributors: theseed, hubrik, vtowel, yani.iliev, jbutkus
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9JJMUW48W2ED8
-Tags: calendar, event, events, ics, ics calendar, ical-feed, ics feed, wordpress ics importer, wordpress ical importer, upcoming events, todo, notes, journal, freebusy, availability, web calendar, web events, webcal, google calendar, ical, iCalendar, all-in-one, ai1ec, google calendar sync, ical sync, events sync, holiday calendar, calendar 2011, events 2011, widget, events widget, upcoming events widget, calendar widget, agenda widget
+Tags: calendar, events, ics, ics feed, wordpress ical importer, google calendar, ical, iCalendar, all-in-one, events sync, events widget, calendar widget
 Requires at least: 3.2
-Tested up to: 3.4.1
-Stable tag: 1.9
+Tested up to: 3.6
+Stable tag: 1.10.3
 License: GNU General Public License, version 3 (GPL-3.0)
 
 A calendar system with month, week, day, agenda views; upcoming events widget, color-coded categories, recurrence, and import/export of .ics feeds.
@@ -15,7 +15,7 @@ Welcome to the [All-in-One Event Calendar Plugin](http://time.ly/), from [Timely
 
 Our new calendar system combines a clean visual design, solid architectural patterns and a powerful set of features to create the most advanced calendar system available for WordPress. Best of all: it’s completely free.
 
-Download the free Premium version at [time.ly](http://time.ly/) and choose from 3 custom designed themes for your Calendar, or develop your own! Also featuring Facebook Integration, Posterboard View and JavaScript and UI enhancements.
+Download the free Standard edition at [time.ly](http://time.ly/) and choose from 3 custom designed themes for your Calendar, or develop your own! Also featuring Facebook Integration, Posterboard View and JavaScript and UI enhancements.
 
 = Calendar Features For Users =
 
@@ -54,11 +54,11 @@ http://www.youtube.com/watch?v=XJ-KHOqBKuQ
 
 = Helpful Links =
 
-* [**Get help from our Help Desk »**](http://help.time.ly)
+* [**Get help from our Help Desk »**](http://support.time.ly)
 
 == Frequently Asked Questions ==
 
-[**Get help from our Help Desk »**](http://help.time.ly)
+[**Get help from our Help Desk »**](http://support.time.ly)
 
 = Shortcodes =
 
@@ -81,6 +81,31 @@ http://www.youtube.com/watch?v=XJ-KHOqBKuQ
 * Filter by post ids (separate ids by comma): **[ai1ec post_id="1, 2"]**
 
 == Changelog ==
+
+= Version 1.10.3 =
+* Removed GPL license incompatible library
+* Modified notices to be displayed only on calendar, Plugins and
+Updates windows in admin area
+* Modified themes installation page to make it possible to postpone
+action required to take on it
+* Disabled automatic upgrades to Standard version to comply with
+WordPress.org plugins directory listing rules
+* Fixed an issue that caused the plugin to generate statistics reports
+too frequently resulting in higher than expected server loads
+
+= Version 1.10.2 =
+* Fixed issue with upgrading to standard. Now it downloads latest standard
+
+= Version 1.10.1 =
+* Fixed issue with jQuery blockUI
+
+= Version 1.10 =
+* Fixed several possible vulnerabilities (courtesy for finding goes to
+Christian Mehlmauer)
+* Fixed issue that caused installer to fail
+
+= Version 1.9 =
+* Bug fixes
 
 = Version 1.8.2 =
 * Improved theme updater

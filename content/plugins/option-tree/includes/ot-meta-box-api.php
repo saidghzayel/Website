@@ -6,7 +6,7 @@
  *
  * @package   OptionTree
  * @author    Derek Herman <derek@valendesigns.com>
- * @copyright Copyright (c) 2012, Derek Herman
+ * @copyright Copyright (c) 2013, Derek Herman
  */
 if ( ! class_exists( 'OT_Meta_Box' ) ) {
 
@@ -33,9 +33,9 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
         
       $this->meta_box = $meta_box;
       
-      add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
+      add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
       
-      add_action( 'save_post', array( &$this, 'save_meta_box' ), 1, 2 );
+      add_action( 'save_post', array( $this, 'save_meta_box' ), 1, 2 );
       
     }
     
@@ -51,7 +51,7 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
      */
     function add_meta_boxes() {
       foreach ( (array) $this->meta_box['pages'] as $page ) {
-        add_meta_box( $this->meta_box['id'], $this->meta_box['title'], array( &$this, 'build_meta_box' ), $page, $this->meta_box['context'], $this->meta_box['priority'], $this->meta_box['fields'] );
+        add_meta_box( $this->meta_box['id'], $this->meta_box['title'], array( $this, 'build_meta_box' ), $page, $this->meta_box['context'], $this->meta_box['priority'], $this->meta_box['fields'] );
       }
     }
     
@@ -71,7 +71,7 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
         echo '<input type="hidden" name="' . $this->meta_box['id'] . '_nonce" value="' . wp_create_nonce( $this->meta_box['id'] ) . '" />';
         
         /* meta box description */
-        echo isset( $this->meta_box['desc'] ) ? '<div class="description" style="padding-top:10px;">' . htmlspecialchars_decode( $this->meta_box['desc'] ) . '</div>' : '';
+        echo isset( $this->meta_box['desc'] ) && ! empty( $this->meta_box['desc'] ) ? '<div class="description" style="padding-top:10px;">' . htmlspecialchars_decode( $this->meta_box['desc'] ) . '</div>' : '';
       
         /* loop through meta box fields */
         foreach ( $this->meta_box['fields'] as $field ) {
@@ -95,6 +95,7 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
             'field_rows'        => isset( $field['rows'] ) && ! empty( $field['rows'] ) ? $field['rows'] : 10,
             'field_post_type'   => isset( $field['post_type'] ) && ! empty( $field['post_type'] ) ? $field['post_type'] : 'post',
             'field_taxonomy'    => isset( $field['taxonomy'] ) && ! empty( $field['taxonomy'] ) ? $field['taxonomy'] : 'category',
+            'field_min_max_step'=> isset( $field['min_max_step'] ) && ! empty( $field['min_max_step'] ) ? $field['min_max_step'] : '0,100,1',
             'field_class'       => isset( $field['class'] ) ? $field['class'] : '',
             'field_choices'     => isset( $field['choices'] ) ? $field['choices'] : array(),
             'field_settings'    => isset( $field['settings'] ) && ! empty( $field['settings'] ) ? $field['settings'] : array(),
@@ -110,7 +111,7 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
           echo '<div class="format-settings">';
             
             /* don't show title with textblocks */
-            if ( $_args['type'] != 'textblock' ) {
+            if ( $_args['type'] != 'textblock' && ! empty( $field['label'] ) ) {
               echo '<div class="format-setting-label">';
                 echo '<label for="' . $_args['field_id'] . '" class="label">' . $field['label'] . '</label>';
               echo '</div>';
@@ -137,6 +138,10 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
      */
     function save_meta_box( $post_id, $post_object ) {
       global $pagenow;
+
+      /* don't save if $_POST is empty */
+      if ( empty( $_POST ) )
+        return $post_id;
       
       /* don't save during quick edit */
       if ( $pagenow == 'admin-ajax.php' )
@@ -145,9 +150,9 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
       /* don't save during autosave */
       if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
         return $post_id;
-      
+
       /* don't save if viewing a revision */
-      if ( $post_object->post_type == 'revision' )
+      if ( $post_object->post_type == 'revision' || $pagenow == 'revision.php' )
         return $post_id;
   
       /* verify nonce */
@@ -162,7 +167,7 @@ if ( ! class_exists( 'OT_Meta_Box' ) ) {
         if ( ! current_user_can( 'edit_post', $post_id ) )
           return $post_id;
       }
-    	
+      
       foreach ( $this->meta_box['fields'] as $field ) {
         
         $old = get_post_meta( $post_id, $field['id'], true );
@@ -276,7 +281,7 @@ if ( ! function_exists( 'ot_register_meta_box' ) ) {
     if ( ! $args )
       return;
       
-    $ot_meta_box =& new OT_Meta_Box( $args );
+    $ot_meta_box = new OT_Meta_Box( $args );
   }
 
 }
