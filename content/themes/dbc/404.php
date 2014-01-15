@@ -89,7 +89,7 @@
 	
 	<div id="container">
 	
-		<div id="logo"><img src="<?php bloginfo( 'template_directory'); ?>/library/images/denton-bible-church.png" alt="Denton Bible Church" /></div>
+		<div id="logo"><img src="<?php bloginfo( 'template_directory'); ?>/images/denton-bible-church.png" alt="Denton Bible Church" /></div>
 		
 		<div id="ohno" role="main">
 			<div id="ohno-inside">
