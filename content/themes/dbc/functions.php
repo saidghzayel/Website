@@ -50,6 +50,7 @@ function dbc_theme_setup() {
 	/* Add filters */
 	add_filter( 'body_class', 'dbc_body_class' );
 	add_filter( 'sidebars_widgets', 'dbc_disable_sidebars' );
+	add_filter( 'pre_get_posts', 'dbc_limit_posts_per_archive_page' );
 
 	/* Add shortcodes */
 	add_shortcode( 'primary_menu', 'dbc_shortcode_primary_menu' );
@@ -736,4 +737,17 @@ function dbc_publication_link() {
 
 	return $link;
 
+}
+
+/**
+ * Limits the posts returned per page on archives.
+ *
+ * @since 0.2.0
+ */
+function dbc_limit_posts_per_archive_page() {
+
+	if ( is_post_type_archive( 'note' ) )
+		$limit = 1;
+
+	set_query_var( 'posts_per_archive_page', $limit );
 }
