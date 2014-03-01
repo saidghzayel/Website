@@ -15,7 +15,7 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package   BreadcrumbTrail
- * @version   0.6.1
+ * @version   0.6.0
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2008 - 2013, Justin Tadlock
  * @link      http://themehybrid.com/plugins/breadcrumb-trail
@@ -122,9 +122,6 @@ class Breadcrumb_Trail {
 
 		/* Connect the breadcrumb trail if there are items in the trail. */
 		if ( !empty( $this->items ) && is_array( $this->items ) ) {
-
-			/* Make sure we have a unique array of items. */
-			$this->items = array_unique( $this->items );
 
 			/* Open the breadcrumb trail containers. */
 			$breadcrumb = "\n\t\t" . '<' . tag_escape( $this->args['container'] ) . ' class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">';
@@ -323,7 +320,7 @@ class Breadcrumb_Trail {
 	 */
 	public function do_network_home_link() {
 		if ( is_multisite() && !is_main_site() && true === $this->args['network'] )
-			$this->items[] = '<a href="' . network_home_url() . '" title="' . esc_attr( $this->args['labels']['home'] ) . '" rel="home">' . $this->args['labels']['home'] . '</a>';
+			$this->items[] = '<a href="' . network_home_url() . '" title="' . esc_attr( $this->args['labels']['home'] ) . '">' . $this->args['labels']['home'] . '</a>';
 	}
 
 	/**
@@ -335,8 +332,7 @@ class Breadcrumb_Trail {
 	 */
 	public function do_site_home_link() {
 		$label = ( is_multisite() && !is_main_site() && true === $this->args['network'] ) ? get_bloginfo( 'name' ) : $this->args['labels']['home'];
-		$rel   = ( is_multisite() && !is_main_site() && true === $this->args['network'] ) ? '' : ' rel="home"';
-		$this->items[] = '<a href="' . home_url() . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '"' . $rel .'>' . $label . '</a>';
+		$this->items[] = '<a href="' . home_url() . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '">' . $label . '</a>';
 	}
 
 	/**
@@ -349,7 +345,7 @@ class Breadcrumb_Trail {
 	public function do_front_page_items() {
 
 		/* Only show front items if the 'show_on_front' argument is set to 'true'. */
-		if ( true === $this->args['show_on_front'] || is_paged() || ( is_singular() && 1 < get_query_var( 'page' ) ) ) {
+		if ( true === $this->args['show_on_front'] ) {
 
 			/* If on a paged view, add the home link items. */
 			if ( is_paged() ) {
@@ -525,7 +521,7 @@ class Breadcrumb_Trail {
 			/* Add support for a non-standard label of 'archive_title' (special use case). */
 			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
 
-			$this->items[] = '<a href="' . get_post_type_archive_link( $post_type ) . '">' . $label . '</a>';
+			$this->items[] = '<a href="' . get_post_type_archive_link( $post_type ) . '" title="' . esc_attr( $label ) . '">' . $label . '</a>';
 		}
 	}
 
@@ -1089,10 +1085,6 @@ class bbPress_Breadcrumb_Trail extends Breadcrumb_Trail {
 	 * @return void
 	 */
 	public function do_trail_items() {
-
-		/* Add the network and site home links. */
-		$this->do_network_home_link();
-		$this->do_site_home_link();
 
 		/* Get the forum post type object. */
 		$post_type_object = get_post_type_object( bbp_get_forum_post_type() );
