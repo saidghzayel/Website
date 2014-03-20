@@ -50,6 +50,11 @@ define( 'SITE_ID_CURRENT_SITE', 1 );
 define( 'BLOG_ID_CURRENT_SITE', 1 );
 define( 'SUNRISE', 'on' );
 
+// ====================================================
+// Redirect unregistered subdomains to the primary site
+// ====================================================
+define( 'NOBLOGREDIRECT', WP_HOME );
+
 // ================================================
 // You almost certainly do not want to change these
 // ================================================
