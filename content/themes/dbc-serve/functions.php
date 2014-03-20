@@ -209,7 +209,7 @@ function dbc_serve_footer() {
 
 			<?php do_shortcode('[primary_menu]'); ?>
 			<p class="copyright">Copyright &#169; <?php echo date('Y'); ?> <a href="http://dentonbible.org">Denton Bible Church</a>, all rights reserved.</p>
-			<p class="credit"><a href="http://www.serve-intl.com/coco/">Staff/Missionary Login</a> | <a href="http://mail.dbcm.org/">Serve Mail</a> | <a href="http://dentonbible.org/staff-registration/">Staff Registration</a> | <?php wp_loginout(); ?></p>
+			<p class="credit"><a href="http://65.110.80.242/coco/">Staff/Missionary Login</a> | <a href="http://mail.dbcm.org/">Serve Mail</a> | <a href="http://dentonbible.org/staff-registration/">Staff Registration</a> | <?php wp_loginout(); ?></p>
 
 			<?php //hybrid_footer(); // Hybrid footer hook ?>
 
