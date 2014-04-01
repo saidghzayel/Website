@@ -21,6 +21,7 @@ if ( is_active_sidebar( 'primary' ) ) : ?>
 
 		<?php if ( is_post_type_archive( 'story' ) && function_exists( 'wp_get_post_type_archives' ) ): ?>
 
+			<form style="border:3px solid #c8b6a2;padding:3px;text-align:center;background-color:#ede8e1" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=DBC_CultureWatch', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true"><h3 style="color:#c8b6a2; text-shadow:1px 1px 3px #000">Subscribe</h3>Enter your email:<br><input type="text" style="width:92%" name="email"/><p><input type="hidden" value="DBC_CultureWatch" name="uri"/><input type="hidden" name="loc" value="en_US"/><input type="submit" value="Submit" /></p></form>
 			<div class="loop">
 				<h3 class="widget-title">Stories Archive</h3>
 				<ul>
