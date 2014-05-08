@@ -143,12 +143,12 @@ body{
 
 
 #header_inside .left{
-	width:40%;
+	width:33%;
 	float:left;
 }
 
 #header_inside .right{
-	width: 60%;
+	width: 67%;
     float: left;
 	position:relative;
 
