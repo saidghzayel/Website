@@ -35,7 +35,7 @@ if ( is_active_sidebar( 'primary' ) ) : ?>
 
 				<p class="intro-title"><img src="http://dentonbible.org/wp-content/themes/dbc/library/images/tom-square.png" class="alignleft" /> Tom Nelson</p>
 				<p class="intro">Every once in a while senior pastor Tom Nelson gets a wave of inspiration he'd like to share with the church. Find them all here.</p>
-
+				
 			<?php } ?>
 
 			<p>Denton Bible Church archives sermons from each Sunday and makes them available online. Watch, listen, download and share!</p>
