@@ -42,7 +42,7 @@ get_header(); // Loads the header.php template. ?>
 		<div class="row">
 
 			<div class="eight columns">
-				<iframe src="http://player.vimeo.com/video/58205616" width="800" height="449"frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+				<div class="video-container"><iframe src="http://player.vimeo.com/video/58205616" width="800" height="449"frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
 			</div>
 
 			<div class="four columns">
