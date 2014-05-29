@@ -28,7 +28,7 @@ get_header(); // Loads the header.php template. ?>
 			</div>
 
 			<div class="four columns">
-				<a href="<?php echo site_url(); ?>/singles-home/"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/YSBF-logo-web.png" alt="Young Singles Bible Fellowship" />
+				<a href="<?php echo site_url(); ?>/singles-home/"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/YSBF-logo-web.png" alt="Young Singles Bible Fellowship" /></a>
 			</div>
 
 
