@@ -38,19 +38,20 @@ get_header(); // Loads the header.php template. ?>
         &nbsp;
         <?php while ($groupquery->have_posts()) : $groupquery->the_post(); ?>
         <div class="group-container">
+        <div class="group-content">
+        	<h2><?php the_title(); ?></h2>
+            <?php the_content(); ?>
+        </div>
         <div class="group-photo">
         	<?php if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
 						   the_post_thumbnail('medium');
 						} ?>
         </div>
-        <div class="group-content">
-        	<h2><?php the_title(); ?></h2>
-            <?php the_content(); ?>
-        </div>
         <div style="clear:both"></div>
         </div>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
+        </div>
         
 						</div><!-- .entry-content -->
 
