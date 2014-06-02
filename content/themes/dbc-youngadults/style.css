@@ -217,6 +217,7 @@ dl.tabs dd.active {
 .group-photo img{
 	border: black solid 3px;
 	border-radius: 100px;
+	margin-top: 36px;
 }
 
 .group-content {
@@ -239,7 +240,7 @@ dl.tabs dd.active {
         width: 25% !important;
     }
 .group-photo { 
-	width: 35%;
+	width: 40%;
 	display: inline-block;
 
 }	
@@ -250,7 +251,7 @@ dl.tabs dd.active {
 }
 
 .group-content {
-	width: 50%;
+	width: 60%;
 }
 	
 }
