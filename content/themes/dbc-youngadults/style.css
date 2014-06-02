@@ -225,6 +225,11 @@ dl.tabs dd.active {
 	float: left;
 }
 
+.group-container {
+	max-width: 500px;
+	margin: auto;
+}
+
 
 /* Tablet and smaller
  * Anything smaller than 810px (iPad portrait)
@@ -253,5 +258,7 @@ dl.tabs dd.active {
 .group-content {
 	width: 60%;
 }
+
+#group {padding-left:10px; padding-right: 10px;}
 	
 }
