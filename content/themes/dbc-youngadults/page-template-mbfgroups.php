@@ -1,14 +1,11 @@
 <?php
 /**
- * Page Template
+ * Template Name: MBF Groups
  *
- * This is the default page template.  It is used when a more specific template can't be found to display
- * singular views of pages.
  *
  * @package Prototype
  * @subpackage Template
  */
-
 get_header(); // Loads the header.php template. ?>
 
 	<?php do_atomic( 'before_content' ); // prototype_before_content ?>
