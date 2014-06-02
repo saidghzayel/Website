@@ -10,7 +10,7 @@ get_header(); // Loads the header.php template. ?>
 
 	<?php do_atomic( 'before_content' ); // prototype_before_content ?>
 
-	<div id="content" class="nine columns push-three">
+	<div id="content" style="max-width: 1040px; margin:auto">
 
 		<?php do_atomic( 'open_content' ); // prototype_open_content ?>
 
