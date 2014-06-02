@@ -213,6 +213,18 @@ dl.tabs dd.active {
     height: 100%;
 }
 
+
+.group-photo img{
+	border: black solid 3px;
+	border-radius: 100px;
+}
+
+.group-content {
+	width: 300px;
+	float: left;
+}
+
+
 /* Tablet and smaller
  * Anything smaller than 810px (iPad portrait)
  * This is the threshold that we break the site out of a two column format
@@ -226,4 +238,20 @@ dl.tabs dd.active {
         float: left;
         width: 25% !important;
     }
+.group-photo { 
+	width: 35%;
+	display: inline-block;
+
+}	
+
+.group-photo img{
+	width: 100%;
+	max-width: 200px;
+	margin-top: 45px;
+}
+
+.group-content {
+	width: 50%;
+}
+	
 }
