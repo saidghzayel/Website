@@ -48,6 +48,7 @@ get_header(); // Loads the header.php template. ?>
 						} ?>
         </div>
         <div style="clear:both"></div>
+        <hr>
         </div>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
