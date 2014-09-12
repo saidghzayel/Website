@@ -13,15 +13,19 @@ jQuery(document).ready(function($) {
 	$('.spouse input').blur(function() {
 	    $('input[value="Spouse"] + label').text($('.spouse input').val());
 	    if($('.spouse input').val() != "") {
-	    	$('input[value="Spouse"]').toggle();
-		$('input[value="Spouse"] + label').toggle();
+	    	$('input[value="Spouse"]').show();
+		$('input[value="Spouse"] + label').show();
+	    }
+	    else {
+	    	$('input[value="Spouse"]').hide();
+		$('input[value="Spouse"] + label').hide();
 	    }
 	});
 	
-	$('input[value^="Child"]').toggle();
-	$('input[value^="Child"] + label').toggle();
-	$('input[value="Spouse"]').toggle();
-	$('input[value="Spouse"] + label').toggle();
+	$('input[value^="Child"]').hide();
+	$('input[value^="Child"] + label').hide();
+	$('input[value="Spouse"]').hide();
+	$('input[value="Spouse"] + label').hide();
 	
 	$('input[value="Kids"]').click(function() {
 	    $('input[value^="Child"]').toggle();
