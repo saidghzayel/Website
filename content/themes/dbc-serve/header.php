@@ -20,6 +20,7 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
 <?php wp_head(); // wp_head ?>
+<script type="text/javascript" src="http://dbcm.org/content/themes/dbc-serve/js/scripts.js"></script>
 
 </head>
 
