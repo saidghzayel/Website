@@ -9,15 +9,21 @@ jQuery(document).ready(function($) {
 	});
 	
 	
-	
+	//mission conference registration form//
 	$('.spouse input').blur(function() {
 	    $('input[value="Spouse"] + label').text($('.spouse input').val());
+	    if($('.spouse input').val() != "") {
+	    	$('input[value="Spouse"]').toggle();
+		$('input[value="Spouse"] + label').toggle();
+	    }
 	});
 	
 	$('input[value^="Child"]').toggle();
 	$('input[value^="Child"] + label').toggle();
+	$('input[value="Spouse"]').toggle();
+	$('input[value="Spouse"] + label').toggle();
 	
-	$('input[value="Children"]').click(function() {
+	$('input[value="Kids"]').click(function() {
 	    $('input[value^="Child"]').toggle();
 	    $('input[value^="Child"] + label').toggle();
 	});
