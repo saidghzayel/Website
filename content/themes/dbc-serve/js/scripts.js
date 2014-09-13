@@ -14,7 +14,17 @@ jQuery(document).ready(function($) {
 	$('input[value^="Child"] + label').hide();
 	$('input[value="Spouse"]').hide();
 	$('input[value="Spouse"] + label').hide();
+	$('input[value="I'll need childcare"]').hide();
+	$('input[value="I'll need childcare"] + label').hide();
 	
+	$('input[value="I'll need childcare"]').click(function() {
+	    if($('input[value="I'll need childcare"]').is(":checked")) {
+	        $('input[value="I'll need childcare"]').show();
+		$('input[value="I'll need childcare"] + label').show();
+	    }
+	});
+
+
 	$('.spouse input').blur(function() {
 	    $('input[value="Spouse"] + label').text($('.spouse input').val());
 	    if($('.spouse input').val() != "") {
