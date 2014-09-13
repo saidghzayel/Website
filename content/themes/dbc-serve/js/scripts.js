@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
 	$('input[value="I need childcare"] + label').hide();
 	
 	$('input[value="Kids"]').click(function() {
-	    if($('input[value="I need childcare"]').is(":checked")) {
+	    if($('input[value="Kids"]').is(":checked")) {
 	        $('input[value="I need childcare"]').show();
 		$('input[value="I need childcare"] + label').show();
 	    }
