@@ -14,13 +14,13 @@ jQuery(document).ready(function($) {
 	$('input[value^="Child"] + label').hide();
 	$('input[value="Spouse"]').hide();
 	$('input[value="Spouse"] + label').hide();
-	$('input[value="I'll need childcare"]').hide();
-	$('input[value="I'll need childcare"] + label').hide();
+	$('input[value="I need childcare"]').hide();
+	$('input[value="I need childcare"] + label').hide();
 	
-	$('input[value="I'll need childcare"]').click(function() {
-	    if($('input[value="I'll need childcare"]').is(":checked")) {
-	        $('input[value="I'll need childcare"]').show();
-		$('input[value="I'll need childcare"] + label').show();
+	$('input[value="I need childcare"]').click(function() {
+	    if($('input[value="I need childcare"]').is(":checked")) {
+	        $('input[value="I need childcare"]').show();
+		$('input[value="I need childcare"] + label').show();
 	    }
 	});
 
