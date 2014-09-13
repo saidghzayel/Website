@@ -10,6 +10,11 @@ jQuery(document).ready(function($) {
 	
 	
 	//mission conference registration form//
+	$('input[value^="Child"]').hide();
+	$('input[value^="Child"] + label').hide();
+	$('input[value="Spouse"]').hide();
+	$('input[value="Spouse"] + label').hide();
+	
 	$('.spouse input').blur(function() {
 	    $('input[value="Spouse"] + label').text($('.spouse input').val());
 	    if($('.spouse input').val() != "") {
@@ -22,13 +27,16 @@ jQuery(document).ready(function($) {
 	    }
 	});
 	
-	$('input[value^="Child"]').hide();
-	$('input[value^="Child"] + label').hide();
-	$('input[value="Spouse"]').hide();
-	$('input[value="Spouse"] + label').hide();
 	
-	$('input[value="Kids"]').click(function() {
-	    $('input[value^="Child"]').toggle();
-	    $('input[value^="Child"] + label').toggle();
+	$('.child1 input').blur(function() {
+	    $('input[value="Child 1"] + label').text($('.child1 input').val());
+	    if($('.child1 input').val() != "") {
+	    	$('input[value="Child 1"]').show();
+		$('input[value="Child 1"] + label').show();
+	    }
+	    else {
+	    	$('input[value="Child 1"]').hide();
+		$('input[value="Child 1"] + label').hide();
+	    }
 	});
 });
