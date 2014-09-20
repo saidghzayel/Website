@@ -7,8 +7,8 @@ jQuery(document).ready(function($) {
 	$("#sort-missionaries.drop-down-menu").click(function () {
 		$("#sort-missionaries.drop-down-menu ul").toggle();
 	});
-	
-	
+
+
 	//mission conference registration form//
 	$('input[value^="Child"]').hide();
 	$('input[value^="Child"] + label').hide();
@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
 	$('input[value="Spouse"] + label').hide();
 	$('input[value="I need childcare"]').hide();
 	$('input[value="I need childcare"] + label').hide();
-	
+
 	$('input[value="Kids"]').click(function() {
 	    if($('input[value="Kids"]').is(":checked")) {
 	        $('input[value="I need childcare"]').show();
@@ -36,8 +36,8 @@ jQuery(document).ready(function($) {
 		$('input[value="Spouse"] + label').hide();
 	    }
 	});
-	
-	
+
+
 	$('.child1 input').blur(function() {
 	    $('input[value="Child 1"] + label').text($('.child1 input').val());
 	    if($('.child1 input').val() != "") {
@@ -49,7 +49,7 @@ jQuery(document).ready(function($) {
 		$('input[value="Child 1"] + label').hide();
 	    }
 	});
-	
+
 	$('.child1 input').blur(function() {
 	    $('input[value="Child 1"] + label').text($('.child1 input').val());
 	    if($('.child1 input').val() != "") {
@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
 		$('input[value="Child 1"] + label').hide();
 	    }
 	});
-	
+
 	$('.child2 input').blur(function() {
 	    $('input[value="Child 2"] + label').text($('.child2 input').val());
 	    if($('.child2 input').val() != "") {
@@ -73,7 +73,7 @@ jQuery(document).ready(function($) {
 		$('input[value="Child 2"] + label').hide();
 	    }
 	});
-	
+
 	$('.child3 input').blur(function() {
 	    $('input[value="Child 3"] + label').text($('.child3 input').val());
 	    if($('.child3 input').val() != "") {
@@ -85,7 +85,7 @@ jQuery(document).ready(function($) {
 		$('input[value="Child 3"] + label').hide();
 	    }
 	});
-	
+
 	$('.child4 input').blur(function() {
 	    $('input[value="Child 4"] + label').text($('.child4 input').val());
 	    if($('.child4 input').val() != "") {
@@ -97,7 +97,7 @@ jQuery(document).ready(function($) {
 		$('input[value="Child 4"] + label').hide();
 	    }
 	});
-	
+
 	$('.child5 input').blur(function() {
 	    $('input[value="Child 5"] + label').text($('.child5 input').val());
 	    if($('.child5 input').val() != "") {
@@ -109,8 +109,8 @@ jQuery(document).ready(function($) {
 		$('input[value="Child 5"] + label').hide();
 	    }
 	});
-	
-	
+
+
 	$('.child6 input').blur(function() {
 	    $('input[value="Child 6"] + label').text($('.child6 input').val());
 	    if($('.child6 input').val() != "") {
