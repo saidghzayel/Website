@@ -22,6 +22,25 @@ jQuery(document).ready(function($) {
 	        $('input[value="I need childcare"]').show();
 		$('input[value="I need childcare"] + label').show();
 	    }
+	    else
+	    {
+	    	$('input[value="I need childcare"]').hide();
+		$('input[value="I need childcare"] + label').hide();
+		$('input[value^="Child"]').hide();
+		$('input[value^="Child"] + label').hide();
+	    }
+	});
+	
+	$('input[value="Wife"]').click(function() {
+	    if($('input[value="Wife"]').is(":checked")) {
+	        $('input[value="Spouse"]').show();
+		$('input[value="Spouse"] + label').show();
+	    }
+	    else
+	    {
+	    	$('input[value="Spouse"]').hide();
+		$('input[value="Spouse"] + label').hide();
+	    }
 	});
 
 
@@ -37,18 +56,6 @@ jQuery(document).ready(function($) {
 	    }
 	});
 
-
-	$('.child1 input').blur(function() {
-	    $('input[value="Child 1"] + label').text($('.child1 input').val());
-	    if($('.child1 input').val() != "") {
-	    	$('input[value="Child 1"]').show();
-		$('input[value="Child 1"] + label').show();
-	    }
-	    else {
-	    	$('input[value="Child 1"]').hide();
-		$('input[value="Child 1"] + label').hide();
-	    }
-	});
 
 	$('.child1 input').blur(function() {
 	    $('input[value="Child 1"] + label').text($('.child1 input').val());
