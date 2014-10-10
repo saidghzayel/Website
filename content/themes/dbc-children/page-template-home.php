@@ -32,7 +32,7 @@ get_header(); ?>
 		<dl id="welcome-elementary">
 			<a href="http://children.dentonbible.org/elementary/">
 				<dt><strong>Elementary</strong></dt>
-				<dd>Kindergarten - 4th grade</dd>
+				<dd>Kindergarten - 5th grade</dd>
 			</a>
 		</dl>
 		<dl id="welcome-volunteer">
