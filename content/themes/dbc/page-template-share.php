@@ -134,7 +134,7 @@ get_header(); // Loads the header.php template. ?>
 			<ul>
 				<li>9:00 A.M. – 4 months through 4th grade</li>
 				<li>11:00 A.M. – 4 months through high school</li>
-				<li>6:00 P.M. – Childcare: 4 months through 42 months &amp; AWANA: 3 years through 12th Grade</li>
+				<li>6:00 P.M. – 4 months through 42 months</li>
 			</ul>
 			<p><small>The 11:00 A.M. service offers sign interpretation for the hearing impaired.</small></p>
 
